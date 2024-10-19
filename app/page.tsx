@@ -1,6 +1,20 @@
 // import Image from "next/image";
 import ProductCard from "./components/ProductCard";
 
+type product = {
+  _id: string;
+  name: string;
+  img: string;
+  price: number;
+  rating: number;
+  discount: number;
+  categories: string;
+  brand: string;
+  stock: number;
+  description: string;
+}
+
+
 const Home = async () => {
 
   const productsAPI = await fetch(
@@ -12,14 +26,14 @@ const Home = async () => {
       },
     }
   );
-  const ProductData = await productsAPI.json();
+  const productData = await productsAPI.json();
 
 
 
   return (
     <div className="flex flex-wrap">
-      {ProductData.data.map((data: any, index: string) => {
-        return <ProductCard products={data} key={index} />;
+      {productData.data.map((data: product, index: string) => {
+        return <ProductCard params={data} key={index} />;
       })}
     </div>
   );
