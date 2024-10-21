@@ -34,10 +34,10 @@ const Home = async () => {
 
   return (
     <div className="flex flex-wrap">
-      {productsAPI && productData.data.map((data: product, index: string) => {
-        return <ProductCard params={data} key={index} />;
+      {productData.data.map((data: product, index: string) => {
+        return <ProductCard params={data} key={index} />
       })}
-      <h1>odnsovd</h1>
+      {/* <h1>odnsovd</h1> */}
     </div>
   );
 }
