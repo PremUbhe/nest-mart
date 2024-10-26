@@ -3,9 +3,10 @@ import dbConnect from "@/lib/dbConnect";
 import { Products } from "@/lib/Models/productModel";
 
 export async function GET(req: Request, context: { params: { id: string } }) {
+
   const { params } = context;
   const productId = params.id;
-  
+
   try {
     await dbConnect();
 
@@ -25,8 +26,8 @@ export async function GET(req: Request, context: { params: { id: string } }) {
       );
     }
 
-    return NextResponse.json({ data });
-    
+    return NextResponse.json({ data }, { status: 200 });
+
   } catch (error) {
     return NextResponse.json(
       { error: "Error in Fetching: " + error },

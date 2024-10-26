@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 // import { useState } from "react";
 // icons
 import { FaCartShopping } from "react-icons/fa6";
@@ -16,13 +17,13 @@ const Header = () => {
 
   return (
     <div className="flex gap-20">
-        <input
-          className="border border-primary rounded-lg p-2"
-          type="text"
-          name="search"
-          id="search-bar"
-          placeholder="Search for items..."
-        />
+      <input
+        className="border border-primary rounded-lg p-2"
+        type="text"
+        name="search"
+        id="search-bar"
+        placeholder="Search for items..."
+      />
       <div className="flex gap-3">
         <div className="link flex items-end gap-1">
           <div className="icon relative pt-2 pe-2">
@@ -51,12 +52,12 @@ const Header = () => {
           </div>
           Cart
         </div>
-        <div className="link flex items-end gap-1">
+        <Link href="/login" className="link flex items-end gap-1">
           <div className="icon relative pb-1">
             <FaUser className="text-xl" />
           </div>
           Account
-        </div>
+        </Link>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { productsSchema } from "@/lib/Models/productModel";
 
 const product = async ({ params }: { params: { id: string } }) => {
@@ -21,11 +22,14 @@ const product = async ({ params }: { params: { id: string } }) => {
     <>
       <section>
         <div className="container flex">
+          <aside className="w-3/12">
+            <h1>sidebar</h1>
+          </aside>
           <article className="w-9/12">
             <div className="product-wrapper">
               <div className="product-detail flex mb-5">
                 <div className="w-6/12 rounded-xl me-7 border border-border-color">
-                  <img src={data.img} alt={data.name} />
+                  <Image src={data.img} alt={data.name}></Image>
                 </div>
                 <div className="w-6/12 px-4">
                   {/* <h6>{data.categories}</h6> */}
@@ -117,10 +121,6 @@ const product = async ({ params }: { params: { id: string } }) => {
               </div>
             </div>
           </article>
-
-          <aside className="w-3/12">
-            <h1>sidebar</h1>
-          </aside>
         </div>
       </section>
     </>

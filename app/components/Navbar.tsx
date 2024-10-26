@@ -11,7 +11,7 @@ const Navbar = () => {
         <Image src={logo} height={50} alt="Logo" />
         <Header />
       </div>
-      <nav className="container mx-auto py-4 border-b border-primary-light">
+      <nav className="container mx-auto p-4 border-b border-primary-light">
         <div className="flex items-center justify-end">
           <div className="flex gap-10">
             <NavLinks />

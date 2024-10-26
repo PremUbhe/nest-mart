@@ -93,8 +93,8 @@ const Footer = () => {
         </div>
       </section>
 
-      <footer className="bg-hero-pattern">
-        <div className="container py-10">
+      <footer className="bg-hero-pattern p-4">
+        <div className="container py-10 px-auto">
           <div className="flex gap-10">
             <div className="w-3/12">
               <Image 
