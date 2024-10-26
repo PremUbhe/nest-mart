@@ -6,32 +6,32 @@ import { productType } from "../page";
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
-  // const categorieId = params.categorie_id;
-  // const brandId = params.brand_id;
+  const categorieId = params.categorie_id;
+  const brandId = params.brand_id;
 
-  // const categorieAPI = await fetch(
-  //   `${process.env.BASE_URL}/api/categories/${categorieId}`,
-  //   {
-  //     headers: {
-  //       Accept: "application/json",
-  //       method: "GET",
-  //     },
-  //   }
-  // );
+  const categorieAPI = await fetch(
+    `${process.env.BASE_URL}/api/categories/${categorieId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        method: "GET",
+      },
+    }
+  );
 
-  // const categorieName: { data: { _id: string, name: string } } = await categorieAPI.json();
+  const categorieName: { data: { _id: string, name: string } } = await categorieAPI.json();
 
-  // const brandAPI = await fetch(
-  //   `${process.env.BASE_URL}/api/brands/${brandId}`,
-  //   {
-  //     headers: {
-  //       Accept: "application/json",
-  //       method: "GET",
-  //     },
-  //   }
-  // );
+  const brandAPI = await fetch(
+    `${process.env.BASE_URL}/api/brands/${brandId}`,
+    {
+      headers: {
+        Accept: "application/json",
+        method: "GET",
+      },
+    }
+  );
 
-  // const brandName: { data: { _id: string, name: string } } = await brandAPI.json();
+  const brandName: { data: { _id: string, name: string } } = await brandAPI.json();
 
   return (
     <>
@@ -44,7 +44,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
             // placeholder="blur"
             alt="product image"
           />
-          {/* <h6 className="text-gray text-sm">{categorieName.data.name}</h6> */}
+          <h6 className="text-gray text-sm">{categorieName.data.name}</h6>
           <h3 className="text-xl truncate overflow-hidden">{params.name}</h3>
           <h6 className="text-gray text-sm w-25">
             <div className="product-rate d-inline-block mr-2">
@@ -56,7 +56,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
             ({params.rating.toFixed(1)})
           </h6>
           <h5 className="text-gray text-sm">
-            {/* By <span className="text-primary">{brandName.data.name}</span> */}
+            By <span className="text-primary">{brandName.data.name}</span>
           </h5>
         </Link>
         <div className="flex justify-between mt-5">
