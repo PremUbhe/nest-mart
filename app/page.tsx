@@ -1,4 +1,5 @@
 // import Image from "next/image";
+import CategoriesCard from "./components/CategoriesCard";
 import ProductCard from "./components/ProductCard";
 
 type product = {
@@ -33,12 +34,18 @@ const Home = async () => {
   const productData = await productsAPI.json();
 
   return (
-    <div className="flex flex-wrap">
-      {productData.data.map((data: product, index: string) => {
-        return <ProductCard params={data} key={index} />
-      })}
-      {/* <h1>odnsovd</h1> */}
-    </div>
+    <main>
+      <section>
+        <CategoriesCard/>
+      </section>
+      <section>
+        <div className="flex flex-wrap gap-3">
+          {productData.data.map((data: product, index: string) => {
+            return <ProductCard params={data} key={index} />
+          })}
+        </div>
+      </section>
+    </main>
   );
 }
 

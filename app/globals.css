@@ -3,15 +3,30 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #fff;
   --foreground: #171717;
+  --transparent: #ffffff00;
+  --primary: #3BB77E;
+  --primary-light: #DEF9EC;
+  --secondary : #FDC040;
+  --light-blue : #F4F6FA;
+  --gray : #ADADAD;
+  --white : #fff;
+  --black : #000;
+  --border-color : #ececec;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -24,4 +39,87 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+section {
+  padding: 30px 10px;
+}
+.card {
+  position: relative;
+  border: 1px solid transparent;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.categorie-card {
+  width: 170;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #f1f1f1;
+}
+
+.product-card {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid #ececec;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.product-card:hover .btn-dialog {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block !important;
+}
+
+.card-detail-absolute {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.product-rate {
+  display: inline-block !important;
+  background-image: url('../public/rating-stars.png');
+  background-position: 0 -12px;
+  background-repeat: repeat-x;
+  height: 12px;
+  width: 60px;
+  transition: all 0.5s ease-out 0s;
+  -webkit-transition: all 0.5s ease-out 0s;
+}
+
+.product-rating {
+  height: 12px;
+  background-repeat: repeat-x;
+  background-image: url('../public/rating-stars.png');
+  background-position: 0 0;
+}
+
+.swiper {
+  padding-bottom: 40px !important;
+}
+.swiper-card {
+  position: relative;
+  border: 1px solid transparent;
+  width: auto;
+  height: 100%;
+  overflow: hidden;
+
+}
+.swiper-pagination-bullet {
+  width: 10px !important;
+  height: 10px !important;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: var(--primary-color) !important;
+}
+.product-dialog {
+  min-width: 60%;
+  border-radius: 15px !important;
 }

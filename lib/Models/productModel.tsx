@@ -15,7 +15,7 @@ export interface productsSchema extends Document {
 const productsModel : Schema<productsSchema> = new Schema({
     name : {
         type: String,
-        required: [true, "User Name is required"],
+        required: [true, "product Name is required"],
         unique: true,
     },
     img : {
