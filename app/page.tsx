@@ -1,5 +1,5 @@
 // import Image from "next/image";
-import CategoriesCard from "./components/CategoriesCard";
+// import CategoriesCard from "./components/CategoriesCard";
 import ProductCard from "./components/ProductCard";
 
 type product = {
@@ -36,7 +36,7 @@ const Home = async () => {
   return (
     <main>
       <section>
-        <CategoriesCard/>
+        {/* <CategoriesCard/> */}
       </section>
       <section>
         <div className="flex flex-wrap gap-3">
