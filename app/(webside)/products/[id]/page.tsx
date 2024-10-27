@@ -21,7 +21,7 @@ const product = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <section>
-        <div className="container flex">
+        <div className="container mx-auto flex">
           <aside className="w-3/12">
             <h1>sidebar</h1>
           </aside>
