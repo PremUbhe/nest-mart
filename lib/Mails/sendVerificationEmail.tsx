@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-import { VerificatioEmail } from "@/emails/VerificationEmail";
+import { VerificatioEmail } from "@/components/mail/VerificationEmail";
 
 export interface ApiResponse {
     success: boolean;

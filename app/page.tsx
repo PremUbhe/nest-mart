@@ -1,59 +1,11 @@
-// import Image from "next/image";
-import CategoriesCard from "./components/CategoriesCard";
-import ProductCard from "./components/ProductCard";
+import React from "react";
 
-export type productType = {
-  _id: string;
-  name: string;
-  img: string;
-  price: number;
-  rating: number;
-  discount: number;
-  categorie_id: string;
-  brand_id: string;
-  stock: number;
-  description: string;
-}
-
-
-const Home = async () => {
-
-  const productsAPI = await fetch(
-    `${process.env.BASE_URL}/api/products`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-
-  if (!productsAPI.ok) {
-    throw new Error(`API call failed with status ${productsAPI.status}`)
-  }
-  const productData = await productsAPI.json();
+const App = () => {
 
   return (
-    <main>
-      <section>
-      <div className="section-header">
-        <h2 className="text-2xl">Shop by Categories</h2>
-      </div>
-        <CategoriesCard />
-      </section>
-      <section>
-        <div className="section-header">
-          <h2 className="text-2xl">Popular Products</h2>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          {productData.data.map((data: productType, index: string) => {
-            return <ProductCard params={data} key={index} />
-          })}
-        </div>
-      </section>
-    </main>
+    <h1>app</h1>
   );
 }
 
 
-export default Home;
+export default App;
