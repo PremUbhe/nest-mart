@@ -12,6 +12,10 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const quicksand = localFont({
+  src: "./fonts/Quicksand-Regular.ttf",
+  variable: "--font-quicksand",
+});
 
 export const metadata: Metadata = {
   title: "Nest Mart",
@@ -25,14 +29,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* <Navbar /> */}
+      <body className={` ${quicksand.variable} antialiased`}>
         <main>
           {children}
         </main>
-        {/* <Footer /> */}
       </body>
     </html>
   );

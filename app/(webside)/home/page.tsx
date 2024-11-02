@@ -40,7 +40,7 @@ const Page = async () => {
     <main>
       <section>
         <div className="section-header">
-          <h2 className="text-2xl">Shop by Categories</h2>
+          <h2 className="text-2xl text-blue font-bold mb-5">Shop by Categories</h2>
         </div>
         <CategoriesCard />
       </section>

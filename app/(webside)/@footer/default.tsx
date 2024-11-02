@@ -28,13 +28,13 @@ const Default = () => {
             style={{ height: "400px" }}
           />
           <div className="card-detail-absolute left-10">
-            <h1 className="text-5xl leading-none mb-4">
+            <h1 className="text-4xl text-blue font-bold leading-none mb-4">
               Stay home & get your daily <br />
               needs from our shop
             </h1>
-            <p className="mb-65 text-2xl text-gray">
+            <p className="mb-65 text-xl text-gray">
               Start You&apos;r Daily Shopping with
-              <span className="text-primary">Nest Mart</span>
+              <span className="text-primary font-medium"> Nest Mart</span>
             </p>
           </div>
           <Image
@@ -50,7 +50,7 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon1} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5>Best prices & offers</h5>
+                <h5 className='font-medium text-lg'>Best prices & offers</h5>
                 <h5 className="text-gray">Orders $50 or more</h5>
               </div>
             </div>
@@ -59,7 +59,7 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon2} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5>Best prices & offers</h5>
+                <h5 className='font-medium text-lg'>Best prices & offers</h5>
                 <h5 className="text-gray">Orders $50 or more</h5>
               </div>
             </div>
@@ -68,7 +68,7 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon3} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5>Best prices & offers</h5>
+                <h5 className='font-medium text-lg'>Best prices & offers</h5>
                 <h5 className="text-gray">Orders $50 or more</h5>
               </div>
             </div>
@@ -77,7 +77,7 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon4} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5>Best prices & offers</h5>
+                <h5 className='font-medium text-lg'>Best prices & offers</h5>
                 <h5 className="text-gray">Orders $50 or more</h5>
               </div>
             </div>
@@ -86,7 +86,7 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon5} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5>Best prices & offers</h5>
+                <h5 className='font-medium text-lg'>Best prices & offers</h5>
                 <h5 className="text-gray">Orders $50 or more</h5>
               </div>
             </div>

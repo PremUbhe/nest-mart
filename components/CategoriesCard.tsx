@@ -2,7 +2,7 @@ import React from "react";
 // import Image from "next/image";
 
 type categore = {
-  _id : string,
+  _id: string,
   name: string
 }
 
@@ -19,7 +19,7 @@ export default async function CategoriesCard() {
   const CategorieData = await res.json();
 
   return (
-    <div className="flex flex-row gap-4 ">
+    <div className="flex flex-row gap-4 overflow-x-scroll">
       {CategorieData.data.map((data: categore, index: string) => {
         return (
           <div

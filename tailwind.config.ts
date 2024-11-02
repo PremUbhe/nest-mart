@@ -10,22 +10,25 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
+  			background: 'var(--background)',
+  			foreground: 'var(--foreground)',
   			transparent: 'var(transparent)',
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: 'var(--primary)',
+  				foreground: 'var(--primary-foreground)'
   			},
   			'primary-light': 'var(--primary-light)',
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				DEFAULT: 'var(--secondary)',
+  				foreground: 'var(--secondary-foreground)'
   			},
   			'light-blue': 'var(--light-blue)',
   			gray: 'var(--gray)',
   			white: 'var(--white)',
   			black: 'var(--black)',
+			blue: 'var(--dark-blue)',
+			'text-secondary': 'var(--text-secondary)',
+
   			'border-color': 'var(--border-color)',
   			card: {
   				DEFAULT: 'hsl(var(--card))',

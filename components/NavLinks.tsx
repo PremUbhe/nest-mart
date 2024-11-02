@@ -19,15 +19,19 @@ const links = [
     path: "/cart",
   },
   {
-    name: "Deals",
-    path: "/deals",
+    name: "Products",
+    path: "/products",
   },
   {
-    name: "Wishlisht",
-    path: "/wishlisht",
+    name: "Categories",
+    path: "/categories",
   },
   {
-    name: "Contact Us",
+    name: "Blogs",
+    path: "/blog",
+  },
+  {
+    name: "Contact",
     path: "/contact",
   },
 ];
@@ -43,7 +47,7 @@ const NavLinks = () => {
             href={link.path}
             key={index}
             className={`${link.path === pathname && "text-primary"} 
-                        capitalize text-base hover:text-primary`}
+                        text-blue font-bold capitalize hover:text-primary`}
           >
             {link.name}
           </Link>
