@@ -1,7 +1,7 @@
 import React from "react";
 // import Image from "next/image";
 
-type categore = {
+export type categoreType = {
   _id: string,
   name: string
 }
@@ -20,7 +20,7 @@ export default async function CategoriesCard() {
 
   return (
     <div className="flex flex-row gap-4 overflow-x-scroll">
-      {CategorieData.data.map((data: categore, index: string) => {
+      {CategorieData.data.map((data: categoreType, index: string) => {
         return (
           <div
             className="categorie-card px-8 py-7 border rounded-xl shadow overflow-hidden border-transparent relative"

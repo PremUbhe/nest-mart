@@ -6,7 +6,6 @@ import NavLinks from "@/components/NavLinks";
 
 // img
 import logo from '@/public/logo.svg'
-import banner1 from "@/public/banner-2.png";
 import banner2 from "@/public/banner-3.png";
 import icon1 from "@/public/icons/icon-1.svg";
 import icon2 from "@/public/icons/icon-2.svg";
@@ -18,33 +17,32 @@ import icon5 from "@/public/icons/icon-5.svg";
 const Default = () => {
   return (
     <>
-      <section>
-        <div className="card p-0 rounded-xl">
-          <Image
-            className="w-full"
-            src={banner1}
-            placeholder="blur"
-            alt="bg"
-            style={{ height: "400px" }}
-          />
-          <div className="card-detail-absolute left-10">
-            <h1 className="text-4xl text-blue font-bold leading-none mb-4">
-              Stay home & get your daily <br />
-              needs from our shop
-            </h1>
-            <p className="mb-65 text-xl text-gray">
-              Start You&apos;r Daily Shopping with
-              <span className="text-primary font-medium"> Nest Mart</span>
-            </p>
+      <section className='relative m-4 py-16 h-[450px] rounded-lg bg-[url("/banner-footer.png")] bg-cover'>
+        <div className="container h-full">
+          <div className="flex h-full">
+            <div className="w-6/12 h-full flex flex-col justify-center">
+              <h1 className="text-4xl text-blue font-bold leading-none mb-4">
+                Stay home & get your daily <br />
+                needs from our shop
+              </h1>
+              <p className="mb-65 text-xl text-gray">
+                Start You&apos;r Daily Shopping with
+                <span className="text-primary font-medium"> Nest Mart</span>
+              </p></div>
+            <div className="w-6/12">
+              <Image
+                className="absolute bottom-0 right-10 max-w-2xl"
+                src={banner2}
+                placeholder="blur"
+                alt="bg"
+                height={350}
+              ></Image>
+            </div>
           </div>
-          <Image
-            className="absolute bottom-0 right-10 max-w-2xl"
-            src={banner2}
-            placeholder="blur"
-            alt="bg"
-            height={350}
-          ></Image>
         </div>
+      </section>
+
+      <section>
         <div className="flex gap-4 mt-3">
           <div className="card p-5 bg-light-blue rounded-xl shadow">
             <div className="flex gap-3 items-center">
@@ -94,8 +92,8 @@ const Default = () => {
         </div>
       </section>
 
-      <footer className="bg-hero-pattern p-4">
-        <div className="container py-10 px-auto">
+      <footer className="p-4 bg-[url('/banner.png')] bg-cover">
+        <div className="container pt-10 px-auto">
           <div className="flex gap-10">
             <div className="w-3/12">
               <Image
@@ -107,13 +105,13 @@ const Default = () => {
               <h6 className="text-xl">Awesome grocery store website template</h6>
             </div>
             <div className="w-3/12">
-              <h2 className="text-2xl">Quick Links</h2>
+              <h2 className="text-2xl text-blue font-bold">Quick Links</h2>
               <div className="flex flex-col ms-5">
                 <NavLinks />
               </div>
             </div>
             <div className="w-3/12">
-              <h2 className="text-2xl">Contact Us</h2>
+              <h2 className="text-2xl text-blue font-bold">Contact Us</h2>
             </div>
             <div className="w-3/12">
               {/* <h2 className="text-2xl">Quick Links</h2> */}
