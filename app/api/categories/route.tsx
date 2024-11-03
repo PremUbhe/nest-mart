@@ -23,3 +23,32 @@ export async function GET() {
     );
   }
 }
+
+export async function POST(req: Request) {
+
+  const {name, imgURL} = await req.json();
+  try {
+    await dbConnect();
+
+    const newCategory = new categories({
+      name,
+      imgURL
+    })
+  
+    await newCategory.save()
+
+    return NextResponse.json({
+      success: true,
+      message: "Category is added SUccessfully"
+    }, {status: 200})
+    
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      {error: "Error while adding categories"},
+      { status: 500}
+    )
+    
+  }
+  
+}

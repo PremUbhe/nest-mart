@@ -46,7 +46,7 @@ const Page = async () => {
       </section>
       <section>
         <div className="section-header">
-          <h2 className="text-2xl">Popular Products</h2>
+          <h2 className="text-2xl text-blue font-bold mb-5">Popular Products</h2>
         </div>
         <div className="flex flex-wrap gap-3">
           {productData.data.map((data: productType, index: string) => {

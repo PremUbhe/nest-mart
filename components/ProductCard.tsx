@@ -1,7 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { productType } from "@/app/(webside)/home/page";
+// import { productType } from "@/app/(webside)/home/page";
+
+export type productType = {
+  _id: string;
+  name: string;
+  img: string;
+  price: number;
+  rating: number;
+  discount: number;
+  categorie_id: string;
+  brand_id: string;
+  stock: number;
+  description: string;
+}
+
+
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
