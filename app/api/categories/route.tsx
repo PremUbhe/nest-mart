@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "Category is added SUccessfully"
+      message: "Category is added Successfully"
     }, {status: 200})
     
   } catch (error) {

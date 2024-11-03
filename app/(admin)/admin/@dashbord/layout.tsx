@@ -18,6 +18,7 @@ export default function AdminLayout({
                     <div className="flex flex-col gap-3 border border-gray rounded-lg p-5 shadow-lg">
                         <Link className="py-4 px-10 bg-primary-light rounded-lg" href="/admin">Dashbord</Link>
                         <Link className="py-4 px-10 bg-primary-light rounded-lg" href="/admin/categories">Categories</Link>
+                        <Link className="py-4 px-10 bg-primary-light rounded-lg" href="/admin/brands">Brands</Link>
                         <Link className="py-4 px-10 bg-primary-light rounded-lg" href="/admin/products">Products</Link>
                     </div>
                 </div>

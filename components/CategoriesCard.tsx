@@ -19,7 +19,7 @@ export default async function CategoriesCard() {
   const CategorieData = await res.json();
 
   return (
-    <div className="flex flex-row gap-4 overflow-x-scroll">
+    <div className="flex flex-row gap-4 overflow-x-auto">
       {CategorieData.data.map((data: categoreType, index: string) => {
         return (
           <div
