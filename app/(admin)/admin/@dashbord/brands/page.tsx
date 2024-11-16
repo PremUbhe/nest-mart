@@ -9,7 +9,7 @@ export type brandType = {
 const BrandList = async () => {
 
   const res = await fetch(
-    `${process.env.BASE_URL}/api/brands`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
     {
       headers: {
         Accept: "application/json",
@@ -34,7 +34,7 @@ const BrandList = async () => {
           </tr>
         </thead>
         <tbody>
-          {CategorieData.data.map((value : brandType, index : number,)=>{
+          {CategorieData.data.map((value: brandType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index}</td>

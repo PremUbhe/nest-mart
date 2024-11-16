@@ -1,4 +1,3 @@
-import React from 'react';
 import { z } from 'zod'
 
 const categorySchema = z.object({
@@ -15,10 +14,10 @@ const CategoryAddAction = async (formData: FormData) => {
         console.error("Validation failed", result.error);
         return;
     }
-    
+
 
     try {
-        const response = await fetch('/api/categories', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ const product = async ({ params }: { params: { id: string } }) => {
   const ProductId = params.id;
 
   const ProductAPI = await fetch(
-    `${process.env.BASE_URL}/api/products/${ProductId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${ProductId}`,
     {
       headers: {
         Accept: "application/json",

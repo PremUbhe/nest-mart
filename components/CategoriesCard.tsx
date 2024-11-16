@@ -8,7 +8,7 @@ export type categoreType = {
 
 export default async function CategoriesCard() {
   const res = await fetch(
-    `${process.env.BASE_URL}/api/categories`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
     {
       headers: {
         Accept: "application/json",

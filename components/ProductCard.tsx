@@ -24,7 +24,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
   const brandId = params.brand_id;
 
   const categorieAPI = await fetch(
-    `${process.env.BASE_URL}/api/categories/${categorieId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${categorieId}`,
     {
       headers: {
         Accept: "application/json",
@@ -36,7 +36,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
   const categorieName: { data: { _id: string, name: string } } = await categorieAPI.json();
 
   const brandAPI = await fetch(
-    `${process.env.BASE_URL}/api/brands/${brandId}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${brandId}`,
     {
       headers: {
         Accept: "application/json",

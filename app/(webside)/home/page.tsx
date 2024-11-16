@@ -22,7 +22,7 @@ export type productType = {
 const Page = async () => {
 
   const productsAPI = await fetch(
-    `${process.env.BASE_URL}/api/products`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
     {
       headers: {
         Accept: "application/json",

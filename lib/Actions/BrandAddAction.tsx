@@ -1,4 +1,3 @@
-import React from 'react';
 import { z } from 'zod'
 
 const BrandSchema = z.object({
@@ -16,7 +15,7 @@ const BrandAddAction = async (formData: FormData) => {
     }
 
     try {
-        const response = await fetch('/api/brands', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -11,7 +11,7 @@ import { categoreType } from '@/components/CategoriesCard';
 const page = async () => {
 
   const productsAPI = await fetch(
-    `${process.env.BASE_URL}/api/products`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
     {
       headers: {
         Accept: "application/json",
@@ -26,7 +26,7 @@ const page = async () => {
   const productData = await productsAPI.json();
 
   const CategorieAPI = await fetch(
-    `${process.env.BASE_URL}/api/categories`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
     {
       headers: {
         Accept: "application/json",
@@ -52,8 +52,8 @@ const page = async () => {
           <div className="p-4 border rounded-xl mb-5 shadow">
             <h4 className='text-xl text-blue font-bold mb-5'>By Categories</h4>
             <ul className='flex flex-col gap-3'>
-              {CategorieData.data.map( (value : categoreType, index : string) => {
-                  return <li className='font-semibold border rounded-lg py-2 px-4 hover:shadow hover:border-primary' key={index}>{value.name}</li>
+              {CategorieData.data.map((value: categoreType, index: string) => {
+                return <li className='font-semibold border rounded-lg py-2 px-4 hover:shadow hover:border-primary' key={index}>{value.name}</li>
               })}
             </ul>
           </div>
