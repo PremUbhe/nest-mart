@@ -1,9 +1,11 @@
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
+// import { TypeOf } from "zod";
 
 export type categoreType = {
   _id: string,
-  name: string
+  name: string,
+  img: string
 }
 
 export default async function CategoriesCard() {
@@ -26,7 +28,8 @@ export default async function CategoriesCard() {
             className="categorie-card px-8 py-7 border rounded-xl shadow overflow-hidden border-transparent relative"
             key={index}
           >
-            <h3>{data.name}</h3>
+            <Image src={data.img} alt="img" width={100} height={100}></Image>
+            <h3 className="text-blue font-bold">{data.name}</h3>
           </div>
         );
       })}

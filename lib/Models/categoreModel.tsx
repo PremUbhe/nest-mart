@@ -1,15 +1,22 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-export interface categorieSchema extends Document {
+export interface Category extends Document {
     name: string;
+    img: string;
 }
 
-const categorieModel : Schema<categorieSchema> = new Schema({
+const CategorySchema : Schema<Category> = new Schema({
     name : {
         type: String,
         required: [true, "categore name is required"],
         unique: true,
+    },
+    img : {
+        type: String,
+        required: [true, "categore img is required"]
     }
 })
 
-export const categories = (mongoose.models.categories as mongoose.Model<categorieSchema>) || mongoose.model<categorieSchema>("categories", categorieModel)
+const CategoryModel = (mongoose.models.categories as mongoose.Model<Category>) || mongoose.model<Category>("categories", CategorySchema)
+
+export default CategoryModel

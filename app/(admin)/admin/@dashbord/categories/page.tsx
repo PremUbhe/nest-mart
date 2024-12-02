@@ -1,9 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+// icons
+import { FaPencil } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
+import DeleteBut from '@/components/DeleteBut';
+
 
 export type categoreType = {
   _id: string,
-  name: string
+  name: string,
+  img?: string
 }
 
 const CategoryList = async () => {
@@ -22,8 +30,8 @@ const CategoryList = async () => {
   return (
     <>
       <div className='flex justify-between items-center mb-3'>
-        <h2 className='text-blue text-4xl font-bold'>Category List</h2>
-        <Link href="/admin/categories/add" className='bg-primary text-white py-2 px-6 rounded-lg' >Add</Link>
+        <h2 className='text-blue text-3xl font-bold'>Category List</h2>
+        <Link href="/admin/categories/add" className='flex gap-2 items-center bg-primary text-white py-2 px-4 rounded-lg'> <FaPlus /> Add</Link>
       </div>
       <table>
         <thead>
@@ -38,10 +46,15 @@ const CategoryList = async () => {
           {CategorieData.data.map((value: categoreType, index: number,) => {
             return (
               <tr key={index}>
-                <td>{index}</td>
-                <td>img</td>
+                <td>{index + 1}</td>
+                <td>{value.img ? <Image className='text-center' src={value.img} alt='img' width={50} height={50}></Image> : "img"}</td>
                 <td>{value.name}</td>
-                <td>edit, delete</td>
+                <td>
+                  <div className="flex justify-center gap-2">
+                    <Link href={`/admin/categories/add/${value._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
+                    <DeleteBut/>
+                  </div>
+                </td>
               </tr>
             )
           })}

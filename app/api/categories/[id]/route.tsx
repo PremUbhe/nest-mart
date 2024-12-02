@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { categories } from "@/lib/Models/categoreModel";
+import CategoryModel from "@/lib/Models/categoreModel";
 
 
 export async function GET(req: Request, context: { params: { id: string } }) {
@@ -10,7 +10,7 @@ export async function GET(req: Request, context: { params: { id: string } }) {
 
     try {
         await dbConnect();
-        const data = await categories.findById(categorieId);
+        const data = await CategoryModel.findById(categorieId);
 
         if (!data) {
             return NextResponse.json(

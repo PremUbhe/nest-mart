@@ -2,7 +2,7 @@ import React from 'react'
 
 const Default = () => {
   return (
-    <footer className='flex justify-center items-center'>
+    <footer className='flex justify-center items-center py-2'>
       <p>© 2024, <span className="text-primary">Nest Market</span> | All rights reserved By <span className="text-primary">Prem Ubhe</span></p>
     </footer>
   )

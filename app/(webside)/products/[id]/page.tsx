@@ -29,7 +29,7 @@ const product = async ({ params }: { params: { id: string } }) => {
             <div className="product-wrapper">
               <div className="product-detail flex mb-5">
                 <div className="w-6/12 rounded-xl me-7 border border-border-color">
-                  <Image src={data.img} alt={data.name}></Image>
+                  <Image src={data.img} alt={data.name} width={300} height={300}></Image>
                 </div>
                 <div className="w-6/12 px-4">
                   {/* <h6>{data.categories}</h6> */}
