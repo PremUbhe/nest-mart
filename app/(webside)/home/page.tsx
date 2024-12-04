@@ -1,40 +1,18 @@
 import React from 'react';
 
-// import Image from "next/image";
+// components;
 import CategoriesCard from "@/components/CategoriesCard";
 import ProductCard from "@/components/ProductCard";
 
-export type productType = {
-  _id: string;
-  name: string;
-  img: string;
-  price: number;
-  rating: number;
-  discount: number;
-  categorie_id: string;
-  brand_id: string;
-  stock: number;
-  description: string;
-}
+// data
+import { getProductData } from '@/lib/helpers/products';
 
-
+// type
+import { productType } from '@/lib/helpers/products';
 
 const Page = async () => {
 
-  const productsAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-
-  if (!productsAPI.ok) {
-    throw new Error(`API call failed with status ${productsAPI.status}`)
-  }
-  const productData = await productsAPI.json();
+  const productData = await getProductData();
 
   return (
     <main>
@@ -49,7 +27,7 @@ const Page = async () => {
           <h2 className="text-2xl text-blue font-bold mb-5">Popular Products</h2>
         </div>
         <div className="flex flex-wrap gap-3">
-          {productData.data.map((data: productType, index: string) => {
+          {productData.map((data: productType, index: number) => {
             return <ProductCard params={data} key={index} />
           })}
         </div>

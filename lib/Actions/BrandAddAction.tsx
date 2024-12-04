@@ -1,3 +1,4 @@
+'use server';
 import { z } from 'zod'
 
 const BrandSchema = z.object({

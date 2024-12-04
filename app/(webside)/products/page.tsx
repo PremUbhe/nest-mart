@@ -1,40 +1,22 @@
 import React from 'react';
 
+// data
+import { getProductData } from '@/lib/helpers/products';
+import { getCategoryData } from '@/lib/helpers/category';
+
 // components
 import ProductCard from "@/components/ProductCard";
 
 // type
-import { productType } from '../home/page';
-import { categoreType } from '@/components/CategoriesCard';
+import { productType } from '@/lib/helpers/products';
+import { categoryType } from '@/lib/helpers/category';
 
 
 const page = async () => {
 
-  const productsAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
+  const productData = await getProductData();
 
-  if (!productsAPI.ok) {
-    throw new Error(`API call failed with status ${productsAPI.status}`)
-  }
-  const productData = await productsAPI.json();
-
-  const CategorieAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-  const CategorieData = await CategorieAPI.json();
+  const CategorieData = await getCategoryData();
 
 
   return (
@@ -52,7 +34,7 @@ const page = async () => {
           <div className="p-4 border rounded-xl mb-5 shadow">
             <h4 className='text-xl text-blue font-bold mb-5'>By Categories</h4>
             <ul className='flex flex-col gap-3'>
-              {CategorieData.data.map((value: categoreType, index: string) => {
+              {CategorieData.data.map((value: categoryType, index: string) => {
                 return <li className='font-semibold border rounded-lg py-2 px-4 hover:shadow hover:border-primary' key={index}>{value.name}</li>
               })}
             </ul>
@@ -63,7 +45,7 @@ const page = async () => {
         </div>
         <div className="w-9/12">
           <div className="flex flex-wrap gap-3">
-            {productData.data.map((data: productType, index: string) => {
+            {productData.map((data: productType, index: number) => {
               return <ProductCard params={data} key={index} />
             })}
           </div>

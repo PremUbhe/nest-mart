@@ -1,28 +1,19 @@
 import React from "react";
 import Image from "next/image";
-// import { TypeOf } from "zod";
 
-export type categoreType = {
-  _id: string,
-  name: string,
-  img: string
-}
+// data
+import { getCategoryData } from "@/lib/helpers/category";
+
+// type
+import { categoryType } from "@/lib/helpers/category";
 
 export default async function CategoriesCard() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-  const CategorieData = await res.json();
+
+  const CategorieData = await getCategoryData();
 
   return (
     <div className="flex flex-row gap-4 overflow-x-auto">
-      {CategorieData.data.map((data: categoreType, index: string) => {
+      {CategorieData.data.map((data: categoryType, index: string) => {
         return (
           <div
             className="categorie-card px-8 py-7 border rounded-xl shadow overflow-hidden border-transparent relative"

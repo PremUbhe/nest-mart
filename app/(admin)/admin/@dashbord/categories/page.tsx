@@ -7,12 +7,8 @@ import { FaPencil } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import DeleteBut from '@/components/DeleteBut';
 
-
-export type categoreType = {
-  _id: string,
-  name: string,
-  img?: string
-}
+// type
+import { categoryType } from '@/lib/helpers/category';
 
 const CategoryList = async () => {
 
@@ -43,7 +39,7 @@ const CategoryList = async () => {
           </tr>
         </thead>
         <tbody>
-          {CategorieData.data.map((value: categoreType, index: number,) => {
+          {CategorieData.data.map((value: categoryType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>

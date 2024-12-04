@@ -65,4 +65,4 @@ const CategoryAddAction = async (formData: FormData) => {
     }
 };
 
-export default CategoryAddAction;
+export default CategoryAddAction

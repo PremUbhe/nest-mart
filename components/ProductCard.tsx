@@ -1,51 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { productType } from "@/app/(webside)/home/page";
 
-export type productType = {
-  _id: string;
-  name: string;
-  img: string;
-  price: number;
-  rating: number;
-  discount: number;
-  categorie_id: string;
-  brand_id: string;
-  stock: number;
-  description: string;
-}
+// data
+import { getCategoryIdData } from "@/lib/helpers/category";
+import { getBrandIdData } from "@/lib/helpers/brands";
 
-
+// type
+import { productType } from "@/lib/helpers/products";
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
-  const categorieId = params.categorie_id;
-  const brandId = params.brand_id;
-
-  const categorieAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${categorieId}`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-
-  const categorieName: { data: { _id: string, name: string } } = await categorieAPI.json();
-
-  const brandAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${brandId}`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-
-  const brandName: { data: { _id: string, name: string } } = await brandAPI.json();
+  const categoryData = await getCategoryIdData(params.category)
+  const brandData = await getBrandIdData(params.brand)
 
   return (
     <>
@@ -58,7 +25,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
             // placeholder="blur"
             alt="product image"
           />
-          <h6 className="text-gray text-sm">{categorieName.data.name}</h6>
+          <h6 className="text-gray text-sm">{categoryData.name}</h6>
           <h3 className="text-xl truncate overflow-hidden">{params.name}</h3>
           <h6 className="text-gray text-sm w-25">
             <div className="product-rate d-inline-block mr-2">
@@ -70,7 +37,8 @@ const ProductCard = async ({ params }: { params: productType }) => {
             ({params.rating.toFixed(1)})
           </h6>
           <h5 className="text-gray text-sm">
-            By <span className="text-primary">{brandName.data.name}</span>
+            By
+            <span className="text-primary">{brandData.name}</span>
           </h5>
         </Link>
         <div className="flex justify-between mt-5">

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+// components
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Nest Mart | Admin",
@@ -18,6 +20,7 @@ export default function AdminLayout({
     <main>
       {header}
       {dashbord ? dashbord : children}
+      <Toaster/>
       {footer}
     </main>
   );

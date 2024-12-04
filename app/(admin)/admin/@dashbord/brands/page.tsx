@@ -1,10 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
-export type brandType = {
-  _id: string,
-  name: string
-}
+// type
+import { brandType } from '@/lib/helpers/brands';
 
 const BrandList = async () => {
 
@@ -17,7 +15,7 @@ const BrandList = async () => {
       },
     }
   );
-  const CategorieData = await res.json();
+  const BrandsData = await res.json();
 
   return (
     <>
@@ -34,7 +32,7 @@ const BrandList = async () => {
           </tr>
         </thead>
         <tbody>
-          {CategorieData.data.map((value: brandType, index: number,) => {
+          {BrandsData.data.map((value: brandType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index}</td>

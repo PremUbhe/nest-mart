@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { productsSchema } from "@/lib/Models/productModel";
+import { product } from "@/lib/Models/productModel";
 
-const product = async ({ params }: { params: { id: string } }) => {
+const products = async ({ params }: { params: { id: string } }) => {
   const ProductId = params.id;
 
   const ProductAPI = await fetch(
@@ -16,7 +16,7 @@ const product = async ({ params }: { params: { id: string } }) => {
   );
   const ProductData = await ProductAPI.json();
 
-  const data: productsSchema = ProductData.data;
+  const data: product = ProductData.data;
 
   return (
     <>
@@ -127,4 +127,4 @@ const product = async ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default product;
+export default products;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { Products } from "@/lib/Models/productModel";
+import { ProductModel } from "@/lib/Models/productModel";
 
 export async function GET(req: Request, context: { params: { id: string } }) {
 
@@ -17,7 +17,7 @@ export async function GET(req: Request, context: { params: { id: string } }) {
       );
     }
 
-    const data = await Products.findById(productId);
+    const data = await ProductModel.findById(productId);
 
     if (!data) {
       return NextResponse.json(
