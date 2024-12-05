@@ -1,15 +1,15 @@
 import React from 'react';
 
 // data
-import { getProductData } from '@/lib/helpers/products';
-import { getCategoryData } from '@/lib/helpers/category';
+import { getProductData } from '@/lib/helpers/Products';
+import { getCategoryData } from '@/lib/helpers/Category';
 
 // components
 import ProductCard from "@/components/ProductCard";
 
 // type
-import { productType } from '@/lib/helpers/products';
-import { categoryType } from '@/lib/helpers/category';
+import { productType } from '@/lib/helpers/Products';
+import { categoryType } from '@/lib/helpers/Category';
 
 
 const page = async () => {

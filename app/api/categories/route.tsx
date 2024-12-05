@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import CategoryModel from "@/lib/Models/categoreModel";
+import CategoryModel from "@/lib/Models/Category";
 
 export async function GET() {
   try {

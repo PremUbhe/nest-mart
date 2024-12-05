@@ -37,7 +37,7 @@ export async function getCategoryIdData(id: string): Promise<categoryType> {
     )
 
     if (!categoryAPI.ok) {
-        throw new Error(`Category API call failed with status ${categoryAPI.status}`)
+        throw new Error(`Category ID API call failed with status ${categoryAPI.status}`)
     }
 
     const categoryData = await categoryAPI.json()

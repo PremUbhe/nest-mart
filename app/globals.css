@@ -78,9 +78,6 @@ section {
   background-color: var(--light-blue);
   border-color: var(--light-blue);
 }
-.categorie-card:hover {
-  border-color: var(--primary);
-}
 
 .product-card {
   position: relative;
@@ -88,14 +85,11 @@ section {
   border: 1px solid #ececec;
   overflow: hidden;
   margin-bottom: 30px;
+  transition: transform 10s ease;
 }
-.product-card:hover .btn-dialog {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: block !important;
-}
+/* .product-card:hover img {
+  transform: scale(1.1);
+} */
 
 .card-detail-absolute {
   position: absolute;
@@ -105,7 +99,7 @@ section {
 
 .product-rate {
   display: inline-block !important;
-  background-image: url('../public/rating-stars.png');
+  /* background-image: url('../public/rating-stars.png'); */
   background-position: 0 -12px;
   background-repeat: repeat-x;
   height: 12px;
@@ -117,7 +111,7 @@ section {
 .product-rating {
   height: 12px;
   background-repeat: repeat-x;
-  background-image: url('../public/rating-stars.png');
+  /* background-image: url('../public/rating-stars.png'); */
   background-position: 0 0;
 }
 
@@ -136,8 +130,9 @@ section {
   width: 10px !important;
   height: 10px !important;
 }
+
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background-color: var(--primary-color) !important;
+  background-color: var(--primary) !important;
 }
 .product-dialog {
   min-width: 60%;

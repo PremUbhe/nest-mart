@@ -3,12 +3,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // data
-import { getProductData } from '@/lib/helpers/products';
-import { getCategoryIdData } from '@/lib/helpers/category';
-import { getBrandById } from '@/lib/helpers/brands';
+import { getProductData } from '@/lib/helpers/Products';
+import { getCategoryIdData } from '@/lib/helpers/Category';
+import { getBrandById } from '@/lib/helpers/Brands';
 
 // type
-import { productType } from '@/lib/helpers/products';
+import { productType } from '@/lib/helpers/Products';
 
 // icons
 import { FaPencil } from "react-icons/fa6";

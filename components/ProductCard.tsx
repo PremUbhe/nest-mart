@@ -2,12 +2,19 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+// components
+import { Button } from "./ui/button";
+
 // data
-import { getCategoryIdData } from "@/lib/helpers/category";
-import { getBrandById } from "@/lib/helpers/brands";
+import { getCategoryIdData } from "@/lib/helpers/Category";
+import { getBrandById } from "@/lib/helpers/Brands";
 
 // type
-import { productType } from "@/lib/helpers/products";
+import { productType } from "@/lib/helpers/Products";
+
+
+// icons
+import { FaCartShopping } from "react-icons/fa6";
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
@@ -15,8 +22,8 @@ const ProductCard = async ({ params }: { params: productType }) => {
   const brandData = await getBrandById(params.brand)
 
   return (
-    <>
-      <div className="product-card w-80 p-7 rounded-xl hover:border-primary hover:shadow-lg">
+    <div className="product-card-wrapper lg:w-3/12 p-3">
+      <div className="product-card p-7 rounded-xl hover:border-primary-light hover:shadow-lg">
         <Link href={`/products/${params._id}`}>
           <Image
             src={params.img}
@@ -26,11 +33,11 @@ const ProductCard = async ({ params }: { params: productType }) => {
             alt="product image"
           />
           <h6 className="text-gray text-sm">{categoryData.name}</h6>
-          <h3 className="text-xl truncate overflow-hidden">{params.name}</h3>
-          <h6 className="text-gray text-sm w-25">
-            <div className="product-rate d-inline-block mr-2">
+          <h3 className="text-xl font-medium truncate overflow-hidden">{params.name}</h3>
+          <h6 className="flex items-center text-gray text-sm w-25">
+            <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">
               <div
-                className="product-rating"
+                className="product-rating bg-[url('/rating-stars.png')]"
                 style={{ width: `${params.rating * 10}%` }}
               ></div>
             </div>
@@ -42,7 +49,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
           </h5>
         </Link>
         <div className="flex justify-between mt-5">
-          <h6 className="text-2xl text-primary">
+          <h6 className="font-medium text-2xl text-primary">
             $
             {(
               params.price -
@@ -52,10 +59,10 @@ const ProductCard = async ({ params }: { params: productType }) => {
               ${params.price}
             </span>
           </h6>
-          <button className="py-2 px-4 bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white">  Add</button>
+          <Button className="bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white"><FaCartShopping /> Add</Button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

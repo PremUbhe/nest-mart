@@ -1,6 +1,6 @@
 import mongoose, {Schema, Document} from "mongoose";
 
-export interface product extends Document {
+export interface Product extends Document {
     name: string;
     img: string;
     price: number;
@@ -12,7 +12,7 @@ export interface product extends Document {
     description: string;
 }
 
-const ProductSchema : Schema<product> = new Schema({
+const ProductSchema : Schema<Product> = new Schema({
     name : {
         type: String,
         required: [true, "product Name is required"],
@@ -51,4 +51,4 @@ const ProductSchema : Schema<product> = new Schema({
 
 })
 
-export const ProductModel = (mongoose.models.products as mongoose.Model<product>)  || mongoose.model<product>("products", ProductSchema)
+export const ProductModel = (mongoose.models.products as mongoose.Model<Product>)  || mongoose.model<Product>("products", ProductSchema)

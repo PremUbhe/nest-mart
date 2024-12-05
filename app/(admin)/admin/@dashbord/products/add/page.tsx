@@ -4,12 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 
 // data
-import { getCategoryData } from '@/lib/helpers/category';
-import { getBrandData } from '@/lib/helpers/brands';
+import { getCategoryData } from '@/lib/helpers/Category';
+import { getBrandData } from '@/lib/helpers/Brands';
 
 // type
-import { categoryType } from '@/lib/helpers/category';
-import { brandType } from '@/lib/helpers/brands';
+import { categoryType } from '@/lib/helpers/Category';
+import { brandType } from '@/lib/helpers/Brands';
 
 // components
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
@@ -32,7 +32,7 @@ import { Button } from "@/components/ui/button"
 import { FaCircleLeft } from "react-icons/fa6";
 
 
-const ProductAdd = async() => {
+const ProductAdd = async () => {
 
     const categoryData = await getCategoryData()
 
@@ -59,8 +59,8 @@ const ProductAdd = async() => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Categories</SelectLabel>
-                                {categoryData.map((data : categoryType, index : number)=>{
-                                    return(
+                                {categoryData.map((data: categoryType, index: number) => {
+                                    return (
                                         <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
                                     )
                                 })}
@@ -76,8 +76,8 @@ const ProductAdd = async() => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Brands</SelectLabel>
-                                {brandData.map((data : brandType, index : number)=>{
-                                    return(
+                                {brandData.map((data: brandType, index: number) => {
+                                    return (
                                         <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
                                     )
                                 })}

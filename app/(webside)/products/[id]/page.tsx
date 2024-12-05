@@ -1,25 +1,46 @@
 import React from "react";
 import Image from "next/image";
-import { product } from "@/lib/Models/productModel";
+
+// data
+import { getProductById } from "@/lib/helpers/Products";
+
+// components
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+// icons
+import { TbHome } from "react-icons/tb";
 
 const products = async ({ params }: { params: { id: string } }) => {
-  const ProductId = params.id;
 
-  const ProductAPI = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${ProductId}`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-  const ProductData = await ProductAPI.json();
 
-  const data: product = ProductData.data;
+  const ProductData = await getProductById(params.id);
 
   return (
     <>
+      <section className='p-4 ps-14 border-b'>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/home"><h4 className='flex items-center gap-1 text-sm'><TbHome /> Home</h4></BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/products"><h4 className='flex items-center gap-1 text-sm'>Products</h4></BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage><h4 className='text-sm '>{ProductData.name}</h4></BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </section>
       <section>
         <div className="container mx-auto flex">
           <aside className="w-3/12">
@@ -29,36 +50,36 @@ const products = async ({ params }: { params: { id: string } }) => {
             <div className="product-wrapper">
               <div className="product-detail flex mb-5">
                 <div className="w-6/12 rounded-xl me-7 border border-border-color">
-                  <Image src={data.img} alt={data.name} width={300} height={300}></Image>
+                  <Image src={ProductData.img} alt={ProductData.name} width={300} height={300}></Image>
                 </div>
                 <div className="w-6/12 px-4">
-                  {/* <h6>{data.categories}</h6> */}
-                  <h3 className="text-4xl">{data.name}</h3>
+                  {/* <h6>{ProductData.categories}</h6> */}
+                  <h3 className="text-4xl">{ProductData.name}</h3>
                   <h6 className="text-gray text-base w-25">
                     <div className="product-rate d-inline-block mr-2">
                       <div
                         className="product-rating"
-                        style={{ width: `${data.rating * 10}%` }}
+                        style={{ width: `${ProductData.rating * 10}%` }}
                       ></div>
                     </div>
-                    ({data.rating.toFixed(1)} reviews)
+                    ({ProductData.rating.toFixed(1)} reviews)
                   </h6>
                   <div className="flex items-center gap-5">
                     <h4 className="text-5xl text-primary">
                       $
                       {(
-                        data.price -
-                        (data.price * data.discount) / 100
+                        ProductData.price -
+                        (ProductData.price * ProductData.discount) / 100
                       ).toFixed(2)}
                     </h4>
                     <div className="">
-                      <h6 className="text-base text-secondary">{`${data.discount}% Off`}</h6>
+                      <h6 className="text-base text-secondary">{`${ProductData.discount}% Off`}</h6>
                       <h5 className="text-xl text-gray line-through">
-                        ${data.price}
+                        ${ProductData.price}
                       </h5>
                     </div>
                   </div>
-                  <h6>{data.description}</h6>
+                  <h6>{ProductData.description}</h6>
                 </div>
               </div>
               <div className="product-discription text-gray p-10 border border-gray rounded-lg">

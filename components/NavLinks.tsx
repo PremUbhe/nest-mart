@@ -3,7 +3,6 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 
 const links = [
   {
@@ -53,6 +52,7 @@ const NavLinks = () => {
           </Link>
         );
       })}
+
     </>
   );
 };

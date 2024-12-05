@@ -11,10 +11,10 @@ import DeleteBut from '@/components/DeleteBut';
 import { Button } from '@/components/ui/button';
 
 // data
-import { getCategoryData } from '@/lib/helpers/category';
+import { getCategoryData } from '@/lib/helpers/Category';
 
 // type
-import { categoryType } from '@/lib/helpers/category';
+import { categoryType } from '@/lib/helpers/Category';
 
 const CategoryList = async () => {
 
@@ -48,7 +48,7 @@ const CategoryList = async () => {
                 <td>
                   <div className="flex justify-center gap-2">
                     <Link href={`/admin/categories/add/${value._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
-                    <DeleteBut/>
+                    <DeleteBut />
                   </div>
                 </td>
               </tr>

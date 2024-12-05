@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { brands } from "@/lib/Models/brandModel";
+import { BrandModel } from "@/lib/Models/Brand";
 
 // get
 export async function GET(req: Request, context: { params: { id: string } }) {
@@ -10,7 +10,7 @@ export async function GET(req: Request, context: { params: { id: string } }) {
 
     try {
         await dbConnect();
-        const data = await brands.findById(brandId);
+        const data = await BrandModel.findById(brandId);
 
         if (!data) {
             return NextResponse.json(
@@ -39,7 +39,7 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
 
     try {
         await dbConnect();
-        const data = await brands.findById(brandId);
+        const data = await BrandModel.findById(brandId);
 
         if (!data) {
             return NextResponse.json(
@@ -48,7 +48,7 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
             );
         }
 
-        await brands.findByIdAndDelete(brandId);
+        await BrandModel.findByIdAndDelete(brandId);
 
         return NextResponse.json(
             { message: "Brand successfully deleted", data },
@@ -69,12 +69,12 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
     const { params } = context;
     const brandId = params.id;
 
-    const {name} = await req.json();
+    const { name } = await req.json();
 
 
     try {
         await dbConnect();
-        const data = await brands.findById(brandId);
+        const data = await BrandModel.findById(brandId);
 
         if (!data) {
             return NextResponse.json(
@@ -83,10 +83,10 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
             );
         }
 
-        const updatedBrand = await brands.findByIdAndUpdate(
+        const updatedBrand = await BrandModel.findByIdAndUpdate(
             brandId,
             name,
-            { new: true } 
+            { new: true }
         );
 
         return NextResponse.json(
