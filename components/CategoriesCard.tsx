@@ -13,7 +13,7 @@ export default async function CategoriesCard() {
 
   return (
     <div className="flex flex-row gap-4 overflow-x-auto">
-      {CategorieData.data.map((data: categoryType, index: string) => {
+      {CategorieData.map((data: categoryType, index: number) => {
         return (
           <div
             className="categorie-card px-8 py-7 border rounded-xl shadow overflow-hidden border-transparent relative"

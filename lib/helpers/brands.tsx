@@ -4,27 +4,30 @@ export type brandType = {
 }
 
 
-// brand data
-export async function getBrandData() {
+// GET brand data
+export async function getBrandData(): Promise<brandType[]> {
 
-    const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
+    const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
         {
             headers: { Accept: "application/json", },
             method: "GET",
+            cache: "force-cache",
             next: { tags: ['brand'] },
         }
     )
 
-    if (!productsAPI.ok) {
-        throw new Error(`Brand API call failed with status ${productsAPI.status}`)
+    if (!brandAPI.ok) {
+        throw new Error(`Brand API call failed with status ${brandAPI.status}`)
     }
 
-    return productsAPI.json()
+    const brandData = await brandAPI.json()
+
+    return brandData.data
 }
 
 
-// Brand ID data
-export async function getBrandIdData(id: string): Promise<brandType> {
+// GET Brand By ID
+export async function getBrandById(id: string): Promise<brandType> {
 
     const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
         {
@@ -41,4 +44,23 @@ export async function getBrandIdData(id: string): Promise<brandType> {
     const brandData = await brandAPI.json()
 
     return brandData.data
+}
+
+
+// DETETE Brand By ID
+export async function deleteBrandById(id: string) {
+
+    const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
+        {
+            headers: { Accept: "application/json", },
+            method: "DELETE",
+            next: { tags: ['brand'] },
+        }
+    )
+
+    if (!brandAPI.ok) {
+        throw new Error(`Brand ID API call failed with status ${brandAPI.status}`)
+    }
+
+    return brandAPI.json()
 }

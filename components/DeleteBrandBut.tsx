@@ -5,15 +5,20 @@ import { useToast } from "@/hooks/use-toast"
 // icons
 import { FaTrashCan } from "react-icons/fa6";
 
-const DeleteBut = () => {
+// data
+import { deleteBrandById } from '@/lib/helpers/brands';
+
+const DeleteBrandBut = ({ params }: { params : {_id: string, name : string }}) => {
 
   const { toast } = useToast()
 
-  const deleteBrand = () => {
+  const deleteBrand = async () => {
+
+    await deleteBrandById(params._id);
 
     toast({
-      title: `Delete`,
-      description: "Data Deleted successfully",
+      title: `${params.name}`,
+      description: "Brand Deleted successfully",
     })
 
   }
@@ -22,4 +27,4 @@ const DeleteBut = () => {
   )
 }
 
-export default DeleteBut
+export default DeleteBrandBut

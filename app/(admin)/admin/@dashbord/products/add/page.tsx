@@ -3,6 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 
+// data
+import { getCategoryData } from '@/lib/helpers/category';
+import { getBrandData } from '@/lib/helpers/brands';
+
+// type
+import { categoryType } from '@/lib/helpers/category';
+import { brandType } from '@/lib/helpers/brands';
+
 // components
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
 import {
@@ -19,16 +27,21 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
 
+
 // icons
 import { FaCircleLeft } from "react-icons/fa6";
 
 
-const ProductAdd = () => {
+const ProductAdd = async() => {
+
+    const categoryData = await getCategoryData()
+
+    const brandData = await getBrandData()
 
     return (
         <>
             <div className='flex gap-5 items-center mb-3'>
-                <Link href="/admin/categories" className='bg-primary text-white p-2 rounded-lg'><FaCircleLeft /></Link>
+                <Link href="/admin/products" className='bg-primary text-white p-2 rounded-lg'><FaCircleLeft /></Link>
                 <h2 className='text-blue text-2xl font-bold'>Add Product</h2>
             </div>
             <form action={ProductAddAction} className='flex flex-wrap'>
@@ -46,7 +59,11 @@ const ProductAdd = () => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Categories</SelectLabel>
-                                <SelectItem value="6739dcbe74f565133075f3b1">Snack</SelectItem>
+                                {categoryData.map((data : categoryType, index : number)=>{
+                                    return(
+                                        <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
+                                    )
+                                })}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -59,7 +76,11 @@ const ProductAdd = () => {
                         <SelectContent>
                             <SelectGroup>
                                 <SelectLabel>Brands</SelectLabel>
-                                <SelectItem value="66fd6606491336cd8c4f67e6">Stouffer</SelectItem>
+                                {brandData.map((data : brandType, index : number)=>{
+                                    return(
+                                        <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
+                                    )
+                                })}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

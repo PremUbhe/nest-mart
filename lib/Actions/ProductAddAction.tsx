@@ -17,8 +17,6 @@ const productSchema = z.object({
 
 const ProductAddAction = async (formData: FormData) => {
 
-  revalidateTag('products')
-
   const formValues = Object.fromEntries(formData);
   const result = productSchema.safeParse(formValues);
   console.log(result);
@@ -74,6 +72,9 @@ const ProductAddAction = async (formData: FormData) => {
     if (response.ok) {
       const data = await response.json();
       console.log("Product added successfully:", data);
+
+      revalidateTag('products');
+
     } else {
       const errorData = await response.json();
       console.error("Error adding Product:", errorData);

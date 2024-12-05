@@ -34,7 +34,7 @@ const page = async () => {
           <div className="p-4 border rounded-xl mb-5 shadow">
             <h4 className='text-xl text-blue font-bold mb-5'>By Categories</h4>
             <ul className='flex flex-col gap-3'>
-              {CategorieData.data.map((value: categoryType, index: string) => {
+              {CategorieData.map((value: categoryType, index: number) => {
                 return <li className='font-semibold border rounded-lg py-2 px-4 hover:shadow hover:border-primary' key={index}>{value.name}</li>
               })}
             </ul>

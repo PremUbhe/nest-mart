@@ -5,21 +5,24 @@ export type categoryType = {
 }
 
 // category data
-export async function getCategoryData() {
+export async function getCategoryData() : Promise<categoryType[]> {
 
-    const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
+    const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
         {
             headers: { Accept: "application/json", },
             method: "GET",
+            cache: "force-cache",
             next: { tags: ['category'] },
         }
     )
 
-    if (!productsAPI.ok) {
-        throw new Error(`Category API call failed with status ${productsAPI.status}`)
+    if (!categoryAPI.ok) {
+        throw new Error(`Category API call failed with status ${categoryAPI.status}`)
     }
 
-    return productsAPI.json()
+    const categoryData = await categoryAPI.json()
+
+    return categoryData.data
 }
 
 // category ID data

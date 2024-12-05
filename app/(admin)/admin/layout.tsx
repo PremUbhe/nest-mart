@@ -19,8 +19,10 @@ export default function AdminLayout({
   return (
     <main>
       {header}
-      {dashbord ? dashbord : children}
-      <Toaster/>
+      <div className="relative">
+        {dashbord ? dashbord : children}
+        <Toaster />
+      </div>
       {footer}
     </main>
   );

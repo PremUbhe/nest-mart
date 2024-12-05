@@ -5,7 +5,7 @@ import Image from 'next/image';
 // data
 import { getProductData } from '@/lib/helpers/products';
 import { getCategoryIdData } from '@/lib/helpers/category';
-import { getBrandIdData } from '@/lib/helpers/brands';
+import { getBrandById } from '@/lib/helpers/brands';
 
 // type
 import { productType } from '@/lib/helpers/products';
@@ -49,7 +49,7 @@ const ProductList = async () => {
           {productData.map(async (value: productType, index: number,) => {
 
             const categoryData = await getCategoryIdData(value.category);
-            const brandData = await getBrandIdData(value.brand)
+            const brandData = await getBrandById(value.brand)
 
             return (
               <tr key={index}>

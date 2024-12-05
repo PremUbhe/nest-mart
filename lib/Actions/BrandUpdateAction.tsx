@@ -7,7 +7,7 @@ const BrandSchema = z.object({
 })
 
 
-const BrandAddAction = async (formData: FormData) => {
+const BrandUpdateAction = async (formData: FormData) => {
 
     const formValues = Object.fromEntries(formData);
     const result = BrandSchema.safeParse(formValues);
@@ -19,7 +19,7 @@ const BrandAddAction = async (formData: FormData) => {
 
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -28,17 +28,17 @@ const BrandAddAction = async (formData: FormData) => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log("Brand added successfully:", data);
+            console.log("Brand Updated successfully:", data);
 
             revalidateTag('brand');
 
         } else {
             const errorData = await response.json();
-            console.error("Error adding Brand:", errorData);
+            console.error("Error While Updating Brand:", errorData);
         }
     } catch (error) {
         console.error("Network error:", error);
     }
 }
 
-export default BrandAddAction
+export default BrandUpdateAction

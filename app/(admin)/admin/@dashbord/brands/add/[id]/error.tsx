@@ -22,7 +22,7 @@ export default function Error({
           () => reset()
         }
       >
-        Try again
+        Try again 
         <FaArrowRotateRight />
       </button>
     </div>

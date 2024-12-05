@@ -4,7 +4,7 @@ import Link from "next/link";
 
 // data
 import { getCategoryIdData } from "@/lib/helpers/category";
-import { getBrandIdData } from "@/lib/helpers/brands";
+import { getBrandById } from "@/lib/helpers/brands";
 
 // type
 import { productType } from "@/lib/helpers/products";
@@ -12,7 +12,7 @@ import { productType } from "@/lib/helpers/products";
 const ProductCard = async ({ params }: { params: productType }) => {
 
   const categoryData = await getCategoryIdData(params.category)
-  const brandData = await getBrandIdData(params.brand)
+  const brandData = await getBrandById(params.brand)
 
   return (
     <>

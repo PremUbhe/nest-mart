@@ -5,29 +5,29 @@ import Image from 'next/image';
 // icons
 import { FaPencil } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
+
+// components
 import DeleteBut from '@/components/DeleteBut';
+import { Button } from '@/components/ui/button';
+
+// data
+import { getCategoryData } from '@/lib/helpers/category';
 
 // type
 import { categoryType } from '@/lib/helpers/category';
 
 const CategoryList = async () => {
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
-    {
-      headers: {
-        Accept: "application/json",
-        method: "GET",
-      },
-    }
-  );
-  const CategorieData = await res.json();
+  const CategorieData = await getCategoryData();
 
   return (
     <>
       <div className='flex justify-between items-center mb-3'>
         <h2 className='text-blue text-3xl font-bold'>Category List</h2>
-        <Link href="/admin/categories/add" className='flex gap-2 items-center bg-primary text-white py-2 px-4 rounded-lg'> <FaPlus /> Add</Link>
+        <Button type='submit' variant="outline"
+          className='bg-primary-light hover:bg-primary hover:text-white'>
+          <Link href="/admin/categories/add" className='flex gap-2 items-center'> <FaPlus /> Add</Link>
+        </Button>
       </div>
       <table>
         <thead>
@@ -39,7 +39,7 @@ const CategoryList = async () => {
           </tr>
         </thead>
         <tbody>
-          {CategorieData.data.map((value: categoryType, index: number,) => {
+          {CategorieData.map((value: categoryType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
