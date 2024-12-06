@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 // components
 import { Button } from '@/components/ui/button';
-import DeleteBrandBut from '@/components/DeleteBrandBut';
+// import DeleteBrandBut from '@/components/DeleteBrandBut';
 
 // type
 import { brandType } from '@/lib/Helpers/Brands';
@@ -46,7 +46,7 @@ const BrandList = async () => {
                 <td>
                   <div className="flex justify-center gap-2">
                     <Link href={`/admin/brands/add/${value._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
-                    <DeleteBrandBut params={value} />
+                    {/* <DeleteBrandBut params={value} /> */}
                   </div>
                 </td>
               </tr>
