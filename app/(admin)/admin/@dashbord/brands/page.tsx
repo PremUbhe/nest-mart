@@ -3,13 +3,13 @@ import Link from 'next/link';
 
 // components
 import { Button } from '@/components/ui/button';
-// import DeleteBrandBut from '@/components/DeleteBrandBut';
+import DeleteBrandBut from '@/components/DeleteBrandBut';
 
 // type
 import { brandType } from '@/lib/Helpers/Brands';
 
 // data
-// import { getBrandData } from '@/lib/Helpers/Brands';
+import { getBrandData } from '@/lib/Helpers/Brands';
 
 // icons
 import { FaPencil } from "react-icons/fa6";
@@ -18,7 +18,7 @@ import { FaPlus } from "react-icons/fa6";
 
 const BrandList = async () => {
 
-  // const BrandsData = await getBrandData();
+  const BrandsData = await getBrandData();
 
   return (
     <>
@@ -38,7 +38,7 @@ const BrandList = async () => {
           </tr>
         </thead>
         <tbody>
-          {/* {BrandsData.map((value: brandType, index: number,) => {
+          {BrandsData.map((value: brandType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index}</td>
@@ -51,7 +51,7 @@ const BrandList = async () => {
                 </td>
               </tr>
             )
-          })} */}
+          })}
         </tbody>
       </table>
     </>

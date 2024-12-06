@@ -1,8 +1,9 @@
+import React from 'react'
+
 export type brandType = {
     _id: string;
     name: string
 }
-
 
 // GET brand data
 export async function getBrandData(): Promise<brandType[]> {
@@ -64,3 +65,11 @@ export async function deleteBrandById(id: string) {
 
     return brandAPI.json()
 }
+
+const Brands = () => {
+    return (
+        <div>Brands</div>
+    )
+}
+
+export default Brands

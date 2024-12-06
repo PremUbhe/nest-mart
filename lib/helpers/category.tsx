@@ -1,3 +1,5 @@
+import React from 'react'
+
 export type categoryType = {
     _id: string;
     name: string;
@@ -5,7 +7,7 @@ export type categoryType = {
 }
 
 // category data
-export async function getCategoryData() : Promise<categoryType[]> {
+export async function getCategoryData(): Promise<categoryType[]> {
 
     const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
         {
@@ -44,3 +46,12 @@ export async function getCategoryIdData(id: string): Promise<categoryType> {
 
     return categoryData.data
 }
+
+
+const Category = () => {
+    return (
+        <div>Category</div>
+    )
+}
+
+export default Category

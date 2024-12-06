@@ -5,8 +5,8 @@ import Link from 'next/link';
 // action
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
 // components
-// import CategorySelectList from '@/components/CategorySelectList';
-// import BrandSelectList from '@/components/BrandSelectList';
+import CategorySelectList from '@/components/CategorySelectList';
+import BrandSelectList from '@/components/BrandSelectList';
 // ui
 import { Input } from '@/components/ui/input'
 import { Textarea } from "@/components/ui/textarea"
@@ -31,10 +31,10 @@ const ProductAdd = () => {
                     <Input type="file" className='pt-[6px] w-full' name="img" placeholder='image' required />
                 </div>
                 <div className="w-6/12 pe-3 mb-5">
-                    {/* <CategorySelectList /> */}
+                    <CategorySelectList />
                 </div>
                 <div className="w-6/12 ps-3 mb-5">
-                    {/* <BrandSelectList /> */}
+                    <BrandSelectList />
                 </div>
                 <div className="w-3/12 pe-3 mb-5">
                     <Input type="number" className='w-full' name='price' placeholder='Price' required />
