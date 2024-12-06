@@ -6,11 +6,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 
 // data
-import { GetCategoryIdData } from "@/lib/Helpers/Category";
-import { GetBrandById } from "@/lib/Helpers/Brands";
+import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
+import { GetBrandById } from "@/lib/ApiFunctions/Brands";
 
 // type
-import { productType } from "@/lib/Helpers/Products";
+import { productType } from "@/lib/ApiFunctions/Products";
 
 
 // icons

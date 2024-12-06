@@ -6,10 +6,10 @@ import ProductCard from "@/components/ProductCard";
 import Swipers from '@/components/Swiper';
 
 // data
-import { GetProductData } from '@/lib/Helpers/Products';
+import { GetProductData } from '@/lib/ApiFunctions/Products';
 
 // type
-import { productType } from '@/lib/Helpers/Products';
+import { productType } from '@/lib/ApiFunctions/Products';
 import { sliderSchema } from '@/components/Swiper';
 
 // images

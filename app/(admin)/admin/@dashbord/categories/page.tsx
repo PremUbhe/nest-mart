@@ -11,10 +11,10 @@ import DeleteBut from '@/components/DeleteBut';
 import { Button } from '@/components/ui/button';
 
 // data
-import { GetCategoryData } from '@/lib/Helpers/Category';
+import { GetCategoryData } from '@/lib/ApiFunctions/Category';
 
 // type
-import { categoryType } from '@/lib/Helpers/Category';
+import { categoryType } from '@/lib/ApiFunctions/Category';
 
 const CategoryList = async () => {
 

@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/select"
 
 // data
-import { GetBrandData } from '../lib/Helpers/Brands';
+import { GetBrandData } from '@/lib/ApiFunctions/Brands';
 
 // type
-import { brandType } from '../lib/Helpers/Brands';
+import { brandType } from '@/lib/ApiFunctions/Brands';
 
 const BrandSelectList = async () => {
 

@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 // data
-import { GetProductById } from "@/lib/Helpers/Products";
-import { GetCategoryData, GetCategoryIdData } from '@/lib/Helpers/Category';
+import { GetProductById } from "@/lib/ApiFunctions/Products";
+import { GetCategoryData, GetCategoryIdData } from '@/lib/ApiFunctions/Category';
 
 // type
-import { categoryType } from '@/lib/Helpers/Category';
+import { categoryType } from '@/lib/ApiFunctions/Category';
 
 // components
 import {

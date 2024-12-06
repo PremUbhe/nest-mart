@@ -22,10 +22,10 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { MdDashboard } from "react-icons/md";
 
 // data
-import { GetCategoryData } from '@/lib/Helpers/Category';
+import { GetCategoryData } from '@/lib/ApiFunctions/Category';
 
 // type
-import { categoryType } from '@/lib/Helpers/Category';
+import { categoryType } from '@/lib/ApiFunctions/Category';
 
 const Default = async () => {
 

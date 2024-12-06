@@ -1,7 +1,7 @@
 import React from 'react';
 
 // data
-import { GetProductData } from '@/lib/Helpers/Products';
+import { GetProductData } from '@/lib/ApiFunctions/Products';
 
 // components
 import ProductCard from "@/components/ProductCard";
@@ -27,7 +27,7 @@ import {
 
 
 // type
-import { productType } from '@/lib/Helpers/Products';
+import { productType } from '@/lib/ApiFunctions/Products';
 
 
 const page = async () => {

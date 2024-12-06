@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/select"
 
 // data
-import { GetCategoryData } from '../lib/Helpers/Category';
+import { GetCategoryData } from '@/lib/ApiFunctions/Category';
 
 // type
-import { categoryType } from '../lib/Helpers/Category';
+import { categoryType } from '@/lib/ApiFunctions/Category';
 
 const CategorySelectList = async () => {
 

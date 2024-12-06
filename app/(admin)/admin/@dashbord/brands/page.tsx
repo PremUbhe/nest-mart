@@ -6,10 +6,10 @@ import { Button } from '@/components/ui/button';
 import DeleteBrandBut from '@/components/DeleteBrandBut';
 
 // type
-import { brandType } from '@/lib/Helpers/Brands';
+import { brandType } from '@/lib/ApiFunctions/Brands';
 
 // data
-import { GetBrandData } from '@/lib/Helpers/Brands';
+import { GetBrandData } from '@/lib/ApiFunctions/Brands';
 
 // icons
 import { FaPencil } from "react-icons/fa6";

@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast"
 import { FaTrashCan } from "react-icons/fa6";
 
 // data
-import { DeleteBrandById } from '@/lib/Helpers/Brands';
+import { DeleteBrandById } from '@/lib/ApiFunctions/Brands';
 
 const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) => {
 
