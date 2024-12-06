@@ -12,7 +12,7 @@ const DeleteBut = () => {
   const deleteBrand = () => {
 
     toast({
-      title: `Delete`,
+      title: `Delete Data`,
       description: "Data Deleted successfully",
     })
 
