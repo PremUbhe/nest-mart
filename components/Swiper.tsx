@@ -24,7 +24,7 @@ export type sliderSchema = {
 const Swipers = ({ params }: { params: sliderSchema[] }) => {
 
   return (
-    <div className=''>
+    <div >
         <Swiper
         className='swiper'
         modules={[Navigation, Pagination, Autoplay]}

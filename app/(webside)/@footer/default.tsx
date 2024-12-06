@@ -42,7 +42,7 @@ const Default = () => {
         </div>
       </section>
 
-      <section>
+      <section className='pt-0'>
         <div className="flex gap-4 mt-3">
           <div className="card p-5 bg-light-blue rounded-xl shadow">
             <div className="flex gap-3 items-center">
@@ -57,8 +57,8 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon2} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5 className='font-medium text-lg'>Best prices & offers</h5>
-                <h5 className="text-gray">Orders $50 or more</h5>
+                <h5 className='font-medium text-lg'>Free delivery</h5>
+                <h5 className="text-gray">24/7 amazing services</h5>
               </div>
             </div>
           </div>
@@ -66,8 +66,8 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon3} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5 className='font-medium text-lg'>Best prices & offers</h5>
-                <h5 className="text-gray">Orders $50 or more</h5>
+                <h5 className='font-medium text-lg'>Great daily deal</h5>
+                <h5 className="text-gray">When you sign up</h5>
               </div>
             </div>
           </div>
@@ -75,8 +75,8 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon4} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5 className='font-medium text-lg'>Best prices & offers</h5>
-                <h5 className="text-gray">Orders $50 or more</h5>
+                <h5 className='font-medium text-lg'>Wide assortment</h5>
+                <h5 className="text-gray">Mega Discounts</h5>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@ const Default = () => {
             <div className="flex gap-3 items-center">
               <Image src={icon5} height={60} width={60} alt="icon"></Image>
               <div className="text-base">
-                <h5 className='font-medium text-lg'>Best prices & offers</h5>
-                <h5 className="text-gray">Orders $50 or more</h5>
+                <h5 className='font-medium text-lg'>Easy returns</h5>
+                <h5 className="text-gray">Within 30 days</h5>
               </div>
             </div>
           </div>

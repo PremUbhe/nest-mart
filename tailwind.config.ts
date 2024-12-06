@@ -75,6 +75,7 @@ const config: Config = {
 				'hero-pattern': 'url("../public/banner.png")',
 				'footer-texture': 'url("/img/footer-texture.png")',
 				'banner-Juice': 'url("/banner-1.png")',
+				'wave' : 'url("/icons/wave.png")',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

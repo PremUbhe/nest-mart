@@ -118,6 +118,26 @@ section {
 .swiper {
   padding-bottom: 40px !important;
 }
+.about-swiper {
+  margin-top: 40px;
+
+  .swiper-button-prev, .swiper-button-next {
+    background-color: var(--light-blue);
+    padding: 20px 22px;
+    border-radius: 50%;
+  }
+  .swiper-button-prev:hover, .swiper-button-next:hover {
+    background-color: var(--primary);
+  }
+  .swiper-button-prev::after, .swiper-button-next::after {
+    color: var(--primary);
+    font-size: 16px !important;
+    font-weight: 900;
+  }
+  .swiper-button-prev:hover::after, .swiper-button-next:hover::after {
+    color: var(--light-blue);
+  }
+}
 .swiper-card {
   position: relative;
   border: 1px solid transparent;
