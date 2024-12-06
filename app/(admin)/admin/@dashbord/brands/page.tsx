@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { brandType } from '@/lib/Helpers/Brands';
 
 // data
-import { getBrandData } from '@/lib/Helpers/Brands';
+// import { getBrandData } from '@/lib/Helpers/Brands';
 
 // icons
 import { FaPencil } from "react-icons/fa6";
@@ -18,7 +18,7 @@ import { FaPlus } from "react-icons/fa6";
 
 const BrandList = async () => {
 
-  const BrandsData = await getBrandData();
+  // const BrandsData = await getBrandData();
 
   return (
     <>
@@ -38,7 +38,7 @@ const BrandList = async () => {
           </tr>
         </thead>
         <tbody>
-          {BrandsData.map((value: brandType, index: number,) => {
+          {/* {BrandsData.map((value: brandType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index}</td>
@@ -46,12 +46,12 @@ const BrandList = async () => {
                 <td>
                   <div className="flex justify-center gap-2">
                     <Link href={`/admin/brands/add/${value._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
-                    {/* <DeleteBrandBut params={value} /> */}
+                    <DeleteBrandBut params={value} />
                   </div>
                 </td>
               </tr>
             )
-          })}
+          })} */}
         </tbody>
       </table>
     </>

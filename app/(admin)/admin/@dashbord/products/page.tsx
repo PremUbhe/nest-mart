@@ -1,27 +1,27 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 // data
-import { getProductData } from '@/lib/Helpers/Products';
-import { getCategoryIdData } from '@/lib/Helpers/Category';
-import { getBrandById } from '@/lib/Helpers/Brands';
+// import { getProductData } from '@/lib/Helpers/Products';
+// import { getCategoryIdData } from '@/lib/Helpers/Category';
+// import { getBrandById } from '@/lib/Helpers/Brands';
 
 // type
-import { productType } from '@/lib/Helpers/Products';
+// import { productType } from '@/lib/Helpers/Products';
 
 // icons
-import { FaPencil } from "react-icons/fa6";
+// import { FaPencil } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 
 // components
 import { Button } from '@/components/ui/button';
-import DeleteBut from '@/components/DeleteBut';
+// import DeleteBut from '@/components/DeleteBut';
 
 
 const ProductList = async () => {
 
-  const productData = await getProductData();
+  // const productData = await getProductData();
 
   return (
     <>
@@ -46,7 +46,7 @@ const ProductList = async () => {
           </tr>
         </thead>
         <tbody>
-          {productData.map(async (value: productType, index: number,) => {
+          {/* {productData.map(async (value: productType, index: number,) => {
 
             const categoryData = await getCategoryIdData(value.category);
             const brandData = await getBrandById(value.brand)
@@ -67,7 +67,7 @@ const ProductList = async () => {
                 </td>
               </tr>
             )
-          })}
+          })} */}
         </tbody>
       </table>
     </>

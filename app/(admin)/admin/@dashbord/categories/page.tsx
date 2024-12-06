@@ -1,20 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 // icons
-import { FaPencil } from "react-icons/fa6";
+// import { FaPencil } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 
 // components
-import DeleteBut from '@/components/DeleteBut';
+// import DeleteBut from '@/components/DeleteBut';
 import { Button } from '@/components/ui/button';
 
 // data
 import { getCategoryData } from '@/lib/Helpers/Category';
 
 // type
-import { categoryType } from '@/lib/Helpers/Category';
+// import { categoryType } from '@/lib/Helpers/Category';
 
 const CategoryList = async () => {
 
@@ -39,7 +39,7 @@ const CategoryList = async () => {
           </tr>
         </thead>
         <tbody>
-          {CategorieData.map((value: categoryType, index: number,) => {
+          {/* {CategorieData.map((value: categoryType, index: number,) => {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
@@ -53,7 +53,7 @@ const CategoryList = async () => {
                 </td>
               </tr>
             )
-          })}
+          })} */}
         </tbody>
       </table>
     </>
