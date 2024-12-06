@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 // data
 import { GetProductData } from '@/lib/ApiFunctions/Products';
-import { GetCategoryIdData } from '@/lib/ApiFunctions/Category';
+// import { GetCategoryIdData } from '@/lib/ApiFunctions/Category';
 import { GetBrandById } from '@/lib/ApiFunctions/Brands';
 
 // type
@@ -48,7 +48,7 @@ const ProductList = async () => {
         <tbody>
           {productData.map(async (value: productType, index: number,) => {
 
-            const categoryData = await GetCategoryIdData(value.category);
+            // const categoryData = await GetCategoryIdData(value.category);
             const brandData = await GetBrandById(value.brand)
 
             return (
@@ -56,7 +56,7 @@ const ProductList = async () => {
                 <td>{index + 1}</td>
                 <td>{value.img ? <Image className='text-center' src={value.img} alt='img' width={50} height={50}></Image> : "img"}</td>
                 <td>{value.name}</td>
-                <td>{categoryData.name}</td>
+                {/* <td>{categoryData.name}</td> */}
                 <td>{brandData.name}</td>
                 <td>{value.price}</td>
                 <td>

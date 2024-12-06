@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 
 // data
-import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
+// import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
 import { GetBrandById } from "@/lib/ApiFunctions/Brands";
 
 // type
@@ -18,7 +18,7 @@ import { FaCartShopping } from "react-icons/fa6";
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
-  const categoryData = await GetCategoryIdData(params.category)
+  // const categoryData = await GetCategoryIdData(params.category)
   const brandData = await GetBrandById(params.brand)
 
   return (
@@ -31,7 +31,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
           // placeholder="blur"
           alt="product image"
         />
-        <h6 className="text-gray text-sm">{categoryData.name}</h6>
+        {/* <h6 className="text-gray text-sm">{categoryData.name}</h6> */}
         <h3 className="text-xl font-medium truncate overflow-hidden">{params.name}</h3>
         <h6 className="flex items-center text-gray text-sm w-25">
           <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">
