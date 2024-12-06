@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCategoryIdData } from '@/lib/helpers/Category'
+import { getCategoryIdData } from '@/lib/Helpers/Category'
 
 const page = async ({ params }: { params: { id: string } }) => {
 

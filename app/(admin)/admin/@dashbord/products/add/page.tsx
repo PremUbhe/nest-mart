@@ -4,12 +4,12 @@ import React from 'react';
 import Link from 'next/link';
 
 // data
-import { getCategoryData } from '@/lib/helpers/Category';
-import { getBrandData } from '@/lib/helpers/Brands';
+import { getCategoryData } from '@/lib/Helpers/Category';
+import { getBrandData } from '@/lib/Helpers/Brands';
 
 // type
-import { categoryType } from '@/lib/helpers/Category';
-import { brandType } from '@/lib/helpers/Brands';
+import { categoryType } from '@/lib/Helpers/Category';
+import { brandType } from '@/lib/Helpers/Brands';
 
 // components
 import ProductAddAction from '@/lib/Actions/ProductAddAction';

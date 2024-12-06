@@ -1,23 +1,38 @@
 import React from 'react';
 
 // data
-import { getProductData } from '@/lib/helpers/Products';
-import { getCategoryData } from '@/lib/helpers/Category';
+import { getProductData } from '@/lib/Helpers/Products';
 
 // components
 import ProductCard from "@/components/ProductCard";
+import { Input } from '@/components/ui/input';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+
 
 // type
-import { productType } from '@/lib/helpers/Products';
-import { categoryType } from '@/lib/helpers/Category';
+import { productType } from '@/lib/Helpers/Products';
 
 
 const page = async () => {
 
   const productData = await getProductData();
-
-  const CategorieData = await getCategoryData();
-
 
   return (
     <>
@@ -25,30 +40,67 @@ const page = async () => {
         <div className="container">
           <div className="flex justify-between items-center">
             <h1 className='text-4xl text-blue font-bold'>Products</h1>
-            <input type="text" className='py-2 px-4 w-96 border rounded-xl border-primary' placeholder='Search...' />
+            <Input type="text" className='w-96' placeholder='Search for Products...' />
           </div>
         </div>
       </section>
-      <section className='flex gap-5'>
-        <div className="w-3/12">
-          <div className="p-4 border rounded-xl mb-5 shadow">
-            <h4 className='text-xl text-blue font-bold mb-5'>By Categories</h4>
-            <ul className='flex flex-col gap-3'>
-              {CategorieData.map((value: categoryType, index: number) => {
-                return <li className='font-semibold border rounded-lg py-2 px-4 hover:shadow hover:border-primary' key={index}>{value.name}</li>
-              })}
-            </ul>
-          </div>
-          <div className="p-4 border rounded-xl shadow">
-            <h4 className='text-xl text-blue font-bold'>By Price</h4>
+      <section className='py-0 mx-4'>
+        <div className="flex justify-between">
+          <h3 className="text-xl font-semibold text-gray">We found <span className='text-primary'>29</span> items for you!</h3>
+          <div className="flex gap-5">
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Show" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+                <SelectItem value="150">150</SelectItem>
+                <SelectItem value="200">200</SelectItem>
+                <SelectItem value="all">all</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="featured">Featured</SelectItem>
+                <SelectItem value="high-low">Price: High to Low</SelectItem>
+                <SelectItem value="low-high">Price: Low to High</SelectItem>
+                <SelectItem value="release-date">Release Date</SelectItem>
+                <SelectItem value="rating">Avg. Rating</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
-        <div className="w-9/12">
-          <div className="flex flex-wrap gap-3">
-            {productData.map((data: productType, index: number) => {
-              return <ProductCard params={data} key={index} />
-            })}
-          </div>
+      </section>
+      <section>
+        <div className="flex flex-wrap">
+          {productData.map((data: productType, index: number) => {
+            return (
+              <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 px-3" key={index}>
+                <ProductCard params={data} />
+              </div>
+            )
+          })}
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+
         </div>
       </section>
     </>

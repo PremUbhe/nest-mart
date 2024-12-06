@@ -6,16 +6,17 @@ import ProductCard from "@/components/ProductCard";
 import Swipers from '@/components/Swiper';
 
 // data
-import { getProductData } from '@/lib/helpers/Products';
+import { getProductData } from '@/lib/Helpers/Products';
 
 // type
-import { productType } from '@/lib/helpers/Products';
+import { productType } from '@/lib/Helpers/Products';
 import { sliderSchema } from '@/components/Swiper';
 
 // images
 import img1 from '@/public/sliders/banner-1.png'
 import img2 from '@/public/sliders/banner-2.png'
 import img3 from '@/public/sliders/banner-3.png'
+import img4 from '@/public/sliders/banner-4.png'
 
 const swiperData: sliderSchema[] = [
   {
@@ -32,7 +33,7 @@ const swiperData: sliderSchema[] = [
   },
   {
     name: "Everyday Fresh & Clean with Our Products",
-    img: img1
+    img: img4
   },
 ]
 
@@ -61,7 +62,11 @@ const Page = async () => {
         </div>
         <div className="flex flex-wrap">
           {productData.map((data: productType, index: number) => {
-            return <ProductCard params={data} key={index} />
+            return (
+              <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 p-3" key={index}>
+                <ProductCard params={data} />
+              </div>
+            )
           })}
         </div>
       </section>

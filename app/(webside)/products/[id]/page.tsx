@@ -2,7 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 // data
-import { getProductById } from "@/lib/helpers/Products";
+import { getProductById } from "@/lib/Helpers/Products";
+import { getCategoryData, getCategoryIdData } from '@/lib/Helpers/Category';
+
+// type
+import { categoryType } from '@/lib/Helpers/Category';
 
 // components
 import {
@@ -13,14 +17,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import AddCartSection from "@/components/AddCartSection";
 
 // icons
 import { TbHome } from "react-icons/tb";
 
 const products = async ({ params }: { params: { id: string } }) => {
 
-
   const ProductData = await getProductById(params.id);
+
+  const CategorieData = await getCategoryData();
+
+  const CategoryIdData = await getCategoryIdData(ProductData.category)
 
   return (
     <>
@@ -42,30 +50,27 @@ const products = async ({ params }: { params: { id: string } }) => {
         </Breadcrumb>
       </section>
       <section>
-        <div className="container mx-auto flex">
-          <aside className="w-3/12">
-            <h1>sidebar</h1>
-          </aside>
-          <article className="w-9/12">
+        <div className="container relative flex gap-5">
+          <article className="w-full">
             <div className="product-wrapper">
-              <div className="product-detail flex mb-5">
-                <div className="w-6/12 rounded-xl me-7 border border-border-color">
-                  <Image src={ProductData.img} alt={ProductData.name} width={300} height={300}></Image>
+              <div className="product-detail flex gap-5 mb-5">
+                <div className="w-full max-w-sm rounded-xl border border-border-color overflow-hidden">
+                  <Image src={ProductData.img} alt={ProductData.name} width={400} height={400}></Image>
                 </div>
-                <div className="w-6/12 px-4">
-                  {/* <h6>{ProductData.categories}</h6> */}
-                  <h3 className="text-4xl">{ProductData.name}</h3>
+                <div className="w-full px-4">
+                  <h6 className="px-6 py-1 text-sm bg-secondary w-fit rounded-xl">{CategoryIdData.name}</h6>
+                  <h3 className="text-4xl text-blue font-bold">{ProductData.name}</h3>
                   <h6 className="text-gray text-base w-25">
-                    <div className="product-rate d-inline-block mr-2">
+                    <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">
                       <div
-                        className="product-rating"
+                        className="product-rating bg-[url('/rating-stars.png')]"
                         style={{ width: `${ProductData.rating * 10}%` }}
                       ></div>
                     </div>
                     ({ProductData.rating.toFixed(1)} reviews)
                   </h6>
                   <div className="flex items-center gap-5">
-                    <h4 className="text-5xl text-primary">
+                    <h4 className="text-5xl text-primary font-semibold">
                       $
                       {(
                         ProductData.price -
@@ -73,13 +78,28 @@ const products = async ({ params }: { params: { id: string } }) => {
                       ).toFixed(2)}
                     </h4>
                     <div className="">
-                      <h6 className="text-base text-secondary">{`${ProductData.discount}% Off`}</h6>
-                      <h5 className="text-xl text-gray line-through">
+                      <h6 className="text-base font-medium text-secondary">{`${ProductData.discount}% Off`}</h6>
+                      <h5 className="text-xl text-gray font-semibold line-through">
                         ${ProductData.price}
                       </h5>
                     </div>
                   </div>
                   <h6>{ProductData.description}</h6>
+                  <AddCartSection stock={ProductData.stock} />
+                  <div className="flex mt-7">
+                    <div className="w-6/12">
+                      <ul>
+                        <li className="text-sm text-gray mb-2">MFG: <span className="text-primary">Jun 4.2024</span></li>
+                        <li className="text-sm text-gray">Stock: <span className="text-primary">{ProductData.stock} Items In Stock</span></li>
+                      </ul>
+                    </div>
+                    <div className="w-6/12">
+                      <ul>
+                        <li className="text-sm text-gray mb-2">LIFE: <span className="text-primary">70 days</span></li>
+                        <li className="text-sm text-gray">Tags: <span className="text-primary">Snack, Organic, Brown</span></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="product-discription text-gray p-10 border border-gray rounded-lg">
@@ -100,13 +120,6 @@ const products = async ({ params }: { params: { id: string } }) => {
                   the bucolically hey precarious goldfinch mastodon goodness
                   gnashed a jellyfish and one however because.
                 </p>
-                <ul>
-                  <li>Type Of Packing Bottle</li>
-                  <li>Color Green, Pink, Powder Blue, Purple</li>
-                  <li>Quantity Per Case 100ml</li>
-                  <li>Ethyl Alcohol 70%</li>
-                  <li>Piece In One Carton</li>
-                </ul>
                 <hr className="text-gray my-2" />
                 <p>
                   Laconic overheard dear woodchuck wow this outrageously taut
@@ -117,31 +130,30 @@ const products = async ({ params }: { params: { id: string } }) => {
                   far so the this where crud then below after jeez enchanting
                   drunkenly more much wow callously irrespective limpet.
                 </p>
-                <h1 className="text-2xl text-primary mt-7">
-                  Packaging & Delivery
-                </h1>
-                <hr className="text-gray my-2" />
-                <p>
-                  Less lion goodness that euphemistically robin expeditiously
-                  bluebird smugly scratched far while thus cackled sheepishly
-                  rigid after due one assenting regarding censorious while
-                  occasional or this more crane went more as this less much amid
-                  overhung anathematic because much held one exuberantly sheep
-                  goodness so where rat wry well concomitantly.
-                </p>
-                <p>
-                  Scallop or far crud plain remarkably far by thus far iguana
-                  lewd precociously and and less rattlesnake contrary caustic
-                  wow this near alas and next and pled the yikes articulate
-                  about as less cackled dalmatian in much less well jeering for
-                  the thanks blindly sentimental whimpered less across
-                  objectively fanciful grimaced wildly some wow and rose jeepers
-                  outgrew lugubrious luridly irrationally attractively
-                  dachshund.
-                </p>
               </div>
             </div>
           </article>
+          <aside className="w-full h-fit max-w-xs">
+            <div className="p-4 border rounded-xl mb-5 shadow">
+              <h4 className='text-2xl text-blue font-bold mb-5'>Category</h4>
+              <ul className='flex flex-col gap-3'>
+                {CategorieData.map((value: categoryType, index: number) => {
+                  return (
+                    <li className='flex items-center gap-3 font-semibold border border-border-color rounded-lg py-2 px-4 hover:shadow hover:border-primary-light hover:text-primary' key={index}>
+                      <Image src={value.img} alt={value.name} width={30} height={30}></Image>
+                      {value.name}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+            <div className="border bg-banner-Juice bg-cover rounded-xl overflow-hidden">
+              <div className="px-7 py-28">
+                <h6 className="text-gray text-md">Oganic</h6>
+                <h3 className="text-blue text-2xl font-semibold">Save 17% <br /> on <span className="text-primary">Oganic</span> <br /> Juice</h3>
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
     </>

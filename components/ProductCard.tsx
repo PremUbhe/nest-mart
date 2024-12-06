@@ -6,11 +6,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 
 // data
-import { getCategoryIdData } from "@/lib/helpers/Category";
-import { getBrandById } from "@/lib/helpers/Brands";
+import { getCategoryIdData } from "@/lib/Helpers/Category";
+import { getBrandById } from "@/lib/Helpers/Brands";
 
 // type
-import { productType } from "@/lib/helpers/Products";
+import { productType } from "@/lib/Helpers/Products";
 
 
 // icons
@@ -22,7 +22,6 @@ const ProductCard = async ({ params }: { params: productType }) => {
   const brandData = await getBrandById(params.brand)
 
   return (
-    <div className="product-card-wrapper lg:w-3/12 p-3">
       <div className="product-card p-7 rounded-xl hover:border-primary-light hover:shadow-lg">
         <Link href={`/products/${params._id}`}>
           <Image
@@ -62,7 +61,6 @@ const ProductCard = async ({ params }: { params: productType }) => {
           <Button className="bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white"><FaCartShopping /> Add</Button>
         </div>
       </div>
-    </div>
   );
 }
 
