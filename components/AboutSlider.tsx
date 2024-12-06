@@ -10,7 +10,6 @@ import 'swiper/css/navigation';
 import img1 from "@/public/about/about-2.png"
 import img2 from "@/public/about/about-3.png"
 import img3 from "@/public/about/about-4.png"
-import img4 from "@/public/about/about-5.png"
 
 export type sliderType = {
     img: StaticImageData

@@ -2,41 +2,20 @@
 
 import React from 'react';
 import Link from 'next/link';
-
-// data
-import { getCategoryData } from '@/lib/Helpers/Category';
-import { getBrandData } from '@/lib/Helpers/Brands';
-
-// type
-import { categoryType } from '@/lib/Helpers/Category';
-import { brandType } from '@/lib/Helpers/Brands';
-
-// components
+// action
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectLabel,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+// components
+import CategorySelectList from '@/components/CategorySelectList';
+import BrandSelectList from '@/components/BrandSelectList';
+// ui
 import { Input } from '@/components/ui/input'
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-
-
-
 // icons
 import { FaCircleLeft } from "react-icons/fa6";
 
 
-const ProductAdd = async () => {
-
-    const categoryData = await getCategoryData()
-
-    const brandData = await getBrandData()
+const ProductAdd = () => {
 
     return (
         <>
@@ -52,38 +31,10 @@ const ProductAdd = async () => {
                     <Input type="file" className='pt-[6px] w-full' name="img" placeholder='image' required />
                 </div>
                 <div className="w-6/12 pe-3 mb-5">
-                    <Select name="category" required>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select a Category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Categories</SelectLabel>
-                                {categoryData.map((data: categoryType, index: number) => {
-                                    return (
-                                        <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
-                                    )
-                                })}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <CategorySelectList />
                 </div>
                 <div className="w-6/12 ps-3 mb-5">
-                    <Select name="brand" required>
-                        <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select a Brand" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Brands</SelectLabel>
-                                {brandData.map((data: brandType, index: number) => {
-                                    return (
-                                        <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
-                                    )
-                                })}
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
+                    <BrandSelectList />
                 </div>
                 <div className="w-3/12 pe-3 mb-5">
                     <Input type="number" className='w-full' name='price' placeholder='Price' required />
@@ -100,13 +51,11 @@ const ProductAdd = async () => {
                 <div className="w-full mb-5">
                     <Textarea name="description" className='border w-full' id="description" placeholder='Description' rows={4}></Textarea>
                 </div>
-
                 <Button type='submit' variant="outline"
                     className='bg-primary-light hover:bg-primary hover:text-white'>
                     Submit
                 </Button>
             </form>
-
         </>
     )
 }
