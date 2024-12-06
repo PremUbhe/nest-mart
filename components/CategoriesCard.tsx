@@ -2,14 +2,14 @@ import React from "react";
 import Image from "next/image";
 
 // data
-import { getCategoryData } from "@/lib/Helpers/Category";
+import { GetCategoryData } from "@/lib/Helpers/Category";
 
 // type
 import { categoryType } from "@/lib/Helpers/Category";
 
 export default async function CategoriesCard() {
 
-  const CategorieData = await getCategoryData();
+  const CategorieData = await GetCategoryData();
 
   return (
     <div className="flex flex-row py-3 gap-4 overflow-x-auto">

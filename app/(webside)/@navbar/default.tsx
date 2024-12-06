@@ -22,14 +22,14 @@ import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { MdDashboard } from "react-icons/md";
 
 // data
-import { getCategoryData } from '@/lib/Helpers/Category';
+import { GetCategoryData } from '@/lib/Helpers/Category';
 
 // type
 import { categoryType } from '@/lib/Helpers/Category';
 
 const Default = async () => {
 
-  const categoryData = await getCategoryData()
+  const categoryData = await GetCategoryData()
 
   return (
     <nav className="sticky top-0 py-2 px-4 bg-white border-b border-primary-light shadow z-50">

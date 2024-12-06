@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/select"
 
 // data
-import { getBrandData } from '@/lib/Helpers/Brands';
+import { GetBrandData } from '@/lib/Helpers/Brands';
 
 // type
 import { brandType } from '@/lib/Helpers/Brands';
 
 const BrandSelectList = async () => {
 
-    const brandData = await getBrandData()
+    const brandData = await GetBrandData()
 
     return (
         <Select name="brand" required>

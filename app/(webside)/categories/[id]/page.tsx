@@ -1,9 +1,9 @@
 import React from 'react'
-import { getCategoryIdData } from '@/lib/Helpers/Category'
+import { GetCategoryIdData } from '@/lib/Helpers/Category'
 
 const page = async ({ params }: { params: { id: string } }) => {
 
-    const categoryData = await getCategoryIdData(params.id)
+    const categoryData = await GetCategoryIdData(params.id)
     return (
         <div>{categoryData.name}</div>
     )

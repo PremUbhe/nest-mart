@@ -11,14 +11,14 @@ import {
 } from "@/components/ui/select"
 
 // data
-import { getCategoryData } from '@/lib/Helpers/Category';
+import { GetCategoryData } from '@/lib/Helpers/Category';
 
 // type
 import { categoryType } from '@/lib/Helpers/Category';
 
 const CategorySelectList = async () => {
 
-    const categoryData = await getCategoryData()
+    const categoryData = await GetCategoryData()
 
     return (
         <Select name="category" required>

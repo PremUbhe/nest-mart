@@ -6,7 +6,7 @@ export type brandType = {
 }
 
 // GET brand data
-export async function getBrandData(): Promise<brandType[]> {
+export async function GetBrandData(): Promise<brandType[]> {
 
     const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
         {
@@ -28,7 +28,7 @@ export async function getBrandData(): Promise<brandType[]> {
 
 
 // GET Brand By ID
-export async function getBrandById(id: string): Promise<brandType> {
+export async function GetBrandById(id: string): Promise<brandType> {
 
     const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
         {
@@ -49,7 +49,7 @@ export async function getBrandById(id: string): Promise<brandType> {
 
 
 // DETETE Brand By ID
-export async function deleteBrandById(id: string) {
+export async function DeleteBrandById(id: string) {
 
     const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
         {

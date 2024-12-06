@@ -7,7 +7,7 @@ export type categoryType = {
 }
 
 // category data
-export async function getCategoryData(): Promise<categoryType[]> {
+export async function GetCategoryData(): Promise<categoryType[]> {
 
     const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
         {
@@ -28,7 +28,7 @@ export async function getCategoryData(): Promise<categoryType[]> {
 }
 
 // category ID data
-export async function getCategoryIdData(id: string): Promise<categoryType> {
+export async function GetCategoryIdData(id: string): Promise<categoryType> {
 
     const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${id}`,
         {

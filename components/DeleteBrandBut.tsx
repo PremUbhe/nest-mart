@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast"
 import { FaTrashCan } from "react-icons/fa6";
 
 // data
-import { deleteBrandById } from '@/lib/Helpers/Brands';
+import { DeleteBrandById } from '@/lib/Helpers/Brands';
 
 const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) => {
 
@@ -14,7 +14,7 @@ const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) =
 
   const deleteBrand = async () => {
 
-    await deleteBrandById(params._id);
+    await DeleteBrandById(params._id);
 
     toast({
       title: `${params.name}`,

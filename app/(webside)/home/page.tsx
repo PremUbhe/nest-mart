@@ -6,7 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import Swipers from '@/components/Swiper';
 
 // data
-import { getProductData } from '@/lib/Helpers/Products';
+import { GetProductData } from '@/lib/Helpers/Products';
 
 // type
 import { productType } from '@/lib/Helpers/Products';
@@ -39,7 +39,7 @@ const swiperData: sliderSchema[] = [
 
 const Page = async () => {
 
-  const productData = await getProductData();
+  const productData = await GetProductData();
 
   return (
     <main>

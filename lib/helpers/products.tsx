@@ -15,7 +15,7 @@ export type productType = {
 
 
 // products data
-export async function getProductData(): Promise<productType[]> {
+export async function GetProductData(): Promise<productType[]> {
 
   const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
     {
@@ -36,7 +36,7 @@ export async function getProductData(): Promise<productType[]> {
 
 
 // products by id data
-export async function getProductById(id: string): Promise<productType> {
+export async function GetProductById(id: string): Promise<productType> {
 
   const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`,
     {

@@ -9,7 +9,7 @@ import DeleteBrandBut from '@/components/DeleteBrandBut';
 import { brandType } from '@/lib/Helpers/Brands';
 
 // data
-import { getBrandData } from '@/lib/Helpers/Brands';
+import { GetBrandData } from '@/lib/Helpers/Brands';
 
 // icons
 import { FaPencil } from "react-icons/fa6";
@@ -18,7 +18,7 @@ import { FaPlus } from "react-icons/fa6";
 
 const BrandList = async () => {
 
-  const BrandsData = await getBrandData();
+  const BrandsData = await GetBrandData();
 
   return (
     <>

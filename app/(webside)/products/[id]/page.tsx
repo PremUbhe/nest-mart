@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 
 // data
-import { getProductById } from "@/lib/Helpers/Products";
-import { getCategoryData, getCategoryIdData } from '@/lib/Helpers/Category';
+import { GetProductById } from "@/lib/Helpers/Products";
+import { GetCategoryData, GetCategoryIdData } from '@/lib/Helpers/Category';
 
 // type
 import { categoryType } from '@/lib/Helpers/Category';
@@ -24,11 +24,11 @@ import { TbHome } from "react-icons/tb";
 
 const products = async ({ params }: { params: { id: string } }) => {
 
-  const ProductData = await getProductById(params.id);
+  const ProductData = await GetProductById(params.id);
 
-  const CategorieData = await getCategoryData();
+  const CategorieData = await GetCategoryData();
 
-  const CategoryIdData = await getCategoryIdData(ProductData.category)
+  const CategoryIdData = await GetCategoryIdData(ProductData.category)
 
   return (
     <>

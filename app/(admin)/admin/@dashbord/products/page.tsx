@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 // data
-import { getProductData } from '@/lib/Helpers/Products';
-import { getCategoryIdData } from '@/lib/Helpers/Category';
-import { getBrandById } from '@/lib/Helpers/Brands';
+import { GetProductData } from '@/lib/Helpers/Products';
+import { GetCategoryIdData } from '@/lib/Helpers/Category';
+import { GetBrandById } from '@/lib/Helpers/Brands';
 
 // type
 import { productType } from '@/lib/Helpers/Products';
@@ -21,7 +21,7 @@ import DeleteBut from '@/components/DeleteBut';
 
 const ProductList = async () => {
 
-  const productData = await getProductData();
+  const productData = await GetProductData();
 
   return (
     <>
@@ -48,8 +48,8 @@ const ProductList = async () => {
         <tbody>
           {productData.map(async (value: productType, index: number,) => {
 
-            const categoryData = await getCategoryIdData(value.category);
-            const brandData = await getBrandById(value.brand)
+            const categoryData = await GetCategoryIdData(value.category);
+            const brandData = await GetBrandById(value.brand)
 
             return (
               <tr key={index}>
