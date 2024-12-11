@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-// icons
-import { FaWindows } from "react-icons/fa6";
-import { MdCategory } from "react-icons/md";
-import { TbBrandShopee } from "react-icons/tb";
-import { AiFillProduct } from "react-icons/ai";
+// components
+import AdminSidebar from "@/components/AdminSidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 
 export const metadata: Metadata = {
@@ -14,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function AdminLayout({
-    children
+    children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
@@ -22,15 +19,11 @@ export default function AdminLayout({
         <section className="p-4">
             <div className="flex gap-5">
                 <div className="w-3/12">
-                    <div className="side-bar flex flex-col gap-3 border border-gray rounded-lg p-5 shadow-lg">
-                        <Link className="flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg" href="/admin"><FaWindows /> Dashbord</Link>
-                        <Link className="flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg" href="/admin/categories"><MdCategory /> Categories</Link>
-                        <Link className="flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg" href="/admin/brands"><TbBrandShopee />Brands</Link>
-                        <Link className="flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg" href="/admin/products"><AiFillProduct /> Products</Link>
-                    </div>
+                    <AdminSidebar />
                 </div>
                 <div className="dashbord w-9/12 p-5 border border-gray rounded-lg shadow-lg">
                     {children}
+                    <Toaster />
                 </div>
             </div>
         </section>

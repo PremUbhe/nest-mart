@@ -1,18 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import { columns } from "./columns"
+import { DataTable } from "./data-table"
 
 // components
 import { Button } from '@/components/ui/button';
-import DeleteBrandBut from '@/components/DeleteBrandBut';
-
-// type
-import { brandType } from '@/lib/ApiFunctions/Brands';
 
 // data
 import { GetBrandData } from '@/lib/ApiFunctions/Brands';
 
 // icons
-import { FaPencil } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 
 
@@ -29,31 +26,9 @@ const BrandList = async () => {
           <Link href="/admin/brands/add" className='flex gap-2 items-center'> <FaPlus /> Add</Link>
         </Button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>SR No.</th>
-            <th>Brand Name</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {BrandsData.map((value: brandType, index: number,) => {
-            return (
-              <tr key={index}>
-                <td>{index}</td>
-                <td>{value.name}</td>
-                <td>
-                  <div className="flex justify-center gap-2">
-                    <Link href={`/admin/brands/add/${value._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
-                    <DeleteBrandBut params={value} />
-                  </div>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      <div className="container mx-auto">
+        <DataTable columns={columns} data={BrandsData} />
+      </div>
     </>
   )
 }

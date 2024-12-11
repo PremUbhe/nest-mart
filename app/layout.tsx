@@ -20,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${quicksand.variable} antialiased`}>
-        <main>
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );
