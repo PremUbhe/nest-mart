@@ -1,5 +1,3 @@
-import React from 'react'
-
 export type brandType = {
     _id: string;
     name: string
@@ -65,11 +63,3 @@ export async function DeleteBrandById(id: string) {
 
     return brandAPI.json()
 }
-
-const Brands = () => {
-    return (
-        <div>Brands</div>
-    )
-}
-
-export default Brands

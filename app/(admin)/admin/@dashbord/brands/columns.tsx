@@ -18,9 +18,9 @@ export const columns: ColumnDef<brandType>[] = [
     {
         id: "select",
         header: () => <div className="flex justify-center">SR No.</div>,
-        cell: () => (
+        cell: ({row}) => (
             <div className="flex justify-center">
-                1
+                {row.index + 1}
             </div>
         ),
         enableSorting: false,

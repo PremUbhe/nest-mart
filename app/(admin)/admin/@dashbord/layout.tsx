@@ -18,10 +18,10 @@ export default function AdminLayout({
     return (
         <section className="p-4">
             <div className="flex gap-5">
-                <div className="w-3/12">
+                <div className="min-w-64">
                     <AdminSidebar />
                 </div>
-                <div className="dashbord w-9/12 p-5 border border-gray rounded-lg shadow-lg">
+                <div className="dashbord w-full p-5 border border-gray rounded-lg shadow-lg">
                     {children}
                     <Toaster />
                 </div>

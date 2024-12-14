@@ -17,19 +17,21 @@ const AdminSidebar = () => {
 
     const pathname = usePathname();
 
-    console.log(pathname)
-
     return (
         <div className="side-bar flex flex-col gap-3 border border-gray rounded-lg p-5 shadow-lg">
-            <Button variant="outline" size="lg" className={`${"/admin" === pathname ? "bg-primary" : "bg-primary-light"} hover:bg-primary`}>
+            <Button variant="outline" size="lg" className={`${"/admin" === pathname ? "bg-primary text-white" : "bg-primary-light"} justify-start hover:bg-primary hover:text-white`}>
                 <Link className="flex gap-2" href="/admin"><FaWindows /> Dashbord</Link>
             </Button>
-            <Button variant="outline" size="lg" className={`${"/admin/categories" === pathname ? "bg-primary" : "bg-primary-light"} hover:bg-primary`}>
+            <Button variant="outline" size="lg" className={`${"/admin/categories" === pathname ? "bg-primary text-white" : "bg-primary-light"} justify-start hover:bg-primary hover:text-white`}>
                 <Link className="flex gap-2" href="/admin/categories"><MdCategory /> Category</Link>
             </Button>
-            <Link className={`flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg`} href="/admin/brands"><TbBrandShopee />Brands</Link>
-            <Link className={`flex gap-2 items-center py-4 px-10 bg-primary-light rounded-lg`} href="/admin/products"><AiFillProduct /> Products</Link>
-            <Button variant="outline" size="lg" className={`${"/admin/contact" === pathname ? "bg-primary" : "bg-primary-light"} hover:bg-primary`}>
+            <Button variant="outline" size="lg" className={`${"/admin/brands" === pathname ? "bg-primary text-white" : "bg-primary-light"} justify-start hover:bg-primary hover:text-white`}>
+                <Link className="flex gap-2" href="/admin/brands"><TbBrandShopee />Brands</Link>
+            </Button>
+            <Button variant="outline" size="lg" className={`${"/admin/products" === pathname ? "bg-primary text-white" : "bg-primary-light"} justify-start hover:bg-primary hover:text-white`}>
+                <Link className="flex gap-2" href="/admin/products"><AiFillProduct /> Products</Link>
+            </Button>
+            <Button variant="outline" size="lg" className={`${"/admin/contact" === pathname ? "bg-primary text-white" : "bg-primary-light"} justify-start hover:bg-primary hover:text-white`}>
                 <Link className="flex gap-2" href="/admin/contact"><MdCategory /> Contact Inquiry</Link>
             </Button>
         </div>

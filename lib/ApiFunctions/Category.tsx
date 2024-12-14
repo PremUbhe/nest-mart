@@ -1,5 +1,3 @@
-import React from 'react'
-
 export type categoryType = {
     _id: string;
     name: string;
@@ -48,10 +46,20 @@ export async function GetCategoryIdData(id: string): Promise<categoryType> {
 }
 
 
-const Category = () => {
-    return (
-        <div>Category</div>
-    )
-}
+// DETETE Category By ID
+export async function DeleteCategoryById(id: string) {
 
-export default Category
+    const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${id}`,
+        {
+            headers: { Accept: "application/json", },
+            method: "DELETE",
+            next: { tags: ['category'] },
+        }
+    )
+
+    if (!categoryAPI.ok) {
+        throw new Error(`Category ID API call failed with status ${categoryAPI.status}`)
+    }
+
+    return categoryAPI.json()
+}

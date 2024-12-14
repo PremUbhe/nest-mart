@@ -16,9 +16,9 @@ const nextConfig = {
     async redirects() {
         return [
             {
-                source: "/", // Match the root path
-                destination: "/home", // Redirect to /home
-                permanent: true, // Set to true for a 308 permanent redirect
+                source: "/",
+                destination: "/home",
+                permanent: true,
             },
         ];
     },
