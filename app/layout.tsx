@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
+import AuthProvider from "@/context/AuthProvider";
+
 const quicksand = localFont({
   src: "./fonts/Quicksand-Regular.ttf",
   variable: "--font-quicksand",
@@ -19,9 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${quicksand.variable} antialiased`}>
-        {children}
-      </body>
+      <AuthProvider>
+        <body className={` ${quicksand.variable} antialiased`}>
+          {children}
+        </body>
+      </AuthProvider>
+
     </html>
   );
 }
