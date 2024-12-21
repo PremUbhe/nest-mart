@@ -3,9 +3,9 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface User extends Document {
     username: string;
     email: string;
-    contact: string;
+    contact?: string;
     password: string;
-    location: string;
+    location?: string;
     cart: Array<string>
     type: "user" | "vendor" | "master";
     wishlist: Array<string>;
@@ -28,7 +28,7 @@ const UserSchema: Schema<User> = new Schema({
     },
     contact: {
         type: String,
-        required: [true, "Contact No is required"],
+        required: false,
         unique: true,
     },
     password: {
@@ -37,7 +37,7 @@ const UserSchema: Schema<User> = new Schema({
     },
     location: {
         type: String,
-        required: [true, "Location is required"],
+        required: false,
     },
     cart: {
         type: [String],
@@ -59,7 +59,7 @@ const UserSchema: Schema<User> = new Schema({
     },
 },
     {
-        timestamps: true // Automatically adds createdAt and updatedAt
+        timestamps: true
     }
 )
 
