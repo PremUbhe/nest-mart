@@ -29,7 +29,7 @@ const UserSchema: Schema<User> = new Schema({
     contact: {
         type: String,
         required: false,
-        unique: true,
+        unique: false,
     },
     password: {
         type: String,
