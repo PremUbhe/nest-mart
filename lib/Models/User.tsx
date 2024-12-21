@@ -9,7 +9,6 @@ export interface User extends Document {
     cart: Array<string>
     type: "user" | "vendor" | "master";
     wishlist: Array<string>;
-    // verifyCode : string;
     isVerified: boolean;
 }
 
@@ -29,7 +28,6 @@ const UserSchema: Schema<User> = new Schema({
     contact: {
         type: String,
         required: false,
-        unique: false,
     },
     password: {
         type: String,
