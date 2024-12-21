@@ -38,7 +38,7 @@ const Default = async () => {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger className='flex gap-2 items-center bg-primary text-white py-2 px-7 rounded-lg hover:bg-primary-light'><MdDashboard /> Browse All Categories</NavigationMenuTrigger>
+                <NavigationMenuTrigger className='flex gap-2 items-center bg-primary text-white py-2 px-7 rounded-lg hover:bg-secondary focus:bg-secondary'><MdDashboard /> Browse All Categories</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                     {categoryData.map((data: categoryType, index: number) => (

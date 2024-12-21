@@ -62,6 +62,9 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.id = user.id?.toString();
                 token.username = user.username;
+                token.type = user.type;
+                token.cart = user.cart;
+                token.wishlist = user.wishlist;
             }
             return token;
         },
@@ -69,6 +72,9 @@ export const authOptions: NextAuthOptions = {
             if (token) {
                 session.user.id = token.id;
                 session.user.username = token.username;
+                session.user.type = token.type;
+                session.user.cart = token.cart;
+                session.user.wishlist = token.wishlist;
             }
             return session;
         },

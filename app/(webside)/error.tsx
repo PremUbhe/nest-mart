@@ -15,8 +15,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="relative w-full h-screen p-5 bg-primary ">
-      <div className="w-full h-full bg-white flex flex-col justify-center items-center rounded-lg shadow-xl">
+    <div className="flex flex-col justify-center items-center p-5 border rounded-lg m-5 border-primary">
       <h2 className="text-xl mb-4">Something went wrong!</h2>
       <button className="flex gap-2 items-center bg-primary py-2 px-4 rounded-lg"
         onClick={
@@ -24,9 +23,8 @@ export default function Error({
         }
       >
         Try again
-        <FaArrowRotateRight className="animate-spin"/>
+        <FaArrowRotateRight />
       </button>
-      </div>
     </div>
   );
 }

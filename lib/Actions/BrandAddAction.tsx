@@ -1,7 +1,6 @@
 'use server';
 import { z } from 'zod'
 import { revalidateTag } from 'next/cache'
-import Aleart from '@/components/Aleart';
 
 const BrandSchema = z.object({
     name: z.string(),
@@ -29,9 +28,8 @@ const BrandAddAction = async (formData: FormData) => {
         if (response.ok) {
             const data = await response.json();
             console.log("Brand added successfully:", data);
-            <Aleart params="brand" />
             revalidateTag('brand');
-
+            
         } else {
             const errorData = await response.json();
             console.error("Error adding Brand:", errorData);

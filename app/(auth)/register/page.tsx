@@ -25,7 +25,7 @@ import FormSuccess from '@/components/FormSuccess';
 
 import RegisterAction from '@/lib/Actions/RegisterAction';
 
-const Page = () => {
+const Register = () => {
 
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>('');
@@ -125,4 +125,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Register

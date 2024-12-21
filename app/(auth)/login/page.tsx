@@ -23,11 +23,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import FormError from "@/components/FormError";
+import { useRouter } from "next/navigation";
 
 import LogInAction from "@/lib/Actions/LogInAction";
 
-const Page = () => {
+const Login = () => {
 
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>('');
 
@@ -41,10 +43,13 @@ const Page = () => {
 
   function onSubmit(values: z.infer<typeof signInSchemma>) {
 
-    startTransition(()=> {
+    startTransition(() => {
       LogInAction(values)
-        .then((data)=> {
+        .then((data) => {
           setError(data?.error)
+          if (data?.success) {
+            router.push("/home");
+          }
         })
     });
   }
@@ -72,11 +77,11 @@ const Page = () => {
                   <FormItem>
                     <FormLabel>Username or Email</FormLabel>
                     <FormControl>
-                      <Input 
-                      placeholder=""
-                      type="text"
-                      disabled={isPending}
-                      {...field} />
+                      <Input
+                        placeholder=""
+                        type="text"
+                        disabled={isPending}
+                        {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -89,18 +94,20 @@ const Page = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input 
-                      placeholder="" 
-                      type="password"
-                      disabled={isPending}
-                      {...field} />
+                      <Input
+                        placeholder=""
+                        type="password"
+                        disabled={isPending}
+                        {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormError message={error}/>
-              <Button type="submit" disabled={isPending}>Submit</Button>
+              <FormError message={error} />
+              <Button type="submit" disabled={isPending}>
+                {isPending ? "Logging in..." : "Submit"}
+              </Button>
             </form>
           </Form>
         </div>
@@ -109,4 +116,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Login;
