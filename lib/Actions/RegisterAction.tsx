@@ -18,47 +18,59 @@ const RegisterAction = async (values: z.infer<typeof signUpSchema>) => {
 
     await dbConnect();
 
-    const existingUserVerifiedByUsername = await UserModel.findOne({
-        username: values.username,
-        isVerified: true
-    });
+    try {
 
-    if (existingUserVerifiedByUsername) {
-        return { error: "Username is already taken" }
-    }
+        const existingUserVerifiedByUsername = await UserModel.findOne({
+            username: values.username,
+            isVerified: true
+        });
 
-    const existingUserByEmail = await UserModel.findOne({
-        email: values.email
-    });
+        if (existingUserVerifiedByUsername) {
+            return { error: "Username is already taken" }
+        }
 
-    if (existingUserByEmail) {
-        return { error: "User alredy exist" }
-    } else {
+        const existingUserByEmail = await UserModel.findOne({
+            email: values.email
+        });
+
+        if (existingUserByEmail) {
+            return { error: "User already exists" }
+        }
+
         const hashedPassword = await bcrypt.hash(values.password, 10)
-        
+
+        const verifyCode = Math.floor(10000 + Math.random() * 900000).toString()
+
         const newUser = new UserModel({
             username: values.username,
             email: values.email,
             password: hashedPassword,
+            verifyCode: verifyCode,
             isVerified: false,
         })
-        
-        await newUser.save()
+
+        const res = await newUser.save()
+
+        if (!res) {
+            return { error: "Something went wrong while saving the user." }
+        }
+
+        const emailResponse = await sendVerificationEmail(
+            values.email,
+            values.username,
+            verifyCode
+        )
+
+        if (!emailResponse) {
+            return { error: "Error while sending email" }
+        }
+
+        return { success: "User register Successfully" }
+
+    } catch (error) {
+        console.error(error);
+        return { error: "An unexpected error occurred. Please try again." };
     }
-    
-    const verifyCode = Math.floor(10000 + Math.random() * 900000).toString()
-
-    const emailResponse = await sendVerificationEmail(
-        values.email,
-        values.username,
-        verifyCode
-    )
-
-    if (!emailResponse) {
-        return {error: "Error while sending email"}
-    }
-
-    return { success: "User register Successfully" }
 
 }
 
