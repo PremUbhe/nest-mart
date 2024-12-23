@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import AuthProvider from "@/context/AuthProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const quicksand = localFont({
   src: "./fonts/Quicksand-Regular.ttf",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <AuthProvider>
         <body className={` ${quicksand.variable} antialiased`}>
           {children}
+          <Toaster />
         </body>
       </AuthProvider>
 

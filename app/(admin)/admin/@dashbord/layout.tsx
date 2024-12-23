@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 // components
 import AdminSidebar from "@/components/AdminSidebar";
-import { Toaster } from "@/components/ui/toaster";
+
 
 
 export const metadata: Metadata = {
@@ -23,7 +23,6 @@ export default function AdminLayout({
                 </div>
                 <div className="dashbord w-full p-5 border border-gray rounded-lg shadow-lg">
                     {children}
-                    <Toaster />
                 </div>
             </div>
         </section>

@@ -4,7 +4,7 @@ import React from 'react';
 import { GetProductData } from '@/lib/ApiFunctions/Products';
 
 // components
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/website/products/ProductCard";
 import { Input } from '@/components/ui/input';
 
 import {

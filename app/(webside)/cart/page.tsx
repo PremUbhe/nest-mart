@@ -1,6 +1,17 @@
+'use client';
 import React from 'react'
+import { columns } from "./columns"
+import { DataTable } from "./data-table"
+
+import { useSession } from 'next-auth/react';
+
 
 const Cart = () => {
+
+    const { data: session } = useSession();
+
+    const userCart = session?.user.cart
+
     return (
         <section>
             <h1 className='text-4xl text-blue font-bold'>Your Cart</h1>
@@ -11,44 +22,7 @@ const Cart = () => {
                         <button className='text-gray' type='button'>Clear Cart</button>
                     </div>
                     <div className="my-5">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" /></th>
-                                    <th><h4>Product</h4></th>
-                                    <th><h4>Unit Price</h4></th>
-                                    <th><h4>Quantity</h4></th>
-                                    <th><h4>Subtotal</h4></th>
-                                    <th><h4>Remove</h4></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" /></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                    <td><p>acacszv</p></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <DataTable columns={columns} data={userCart} />
                     </div>
                 </div>
                 <div className="w-4/12">

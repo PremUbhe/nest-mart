@@ -12,10 +12,12 @@ export async function middleware(request: NextRequest) {
 
     if (
         token &&
-        (url.pathname.startsWith('/login') ||
-            url.pathname.startsWith('/register') ||
-            url.pathname === '/')
+        (url.pathname.startsWith('/login') || url.pathname.startsWith('/register') || url.pathname === '/')
     ) {
+        return NextResponse.redirect(new URL('/home', request.url));
+    }
+
+    if(token?.type !== "master" && url.pathname.startsWith('/admin')) {
         return NextResponse.redirect(new URL('/home', request.url));
     }
 

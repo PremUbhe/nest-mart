@@ -1,4 +1,5 @@
 import 'next-auth';
+import { UserCart, UserWishlist } from '@/lib/Models/User';
 
 declare module 'next-auth' {
   interface Session {
@@ -6,8 +7,8 @@ declare module 'next-auth' {
       id?: string;
       username?: string;
       type?: "user" | "vendor" | "master";
-      cart?: Array<string>;
-      wishlist?: Array<string>;
+      cart?: UserCart[];
+      wishlist?: UserWishlist[];
     } & DefaultSession['user'];
   }
 
@@ -15,8 +16,8 @@ declare module 'next-auth' {
     id?: string;
     username?: string;
     type?: "user" | "vendor" | "master";
-    cart?: Array<string>;
-    wishlist?: Array<string>;
+    cart?: UserCart[];
+    wishlist?: UserWishlist[];
   }
 }
 
@@ -25,7 +26,7 @@ declare module 'next-auth/jwt' {
     id?: string;
     username?: string;
     type?: "user" | "vendor" | "master";
-    cart?: Array<string>;
-    wishlist?: Array<string>;
+    cart?: UserCart[];
+    wishlist?: UserWishlist[];
   }
 }

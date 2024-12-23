@@ -2,7 +2,7 @@ import React from 'react';
 
 // components;
 import CategoriesCard from "@/components/CategoriesCard";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/website/products/ProductCard";
 import Swipers from '@/components/Swiper';
 
 // data

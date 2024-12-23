@@ -1,15 +1,42 @@
 import mongoose, { Schema, Document } from "mongoose";
 
+export interface UserCart extends Document {
+    productId: string;
+    quantity: number;
+}
+export interface UserWishlist extends Document {
+    productId: string;
+}
+
 export interface User extends Document {
     username: string;
     email: string;
     password: string;
-    cart: Array<string>
+    cart: UserCart[]
     type: "user" | "vendor" | "master";
-    wishlist: Array<string>;
+    wishlist: UserWishlist[];
     verifyCode: string;
     isVerified: boolean;
 }
+
+const UserCartSchema: Schema<UserCart> = new Schema({
+    productId: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: Number,
+        required: true
+    }
+});
+const UserWishlistSchema: Schema<UserWishlist> = new Schema({
+    productId: {
+        type: String,
+        required: true
+    }
+});
+
+
 
 const UserSchema: Schema<User> = new Schema({
     username: {
@@ -28,11 +55,11 @@ const UserSchema: Schema<User> = new Schema({
         required: [true, "Password is required"],
     },
     cart: {
-        type: [String],
+        type: [UserCartSchema],
         default: []
     },
     wishlist: {
-        type: [String],
+        type: [UserWishlistSchema],
         default: []
     },
     type: {

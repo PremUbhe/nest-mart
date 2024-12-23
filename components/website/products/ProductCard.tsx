@@ -2,9 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// components
-import { Button } from "./ui/button";
-
 // data
 import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
 import { GetBrandById } from "@/lib/ApiFunctions/Brands";
@@ -12,9 +9,9 @@ import { GetBrandById } from "@/lib/ApiFunctions/Brands";
 // type
 import { productType } from "@/lib/ApiFunctions/Products";
 
-
 // icons
-import { FaCartShopping } from "react-icons/fa6";
+import AddtoCartButton from "./AddtoCartButton";
+
 
 const ProductCard = async ({ params }: { params: productType }) => {
 
@@ -58,7 +55,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
             ${params.price}
           </span>
         </h6>
-        <Button className="bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white"><FaCartShopping /> Add</Button>
+        <AddtoCartButton productId={params._id} quantity={1} />
       </div>
     </div>
   );
