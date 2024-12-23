@@ -17,9 +17,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { Product } from "@/lib/Models/Product"
+export type cartDataType = {
+    productId: string;
+    productName: string;
+    productImg: string;
+    productPrice: number;
+    productDiscount: number;
+    productQuantity: number;
+}
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<cartDataType>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -32,18 +39,17 @@ export const columns: ColumnDef<Product>[] = [
                     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                     aria-label="Select all"
                 />
-                Products
+                No.
             </div>
         ),
-        cell: ({ row }) => (            
-            <div className="flex">
+        cell: ({ row }) => (
+            <div className="flex gap-2">
                 <Checkbox
                     checked={row.getIsSelected()}
                     onCheckedChange={(value) => row.toggleSelected(!!value)}
                     aria-label="Select row"
                 />
-                <Image src={row.getValue("img")} alt=""></Image>
-                <h4>{row.getValue("name")}</h4>
+                <h4>{row.index + 1}</h4>
             </div>
 
         ),
@@ -51,46 +57,90 @@ export const columns: ColumnDef<Product>[] = [
         enableHiding: false,
     },
     {
-        accessorKey: "quantity",
+        accessorKey: "productImg",
+        header: () => <div className="text-center">Product Images</div>,
+        cell: ({ row }) => (
+            <div className="flex justify-center">
+                <Image src={row.getValue("productImg")} alt='img' width={50} height={50}></Image>
+            </div>
+        )
+    },
+    {   
+        id: "product",
+        accessorKey: "productName",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Quantity
+                    Products
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "amount",
-        header: () => <div className="text-right">Amount</div>,
+        accessorKey: "productPrice",
+        header: () => <div className="text-left">Amount</div>,
         cell: ({ row }) => {
-            const amount = parseFloat(row.getValue("price"))
+            const amount = parseFloat(row.getValue("productPrice"))
+            const formatted = new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+            }).format(amount)
 
-            return <div className="text-right font-medium">{amount}</div>
+            return <div className="text-left font-medium">{formatted}</div>
         },
     },
     {
+        accessorKey: "productDiscount",
+        header: () => <div className="text-center">Discount</div>,
+        cell: ({ row }) => {
+            const discount : number = row.getValue("productDiscount")
+            return <div className="text-center font-medium">{discount}%</div>
+        }
+    },
+    {
+        accessorKey: "productQuantity",
+        header: () => <div className="text-center">Quantity</div>,
+        cell: ({ row }) => {
+            const quantity : number = row.getValue("productQuantity")
+            return <div className="text-center">{quantity}</div>
+        }
+    },
+    {
         id: "actions",
-        cell: () => {
+        header: () => <div className="text-left">Total Price</div>,
+        cell: ({ row }) => {
+            const price: number = row.getValue("productPrice");
+            const quantity: number = row.getValue("productQuantity");
+            const discount: number = row.getValue("productDiscount");
+
+            const totalAmount : number = (price * quantity) - (price * discount * quantity / 100)
+
+            const formatted = new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+            }).format(totalAmount)
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>View Product</DropdownMenuItem>
-                        <DropdownMenuItem>Remove Product</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="flex gap-2 items-center justify-between">
+                    <h4 className="font-semibold">{formatted}</h4>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem>View Product</DropdownMenuItem>
+                            <DropdownMenuItem>Remove Product</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             )
         },
     },

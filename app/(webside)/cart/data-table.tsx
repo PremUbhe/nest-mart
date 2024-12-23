@@ -25,12 +25,6 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -46,12 +40,17 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})
     const [rowSelection, setRowSelection] = React.useState({})
+    const [pagination, setPagination] = React.useState({
+            pageIndex: 0,
+            pageSize: 10,
+        });
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(), //added pagination
+        onPaginationChange: setPagination,
         onSortingChange: setSorting,  //added sorting
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters, //searchbar
@@ -63,48 +62,28 @@ export function DataTable<TData, TValue>({
             columnFilters,
             columnVisibility,
             rowSelection,
+            pagination,
         },
     })
 
     return (
         <div>
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter emails..."
-                    value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("email")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Filter
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter(
-                                (column) => column.getCanHide()
-                            )
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                )
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
+            <div className="flex items-end justify-between py-4">
+                <div className="">
+                    <h1 className='text-4xl text-blue font-bold'>Your Cart</h1>
+                    <h6 className='text-gray'>There are <span className='text-primary'>{table.getFilteredRowModel().rows.length}</span> products in your cart</h6>
+
+                </div>
+                <div className="flex gap-3">
+                    <Input
+                        placeholder="Filter Products..."
+                        value={(table.getColumn("product")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("product")?.setFilterValue(event.target.value)
+                        }
+                        className="min-w-64"
+                    />
+                </div>
             </div>
             <div className="rounded-md border">
                 <Table>
