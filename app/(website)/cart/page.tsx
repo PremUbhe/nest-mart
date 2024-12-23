@@ -1,6 +1,7 @@
 import React from 'react'
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
+import Link from 'next/link';
 
 import { GetUserData } from '@/lib/ApiFunctions/User';
 import { GetProductById } from '@/lib/ApiFunctions/Products';
@@ -12,35 +13,46 @@ const Cart = async () => {
 
     const session = await getServerSession(authOptions);
 
-    const userId : string = await session?.user.id
+    if (!session) {
+        return (
+            <div className="flex flex-col justify-center items-center min-h-80 p-5 border shadow-lg rounded-lg m-5 border-primary">
+                <h2 className="text-4xl font-semibold text-blue mb-4">User LogIn Required !</h2>
+
+                <Link className='py-2 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-secondary hover:text-blue' href="/login">Log In</Link>
+            </div>
+        )
+    }
+
+    const userId: string = await session.user.id
 
     const user = await GetUserData(userId)
 
     const cart = user?.cart
 
     const cartData = await Promise.all(
-        
-        cart.map(async(data)=>{
-    
+
+        cart.map(async (data) => {
+
             const productData = await GetProductById(data.productId)
-    
+
             return {
-                productId : data.productId,
-                productName : productData.name,
-                productImg : productData.img,
-                productPrice : productData.price,
-                productDiscount : productData.discount,
-                productQuantity : data.quantity
+                productId: data.productId,
+                productName: productData.name,
+                productImg: productData.img,
+                productPrice: productData.price,
+                productDiscount: productData.discount,
+                productQuantity: data.quantity
             }
         })
     );
+
 
     return (
         session ? (
             <section>
                 <div className="flex gap-5 items-center">
                     <div className="w-8/12">
-                            <DataTable columns={columns} data={ await cartData} />
+                        <DataTable columns={columns} data={await cartData} />
                     </div>
                     <div className="w-4/12">
                         <div className="border border-border-color rounded-lg p-4 shadow-lg">
@@ -70,7 +82,7 @@ const Cart = async () => {
             </section >
         ) : (
             <section>
-                user required
+                Login required
             </section>
         )
     )

@@ -1,6 +1,9 @@
 'use client';
 import React from 'react';
 import { useSession } from 'next-auth/react';
+import { useTransition } from 'react';
+import Image from 'next/image';
+import loader from "@/public/loaders/type.gif"
 
 // function
 import { AddtoCart } from "@/lib/ApiFunctions/UserCart";
@@ -17,6 +20,7 @@ import { FaCartShopping } from "react-icons/fa6";
 
 const AddtoCartButton = ({ productId, quantity }: { productId: string, quantity: number }) => {
 
+    const [isPending, startTransition] = useTransition();
     const { data: session } = useSession();
     const { toast } = useToast()
 
@@ -26,31 +30,43 @@ const AddtoCartButton = ({ productId, quantity }: { productId: string, quantity:
         const params = { userId, productId, quantity }
 
         const addCartAction = () => {
-            console.log("i am here")
-            AddtoCart({ params })
-                .then((data) => {
-                    if (data?.success) {
 
-                        toast({
-                            description: `${data?.message}`,
-                        })
+            startTransition(() => {
 
-                    } else {
+                AddtoCart({ params })
+                    .then((data) => {
+                        if (data?.success) {
 
-                        toast({
-                            variant: "destructive",
-                            description: `${data?.message}`,
-                        })
-                    }
-                })
+                            toast({
+                                title: "Done",
+                                description: `${data?.message}`,
+                            })
+
+                        } else {
+
+                            toast({
+                                variant: "destructive",
+                                title: "Fail",
+                                description: `${data?.message}`,
+                            })
+                        }
+                    });
+            });
         }
 
         return (
             <Button
-                className="bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white"
+                className="relative bg-primary-light rounded-lg text-primary hover:bg-primary hover:text-white"
                 onClick={() => addCartAction()}
+                disabled={isPending}
             >
-                <FaCartShopping /> Add
+                {isPending === true ? (
+                    <Image src={loader} width={50} alt='loading ...' unoptimized />
+                ) : (
+                    <div className="flex gap-3">
+                        <FaCartShopping /> <h4>Add</h4>
+                    </div>
+                )}
             </Button>
         )
 
@@ -58,6 +74,7 @@ const AddtoCartButton = ({ productId, quantity }: { productId: string, quantity:
 
         const loginAction = () => {
             toast({
+                variant: "destructive",
                 title: "User Not Log In",
                 description: "User need to login to add Products in Cart",
             })

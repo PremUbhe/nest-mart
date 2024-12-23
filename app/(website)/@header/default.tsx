@@ -85,7 +85,7 @@ const Default = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link className='py-2 px-6 rounded-lg font-semibold text-blue bg-secondary hover:bg-primary' href="/login">Log In</Link>
+            <Link className='py-2 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-secondary hover:text-blue' href="/login">Log In</Link>
           )
         }
       </div>
