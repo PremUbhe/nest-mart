@@ -13,7 +13,6 @@ import UserModel from '@/lib/Models/User';
 // type
 import { User } from 'next-auth';
 import { getUserByEmail } from '@/lib/ApiFunctions/User';
-import { Provider } from '@radix-ui/react-toast';
 
 export const authOptions: NextAuthOptions = {
     providers: [
