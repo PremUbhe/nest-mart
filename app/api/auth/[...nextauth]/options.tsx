@@ -1,9 +1,19 @@
 import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
+
+// providers
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
+
+// usermodel
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/lib/Models/User';
+
+// type
 import { User } from 'next-auth';
+import { getUserByEmail } from '@/lib/ApiFunctions/User';
+import { Provider } from '@radix-ui/react-toast';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -35,7 +45,7 @@ export const authOptions: NextAuthOptions = {
 
                         const isPasswordCorrect = await bcrypt.compare(
                             credentials.password,
-                            user.password
+                            user.password as string
                         );
 
                         if (isPasswordCorrect) {
@@ -56,24 +66,75 @@ export const authOptions: NextAuthOptions = {
 
             },
         }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_CLIENT_ID as string,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET as string
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+        }),
     ],
     callbacks: {
+        async signIn({ user, account }) {
+
+            if (account?.provider !== "credentials") {
+                if (user) {
+                    const res = await getUserByEmail(user.email)
+                    if (res) {
+                        return true
+                    } else {
+                        await dbConnect();
+                        try {
+                            const newUser = new UserModel({
+                                username: user.name,
+                                email: user.email,
+                                image: user.image,
+                                password: null,
+                                verifyCode: null,
+                                isVerified: true,
+                            })
+                            const res = await newUser.save()
+
+                            if (!res) {
+                                console.log("Something went wrong while saving the user.")
+                                return false
+                            }
+
+                            return true
+
+                        } catch (error) {
+                            console.log("callback Error at Login :", error)
+                            return false
+                        }
+                    }
+                }
+
+            }
+
+            return true
+        },
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id?.toString();
-                token.username = user.username;
+                token.name = user.username;
                 token.type = user.type;
-                token.cart = user.cart;
                 token.wishlist = user.wishlist;
+            } else {
+                const res = await getUserByEmail(token.email);
+                if (res) {
+                    token.id = res.id
+                    token.name = res.username
+                }
+                return token
             }
             return token;
         },
         async session({ session, token }) {
             if (token) {
                 session.user.id = token.id;
-                session.user.username = token.username;
+                session.user.name = token.name;
                 session.user.type = token.type;
-                session.user.cart = token.cart;
                 session.user.wishlist = token.wishlist;
             }
             return session;
@@ -85,5 +146,6 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: '/login',
+        error: '/error',
     },
 };

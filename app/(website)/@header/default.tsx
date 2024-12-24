@@ -50,11 +50,11 @@ const Default = () => {
                 <div className="flex gap-3">
 
                   <Avatar className='h-16 w-16'>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    {session.user.image && <AvatarImage src={session.user.image} />}
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
                   <div className="flex justify-center text-start flex-col">
-                    <h3 className='text-primary font-medium'>{session.user.username}</h3>
+                    {session.user.name ? <h3 className='text-primary font-medium'>{session.user.name}</h3> : <h3 className='text-primary font-medium'>User</h3> }
                     <h4 className='text-gray text-sm'>{session.user.email}</h4>
                   </div>
                 </div>

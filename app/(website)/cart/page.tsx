@@ -3,7 +3,7 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import Link from 'next/link';
 
-import { GetUserData } from '@/lib/ApiFunctions/User';
+import { getUserById } from '@/lib/ApiFunctions/User';
 import { GetProductById } from '@/lib/ApiFunctions/Products';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
@@ -25,7 +25,11 @@ const Cart = async () => {
 
     const userId: string = await session.user.id
 
-    const user = await GetUserData(userId)
+    const user = await getUserById(userId)
+
+    if(!user) {
+        return <h2>Somthing whent Wrong ! </h2>
+    }
 
     const cart = user?.cart
 

@@ -1,34 +1,46 @@
-import { UserCart, UserWishlist } from "../Models/User";
+import dbConnect from "../dbConnect";
+import UserModel from "../Models/User";
 
-export type userType = {
-    _id: string
-    username: string;
-    email: string;
-    password: string;
-    cart: UserCart[]
-    type: "user" | "vendor" | "master";
-    wishlist: UserWishlist[];
-    verifyCode: string;
-    isVerified: boolean;
+
+export async function getUserById(userId: string) {
+
+    await dbConnect();
+
+    try {
+        const user = await UserModel.findById(userId)
+
+        if (!user) {
+            console.log("User Not found");
+            return null;
+        }
+
+        return user;
+
+    } catch (error) {
+        console.error("Error fetching user by ID:", error);
+        return null;
+    }
 }
 
-export async function GetUserData(userId : string): Promise<userType> {
 
+export async function getUserByEmail(email: string | undefined | null) {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`,
-        {
-            headers: { Accept: "application/json", },
-            method: "GET",
-            cache: "no-store",
-            next: { tags: ['user'] },
+    await dbConnect();
+
+    try {
+
+        const user = await UserModel.findOne({ email })
+
+        if (!user) {
+            console.log("User Not found");
+            return null;
         }
-    )
 
-    if (!res.ok) {
-        throw new Error(`User API call failed with status ${res.status}`)
+        return user;
+
+    } catch (error) {
+        console.error("Error fetching user by email:", error);
+        return null;
     }
 
-    const data = await res.json()
-
-    return data.data
 }

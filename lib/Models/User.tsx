@@ -11,11 +11,12 @@ export interface UserWishlist extends Document {
 export interface User extends Document {
     username: string;
     email: string;
-    password: string;
+    image : string | null;
+    password: string | null;
     cart: UserCart[]
     type: "user" | "vendor" | "master";
     wishlist: UserWishlist[];
-    verifyCode: string;
+    verifyCode: string | null;
     isVerified: boolean;
 }
 
@@ -29,6 +30,7 @@ const UserCartSchema: Schema<UserCart> = new Schema({
         required: true
     }
 });
+
 const UserWishlistSchema: Schema<UserWishlist> = new Schema({
     productId: {
         type: String,
@@ -44,15 +46,20 @@ const UserSchema: Schema<User> = new Schema({
         required: [true, "User Name is required"],
         trim: true,
         unique: true,
+        default:"user",
     },
     email: {
         type: String,
         required: [true, "Email is required"],
         unique: true,
     },
+    image: {
+        type: String,
+        default: null,
+    },
     password: {
         type: String,
-        required: [true, "Password is required"],
+        default: null,
     },
     cart: {
         type: [UserCartSchema],
@@ -70,6 +77,7 @@ const UserSchema: Schema<User> = new Schema({
     },
     verifyCode: {
         type: String,
+        default: null,
     },
     isVerified: {
         type: Boolean,

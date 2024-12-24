@@ -11,6 +11,11 @@ const nextConfig = {
                 hostname: 'res.cloudinary.com', // The hostname for Cloudinary
                 pathname: '/**', // The path pattern (can be more specific if needed)
             },
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+                pathname: '/**',
+            },
         ],
     },
     async redirects() {

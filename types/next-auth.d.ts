@@ -5,9 +5,8 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id?: string;
-      username?: string;
+      name?: string;
       type?: "user" | "vendor" | "master";
-      cart?: UserCart[];
       wishlist?: UserWishlist[];
     } & DefaultSession['user'];
   }
@@ -15,8 +14,8 @@ declare module 'next-auth' {
   interface User {
     id?: string;
     username?: string;
+    password?: string | null;
     type?: "user" | "vendor" | "master";
-    cart?: UserCart[];
     wishlist?: UserWishlist[];
   }
 }
@@ -24,9 +23,8 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT {
     id?: string;
-    username?: string;
+    name?: string;
     type?: "user" | "vendor" | "master";
-    cart?: UserCart[];
     wishlist?: UserWishlist[];
   }
 }
