@@ -1,34 +1,55 @@
 "use server"
 
 import dbConnect from "../dbConnect";
+import UserModel from "../Models/User";
+import { UserCart } from "../Models/User";
 
-export const AddtoCart = async ({ params }: { params: { userId: string, productId: string, quantity: number } }) => {
+type ApiResponse = {
+  success: boolean,
+  message: string,
+}
+
+
+export const updateUserCart = async ({ params }: { params: { userId: string, productId: string, quantity: number } }): Promise<ApiResponse> => {
 
   const { userId, productId, quantity } = params;
 
+  await dbConnect();
+
   try {
 
-    await dbConnect();
+    const user = await UserModel.findById(userId);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`,
-      {
-        headers: { Accept: "application/json", },
-        method: "PUT",
-        cache: "no-store",
-        next: { tags: ['user'] },
-        body: JSON.stringify({ productId, quantity })
-      }
-    )
-
-    if (!res.ok) {
-      return { success: false, message: `User API call failed with status ${res.status}` }
+    if (!user) {
+      return { success: false, message: "User not found" }
     }
 
-    return { success: true, message: "Product successfully added in Cat" }
+    const cart = await user.cart
+
+    const productIndex = cart.findIndex((item) => item.productId === productId);
+
+    if (productIndex === -1) {
+      cart.push({ productId, quantity } as UserCart)
+
+      const res = await user.save();
+      if (!res) {
+        return { success: false, message: "Unable to add the product" }
+      }
+
+      return { success: true, message: "Product add in successfully" }
+    } else {
+      cart[productIndex].quantity += quantity;
+
+      const res = await user.save();
+      if (!res) {
+        return { success: false, message: "Unable to update product count" }
+      }
+
+      return { success: true, message: "Product count updated successfully" }
+    }
 
   } catch (error) {
-    return { success: false, message: "Somethig whent wrong!"+ error }
+    return { success: false, message: "Somethig went wrong!" + error }
   }
 
-};
-
+}

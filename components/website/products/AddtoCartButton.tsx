@@ -6,7 +6,7 @@ import Image from 'next/image';
 import loader from "@/public/loaders/type.gif"
 
 // function
-import { AddtoCart } from "@/lib/ApiFunctions/UserCart";
+import { updateUserCart } from "@/lib/ApiFunctions/UserCart";
 
 // hook
 import { useToast } from '@/hooks/use-toast';
@@ -33,7 +33,7 @@ const AddtoCartButton = ({ productId, quantity }: { productId: string, quantity:
 
             startTransition(() => {
 
-                AddtoCart({ params })
+                updateUserCart({ params })
                     .then((data) => {
                         if (data?.success) {
 

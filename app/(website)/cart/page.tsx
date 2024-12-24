@@ -17,7 +17,6 @@ const Cart = async () => {
         return (
             <div className="flex flex-col justify-center items-center min-h-80 p-5 border shadow-lg rounded-lg m-5 border-primary">
                 <h2 className="text-4xl font-semibold text-blue mb-4">User LogIn Required !</h2>
-
                 <Link className='py-2 px-6 rounded-lg font-semibold text-white bg-primary hover:bg-secondary hover:text-blue' href="/login">Log In</Link>
             </div>
         )
