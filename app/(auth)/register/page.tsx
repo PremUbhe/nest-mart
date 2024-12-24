@@ -1,15 +1,12 @@
 "use client";
 
-import React from 'react'
+import React, { useState, useTransition } from 'react'
 import Link from 'next/link'
-import { useState, useTransition } from "react";
-
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
-import { signUpSchema } from '@/lib/Schemas/signUpSchema';
-
+// ui
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -20,9 +17,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import FormError from "@/components/FormError";
-import FormSuccess from '@/components/FormSuccess';
 
+// component
+import FormError from "@/components/website/forms/FormError";
+import FormSuccess from '@/components/website/forms/FormSuccess';
+
+// type
+import { signUpSchema } from '@/lib/Schemas/signUpSchema';
+
+// action
 import RegisterAction from '@/lib/Actions/RegisterAction';
 
 const Register = () => {
@@ -120,7 +123,6 @@ const Register = () => {
           <h1>third party login</h1>
         </div>
       </div>
-
     </section>
   )
 }

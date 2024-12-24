@@ -1,16 +1,16 @@
 import React from 'react';
 
 // components;
-import CategoriesCard from "@/components/CategoriesCard";
+import CategoriesCard from "@/components/website/category/CategoriesCard";
 import ProductCard from "@/components/website/products/ProductCard";
-import Swipers from '@/components/Swiper';
+import Swipers from '@/components/website/swiper/Swiper';
 
 // data
 import { GetProductData } from '@/lib/ApiFunctions/Products';
 
 // type
 import { productType } from '@/lib/ApiFunctions/Products';
-import { sliderSchema } from '@/components/Swiper';
+import { sliderSchema } from '@/components/website/swiper/Swiper';
 
 // images
 import img1 from '@/public/sliders/banner-1.png'

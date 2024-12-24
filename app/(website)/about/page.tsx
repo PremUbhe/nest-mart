@@ -2,7 +2,7 @@ import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 
 // components
-import AboutSlider from '@/components/AboutSlider';
+import AboutSlider from '@/components/website/about/AboutSlider';
 
 // image
 import About from '@/public/about/about-1.png';

@@ -6,7 +6,7 @@ import { ArrowUpDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 // componenets
-import DeleteBrandBut from "@/components/DeleteBrandBut"
+import DeleteBrandBut from "@/components/admin/brand/DeleteBrandBut"
 
 // icons
 import { FaPencil } from "react-icons/fa6"

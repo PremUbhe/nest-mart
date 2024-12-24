@@ -1,17 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import Image from "next/image";
-import login from "@/public/login-1.png";
 import Link from "next/link";
-import { useTransition } from "react";
-
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation";
 
-import { signInSchemma } from "@/lib/Schemas/signInSchema";
-
+// ui
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -22,10 +19,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import FormError from "@/components/FormError";
-import { useRouter } from "next/navigation";
 
+// component
+import FormError from "@/components/website/forms/FormError";
+
+// type
+import { signInSchemma } from "@/lib/Schemas/signInSchema";
+
+// action
 import LogInAction from "@/lib/Actions/LogInAction";
+
+// img
+import login from "@/public/login-1.png";
 
 const Login = () => {
 

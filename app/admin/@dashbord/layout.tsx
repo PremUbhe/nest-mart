@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 // components
-import AdminSidebar from "@/components/AdminSidebar";
+import AdminSidebar from "@/components/admin/AdminSidebar";
 
 
 

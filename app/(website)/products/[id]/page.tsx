@@ -17,7 +17,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import AddCartSection from "@/components/AddCartSection";
+import AddCartSection from "@/components/website/products/AddCartSection";
 
 // icons
 import { TbHome } from "react-icons/tb";

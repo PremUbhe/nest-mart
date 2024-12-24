@@ -9,7 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // components
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 
 // icons
 import { FaArrowRightLong } from "react-icons/fa6";

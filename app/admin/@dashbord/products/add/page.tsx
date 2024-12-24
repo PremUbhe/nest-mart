@@ -5,8 +5,8 @@ import Link from 'next/link';
 // action
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
 // components
-import CategorySelectList from '@/components/CategorySelectList';
-import BrandSelectList from '@/components/BrandSelectList';
+import CategorySelectList from '@/components/admin/category/CategorySelectList';
+import BrandSelectList from '@/components/admin/brand/BrandSelectList';
 // ui
 import { Input } from '@/components/ui/input'
 import { Textarea } from "@/components/ui/textarea"

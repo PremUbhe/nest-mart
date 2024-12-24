@@ -2,7 +2,7 @@ import React from 'react';
 import Image from "next/image";
 
 // components
-import NavLinks from "@/components/NavLinks";
+import NavLinks from "@/components/website/navbar/NavLinks";
 
 // img
 import logo from '@/public/logo.svg'
