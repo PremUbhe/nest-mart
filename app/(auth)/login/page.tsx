@@ -7,7 +7,6 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 // ui
 import { Button } from "@/components/ui/button"
@@ -38,8 +37,6 @@ import { IoChevronBackOutline } from "react-icons/io5";
 
 const Login = () => {
 
-  const searchParams = useSearchParams()
-  const urlError = searchParams.get("error") === "OAuthCallback" ? "Email already in use with different provider" : "somthing went wrong"
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>('');
@@ -119,7 +116,7 @@ const Login = () => {
                     </FormItem>
                   )}
                 />
-                <FormError message={error || urlError} />
+                <FormError message={error} />
                 <Button 
                 type="submit" 
                 className="text-white font-semibold"
