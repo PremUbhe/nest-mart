@@ -1,6 +1,6 @@
 'use client';
 import React from 'react'
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 // components
@@ -19,18 +19,19 @@ import { PiHeartLight } from "react-icons/pi";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 
-const AddCartSection = ({stock, productId, quantityCount} : {stock : number, productId: string, quantityCount: number}) => {
+const AddCartSection = ({ stock, productId, quantityCount }: { stock: number, productId: string, quantityCount: number }) => {
 
   const { data: session } = useSession();
   const { toast } = useToast()
-  
+
   const userId: string = session?.user.id
-  
+
   const [quantity, setQuantity] = useState<number>(quantityCount);
   const [isPending, startTransition] = useTransition();
-  
-  const params = {userId, productId, quantity}
-  
+  const [isClient, setIsClient] = useState(false);
+
+  const params = { userId, productId, quantity }
+
   const addCartAction = () => {
     startTransition(() => {
 
@@ -55,16 +56,43 @@ const AddCartSection = ({stock, productId, quantityCount} : {stock : number, pro
     });
   }
 
-  return (
-    <>
+  useEffect(() => {
+    if (userId) {
+      setIsClient(true);
+    }
+  }, [userId]);
+
+  if (!isClient) {
+
+    const loginAction = () => {
+      toast({
+        variant: "destructive",
+        title: "Unauthorized",
+        description: "Please log in to add items to your cart.",
+      })
+    }
+
+    return (
       <div className="flex gap-3 my-5">
         <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon" onClick={() => quantity < stock ? setQuantity(quantity + 1) : null}><FaPlus /></Button>
         <Input type="text" className='shadow w-20' onChange={(e) => setQuantity(Number(e.target.value))} value={quantity} />
         <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon" onClick={() => quantity > 1 ? setQuantity(quantity - 1) : null}><FaMinus /></Button>
-        <Button className='shadow flex gap-2 items-center bg-primary text-white hover:bg-secondary hover:text-white' disabled={session === null || isPending} variant="ghost" onClick={() => addCartAction()}><FaCartShopping /> Add to cart</Button>
+        <Button className='shadow flex gap-2 items-center bg-primary text-white hover:bg-secondary hover:text-white' variant="ghost" onClick={() => loginAction()}><FaCartShopping /> Add to cart</Button>
         <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon"><PiHeartLight /></Button>
       </div>
-    </>
+    )
+  }
+
+  return (
+    <div className="flex gap-3 my-5">
+      <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon" onClick={() => quantity < stock ? setQuantity(quantity + 1) : null}><FaPlus /></Button>
+      <Input type="text" className='shadow w-20' onChange={(e) => setQuantity(Number(e.target.value))} value={quantity} />
+      <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon" onClick={() => quantity > 1 ? setQuantity(quantity - 1) : null}><FaMinus /></Button>
+      <Button className='shadow flex gap-2 items-center bg-primary text-white hover:bg-secondary hover:text-white' disabled={isPending} variant="ghost" onClick={() => addCartAction()}>
+        <FaCartShopping /> Add to cart
+      </Button>
+      <Button variant="outline" className='shadow hover:bg-primary-light hover:text-primary' size="icon"><PiHeartLight /></Button>
+    </div>
   )
 }
 

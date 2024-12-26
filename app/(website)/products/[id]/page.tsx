@@ -39,7 +39,7 @@ const products = async ({ params }: { params: { id: string } }) => {
 
   const CategoryIdData = await GetCategoryIdData(ProductData.category)
 
-  const quantity = await getQuantityOfProductFromUserCart({userId, productId })
+  const quantity = await getQuantityOfProductFromUserCart({ userId, productId })
 
   return (
     <>
@@ -69,7 +69,7 @@ const products = async ({ params }: { params: { id: string } }) => {
                   <Image src={ProductData.img} alt={ProductData.name} width={400} height={400}></Image>
                 </div>
                 <div className="w-full px-4">
-                  <h6 className="px-6 py-1 text-sm bg-secondary w-fit rounded-xl">{CategoryIdData.name}</h6>
+                  <h6 className="px-6 py-1 font-semibold text-sm bg-secondary w-fit rounded-xl">{CategoryIdData.name}</h6>
                   <h3 className="text-4xl text-blue font-bold">{ProductData.name}</h3>
                   <h6 className="text-gray text-base w-25">
                     <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">
@@ -82,7 +82,7 @@ const products = async ({ params }: { params: { id: string } }) => {
                   </h6>
                   <div className="flex items-center gap-5">
                     <h4 className="text-5xl text-primary font-semibold">
-                      $
+                      ₹
                       {(
                         ProductData.price -
                         (ProductData.price * ProductData.discount) / 100
@@ -91,7 +91,7 @@ const products = async ({ params }: { params: { id: string } }) => {
                     <div className="">
                       <h6 className="text-base font-medium text-secondary">{`${ProductData.discount}% Off`}</h6>
                       <h5 className="text-xl text-gray font-semibold line-through">
-                        ${ProductData.price}
+                        ₹{ProductData.price}
                       </h5>
                     </div>
                   </div>
