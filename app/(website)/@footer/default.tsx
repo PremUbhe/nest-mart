@@ -21,13 +21,13 @@ const Default = () => {
         <div className="container h-full">
           <div className="flex h-full">
             <div className="w-6/12 h-full flex flex-col justify-center">
-              <h1 className="text-4xl text-blue font-bold leading-none mb-4">
-                Stay home & get your daily <br />
-                needs from our shop
+              <h1 className="text-5xl text-blue font-bold leading-tight mb-4">
+                Stay home & <br /> get your daily needs<br />
+                from our shop
               </h1>
-              <p className="mb-65 text-xl text-gray">
+              <p className="mb-65 text-xl font-semibold text-gray">
                 Start You&apos;r Daily Shopping with
-                <span className="text-primary font-medium"> Nest Mart</span>
+                <span className="text-primary"> Nest Mart</span>
               </p></div>
             <div className="w-6/12">
               <Image

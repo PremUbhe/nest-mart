@@ -17,10 +17,11 @@ import img1 from '@/public/sliders/banner-1.png'
 import img2 from '@/public/sliders/banner-2.png'
 import img3 from '@/public/sliders/banner-3.png'
 import img4 from '@/public/sliders/banner-4.png'
+import HeroSection from '@/components/website/home/HeroSection';
 
 const swiperData: sliderSchema[] = [
   {
-    name: "Everyday Fresh & Clean with Our Products",
+    name: "Fresh Vegetables Big discount",
     img: img1
   },
   {
@@ -43,10 +44,18 @@ const Page = async () => {
 
   return (
     <main>
+      {/* Hero section start */}
+      <section className='p-0'>
+        <HeroSection  />
+      </section>
+      {/* Hero section end */}
+
       {/* swiper section start */}
       <section>
         <Swipers params={swiperData} />
       </section>
+      {/* swiper section end */}
+
       {/* category section start */}
       <section className='pt-0'>
         <div className="section-header">
@@ -55,6 +64,7 @@ const Page = async () => {
         <CategoriesCard />
       </section>
       {/* category section end */}
+
       {/* products section start */}
       <section>
         <div className="section-header">
