@@ -4,6 +4,7 @@ import Image from "next/image";
 // data
 import { GetProductById } from "@/lib/ApiFunctions/Products";
 import { GetCategoryData, GetCategoryIdData } from '@/lib/ApiFunctions/Category';
+import { getQuantityOfProductFromUserCart } from "@/lib/ApiFunctions/UserCart";
 
 // type
 import { categoryType } from '@/lib/ApiFunctions/Category';
@@ -22,13 +23,23 @@ import AddCartSection from "@/components/website/products/AddCartSection";
 // icons
 import { TbHome } from "react-icons/tb";
 
+// session
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+
 const products = async ({ params }: { params: { id: string } }) => {
 
-  const ProductData = await GetProductById(params.id);
+  const session = await getServerSession(authOptions);
+
+  const userId = session?.user.id
+  const productId = params.id
+  const ProductData = await GetProductById(productId);
 
   const CategorieData = await GetCategoryData();
 
   const CategoryIdData = await GetCategoryIdData(ProductData.category)
+
+  const quantity = await getQuantityOfProductFromUserCart({userId, productId })
 
   return (
     <>
@@ -85,7 +96,7 @@ const products = async ({ params }: { params: { id: string } }) => {
                     </div>
                   </div>
                   <h6>{ProductData.description}</h6>
-                  <AddCartSection stock={ProductData.stock} />
+                  <AddCartSection stock={ProductData.stock} productId={params.id} quantityCount={quantity ? quantity : 1} />
                   <div className="flex mt-7">
                     <div className="w-6/12">
                       <ul>

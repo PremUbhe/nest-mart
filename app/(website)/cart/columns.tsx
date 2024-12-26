@@ -5,6 +5,7 @@ import { MoreHorizontal } from "lucide-react"
 import { ArrowUpDown } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { Checkbox } from "@/components/ui/checkbox"
 import Image from "next/image"
 
@@ -16,6 +17,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
+// import { useEffect, useState, useTransition } from "react"
+// import { updateUserCart } from "@/lib/ApiFunctions/UserCart"
+// import { useSession } from "next-auth/react"
+// import { useToast } from "@/hooks/use-toast"
 
 export type cartDataType = {
     productId: string;
@@ -65,7 +71,7 @@ export const columns: ColumnDef<cartDataType>[] = [
             </div>
         )
     },
-    {   
+    {
         id: "product",
         accessorKey: "productName",
         header: ({ column }) => {
@@ -97,7 +103,7 @@ export const columns: ColumnDef<cartDataType>[] = [
         accessorKey: "productDiscount",
         header: () => <div className="text-center">Discount</div>,
         cell: ({ row }) => {
-            const discount : number = row.getValue("productDiscount")
+            const discount: number = row.getValue("productDiscount")
             return <div className="text-center font-medium">{discount}%</div>
         }
     },
@@ -105,19 +111,54 @@ export const columns: ColumnDef<cartDataType>[] = [
         accessorKey: "productQuantity",
         header: () => <div className="text-center">Quantity</div>,
         cell: ({ row }) => {
+
             const quantity : number = row.getValue("productQuantity")
-            return <div className="text-center">{quantity}</div>
+
+            // const { data: session } = useSession();
+            // const { toast } = useToast();
+
+            // const [state, setState] = useState<boolean>(false)
+            // const [quantity, setQuantity] = useState<number>(row.getValue("productQuantity"))
+
+            // const productId: string = row.original.productId
+            // const userId: string = session?.user.id
+
+            // const params = { userId, productId, quantity }
+
+            // useEffect(() => {
+            //     setState(true)
+            //     updateUserCart({ params })
+            //         .then((data) => {
+            //             if (data?.success) {
+            //                 toast({
+            //                     title: "Done",
+            //                     description: `${data?.message}`,
+            //                 })
+            //             }
+            //             setState(false)
+            //         });
+            // }, [quantity])
+
+            return ( <div className="text-center">{quantity}</div>
+                // <div className="flex items-center gap-2">
+                //     <Button variant="outline" size="icon" disabled={state} onClick={() => setQuantity(quantity + 1)}>+</Button>
+                //     <div className="text-center">{quantity}</div>
+                //     <Button variant="outline" size="icon" disabled={state} onClick={() => quantity > 1 ? setQuantity(quantity - 1) : null}>-</Button>
+                // </div>
+            )
         }
     },
     {
         id: "actions",
         header: () => <div className="text-left">Total Price</div>,
         cell: ({ row }) => {
+
+            const productId = row.original.productId;
             const price: number = row.getValue("productPrice");
             const quantity: number = row.getValue("productQuantity");
             const discount: number = row.getValue("productDiscount");
 
-            const totalAmount : number = (price * quantity) - (price * discount * quantity / 100)
+            const totalAmount: number = (price * quantity) - (price * discount * quantity / 100)
 
             const formatted = new Intl.NumberFormat("en-IN", {
                 style: "currency",
@@ -136,7 +177,9 @@ export const columns: ColumnDef<cartDataType>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <DropdownMenuItem>View Product</DropdownMenuItem>
+                            <Link href={`/products/${productId}`}>
+                                <DropdownMenuItem>View Product</DropdownMenuItem>
+                            </Link>
                             <DropdownMenuItem>Remove Product</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>

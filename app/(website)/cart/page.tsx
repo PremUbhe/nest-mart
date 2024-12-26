@@ -7,6 +7,7 @@ import { getUserById } from '@/lib/ApiFunctions/User';
 import { GetProductById } from '@/lib/ApiFunctions/Products';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
+import { Button } from '@/components/ui/button';
 
 
 const Cart = async () => {
@@ -26,7 +27,7 @@ const Cart = async () => {
 
     const user = await getUserById(userId)
 
-    if(!user) {
+    if (!user) {
         return <h2>Somthing whent Wrong ! </h2>
     }
 
@@ -49,6 +50,36 @@ const Cart = async () => {
         })
     );
 
+    const totalValue = cartData.reduce((total, item) => {
+        const price = item.productPrice * item.productQuantity;
+        return total + price;
+    }, 0);
+
+    const discount = cartData.reduce((total, item) => {
+        const price = item.productPrice * item.productQuantity * item.productDiscount / 100;
+        return total + price;
+    }, 0);
+    
+    const formattedDiscount = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+    }).format(discount)
+
+    const formattedTotalValue = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+    }).format(totalValue)
+
+    const discountValue = cartData.reduce((total, item) => {
+        const discountedPrice = item.productPrice * (1 - item.productDiscount / 100);
+        const itemTotal = discountedPrice * item.productQuantity;
+        return total + itemTotal;
+    }, 0);
+
+    const formattedDiscountedValue = new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+    }).format(discountValue)
 
     return (
         session ? (
@@ -59,26 +90,30 @@ const Cart = async () => {
                     </div>
                     <div className="w-4/12">
                         <div className="border border-border-color rounded-lg p-4 shadow-lg">
-                            <div className="flex justify-between items-center mb-3">
-                                <h4 className='text-gray text-xl'>Subtotal</h4>
-                                <h3 className='text-primary text-2xl'>$12.31</h3>
+                            <div className="flex justify-between items-center mb-2">
+                                <h4 className='text-gray font-semibold text-lg'>Subtotal</h4>
+                                <h3 className='text-primary font-bold text-xl'>{formattedTotalValue}</h3>
                             </div>
                             <hr className='mb-3' />
-                            <div className="border p-2 mb-3">
-                                <div className="flex justify-between items-center pb-2 mb-3 border-b">
-                                    <h4 className='text-gray text-xl'>Shipping</h4>
-                                    <h3 className='text-xl'>Free</h3>
+                            <div className="border rounded-lg p-2 mb-3">
+                                <div className="flex justify-between items-center pb-2 border-b">
+                                    <h4 className='text-gray font-semibold text-lg'>Shipping</h4>
+                                    <h3 className='text-lg font-semibold'>Free</h3>
                                 </div>
-                                <div className="flex justify-between items-center pb-2 mb-2 border-b">
-                                    <h4 className='text-gray text-xl'>Estimate for</h4>
-                                    <h3 className='text-xl'>United Kingdom</h3>
+                                <div className="flex justify-between items-center py-2 border-b">
+                                    <h4 className='text-gray font-semibold text-lg'>Estimate for</h4>
+                                    <h3 className='text-lg font-semibold'>India</h3>
                                 </div>
-                                <div className="flex justify-between items-center">
-                                    <h4 className='text-gray text-xl'>Total</h4>
-                                    <h3 className='text-primary text-2xl'>$12.31</h3>
+                                <div className="flex justify-between items-center py-2 border-b">
+                                    <h4 className='text-gray font-semibold text-lg'>Discount</h4>
+                                    <h3 className='text-lg font-semibold text-secondary'>{formattedDiscount}</h3>
+                                </div>
+                                <div className="flex justify-between items-center pt-2">
+                                    <h4 className='text-gray font-semibold text-xl'>Total</h4>
+                                    <h3 className='text-primary font-bold text-2xl'>{formattedDiscountedValue}</h3>
                                 </div>
                             </div>
-                            <button type='button' className='bg-primary text-center text-white py-3 w-full rounded-lg hover:bg-secondary'>Proceed To CheckOut</button>
+                            <Button variant="outline" size="lg" type='button' className='bg-primary text-md font-bold text-white w-full hover:bg-secondary hover:text-white'>Proceed To CheckOut</Button>
                         </div>
                     </div>
                 </div>
