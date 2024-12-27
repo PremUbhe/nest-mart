@@ -1,8 +1,16 @@
 import React from 'react';
 import Image from "next/image";
 
-// components
-import NavLinks from "@/components/website/navbar/NavLinks";
+// icons
+import { TbMail } from "react-icons/tb";
+import { IoCallOutline } from "react-icons/io5";
+import { IoLocationOutline } from "react-icons/io5";
+import { WiTime4 } from "react-icons/wi";
+
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaYoutube } from "react-icons/fa";
 
 // img
 import logo from '@/public/logo.svg'
@@ -102,19 +110,46 @@ const Default = () => {
                 height={50}
                 alt="Logo"
               />
-              <h6 className="text-xl">Awesome grocery store website template</h6>
-            </div>
-            <div className="w-3/12">
-              <h2 className="text-2xl text-blue font-bold">Quick Links</h2>
-              <div className="flex flex-col ms-5">
-                <NavLinks />
+              <h6 className="text-xl mb-3">Awesome grocery store website template</h6>
+              <div className="flex gap-3">
+                <FaFacebook />
+                <FaInstagram />
+                <FaXTwitter />
+                <FaYoutube />
               </div>
             </div>
             <div className="w-3/12">
-              <h2 className="text-2xl text-blue font-bold">Contact Us</h2>
+              <h2 className="text-2xl text-blue font-bold">Quick Links</h2>
+              <ul className='ml-1'>
+                <li className='text-sm font-medium mb-1'>Home</li>
+                <li className='text-sm font-medium mb-1'>About Us</li>
+                <li className='text-sm font-medium mb-1'>Cart</li>
+                <li className='text-sm font-medium mb-1'>Products</li>
+                <li className='text-sm font-medium mb-1'>Categories</li>
+                <li className='text-sm font-medium mb-1'>Blogs</li>
+                <li className='text-sm font-medium'>Contact Us</li>
+              </ul>
             </div>
             <div className="w-3/12">
-              {/* <h2 className="text-2xl">Quick Links</h2> */}
+              <h2 className="text-2xl text-blue font-bold">Popular</h2>
+              <ul className='ml-1'>
+                <li className='text-sm font-medium mb-1'>Milk & Flavoured Milk</li>
+                <li className='text-sm font-medium mb-1'>Butter and Margarine</li>
+                <li className='text-sm font-medium mb-1'>Eggs Substitutes</li>
+                <li className='text-sm font-medium mb-1'>Marmalades</li>
+                <li className='text-sm font-medium mb-1'>Sour Cream and Dips</li>
+                <li className='text-sm font-medium mb-1'>Tea & Kombucha</li>
+                <li className='text-sm font-medium'>Cheese</li>
+              </ul>
+            </div>
+            <div className="w-3/12">
+              <h2 className="text-2xl text-blue font-bold">Contact Us</h2>
+              <ul className='ml-1'>
+                <li className='flex gap-1 flex-wrap items-center text-sm font-medium mb-1'><IoLocationOutline /> <b>Address :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, ea!</li>
+                <li className='flex gap-1 items-center text-sm font-medium mb-1'><IoCallOutline /> <b>Call Us :</b> (+91) - 123 456 7890</li>
+                <li className='flex gap-1 items-center text-sm font-medium mb-1'><TbMail /> <b>Email :</b> sale@Nest.com</li>
+                <li className='flex gap-1 items-center text-sm font-medium mb-1'><WiTime4 /> <b>Hours :</b> 10:00 - 18:00, Mon - Sat</li>
+              </ul>
             </div>
           </div>
           <hr className="text-primary my-4" />
