@@ -124,6 +124,8 @@ export const authOptions: NextAuthOptions = {
                 if (res) {
                     token.id = res.id
                     token.name = res.username
+                    token.type = res.type
+                    token.wishlist = res.wishlist
                 }
                 return token
             }

@@ -46,7 +46,7 @@ const NavLinks = () => {
             href={link.path}
             key={index}
             className={`${link.path === pathname && "text-primary"} 
-                        text-blue font-semibold capitalize hover:text-primary`}
+                        text-blue font-bold capitalize hover:text-primary`}
           >
             {link.name}
           </Link>
