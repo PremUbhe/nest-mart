@@ -11,7 +11,7 @@ export async function GetCategoryData(): Promise<categoryType[]> {
         {
             headers: { Accept: "application/json", },
             method: "GET",
-            cache: "force-cache",
+            cache: "no-store",
             next: { tags: ['category'] },
         }
     )

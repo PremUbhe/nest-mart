@@ -1,5 +1,3 @@
-import React from 'react'
-
 export type productType = {
   _id: string;
   name: string;
@@ -21,6 +19,7 @@ export async function GetProductData(): Promise<productType[]> {
     {
       headers: { Accept: "application/json", },
       method: "GET",
+      cache: "no-store",
       next: { tags: ['products'] },
     }
   )
@@ -54,11 +53,3 @@ export async function GetProductById(id: string): Promise<productType> {
 
   return productData.data
 }
-
-const Products = () => {
-  return (
-    <div>Products</div>
-  )
-}
-
-export default Products

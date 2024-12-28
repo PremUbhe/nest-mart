@@ -17,9 +17,9 @@ import { brandType } from "@/lib/ApiFunctions/Brands"
 export const columns: ColumnDef<brandType>[] = [
     {
         id: "select",
-        header: () => <div className="flex justify-center">SR No.</div>,
-        cell: ({row}) => (
-            <div className="flex justify-center">
+        header: () => <div className="text-center">SR No.</div>,
+        cell: ({ row }) => (
+            <div className="text-center">
                 {row.index + 1}
             </div>
         ),
@@ -29,7 +29,7 @@ export const columns: ColumnDef<brandType>[] = [
         accessorKey: "name",
         header: ({ column }) => {
             return (
-                <div className="flex justify-center">
+                <div className="text-center">
                     <Button
                         variant="ghost"
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
@@ -42,7 +42,7 @@ export const columns: ColumnDef<brandType>[] = [
         },
         cell: ({ row }) => {
             return (
-                <div className="flex justify-center">
+                <div className="text-center">
                     {row.getValue("name")}
                 </div>
             )
@@ -51,7 +51,7 @@ export const columns: ColumnDef<brandType>[] = [
     {
         id: "actions",
         header: () => (
-            <div className="flex justify-center">
+            <div className="text-center">
                 Actions
             </div>
         ),

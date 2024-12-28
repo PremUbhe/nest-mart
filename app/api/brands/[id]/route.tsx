@@ -39,25 +39,33 @@ export async function DELETE(req: Request, context: { params: { id: string } }) 
 
     try {
         await dbConnect();
+
         const data = await BrandModel.findById(brandId);
 
         if (!data) {
             return NextResponse.json(
-                { error: "brand not found" },
+                { success: false, message: "brand not found" },
                 { status: 404 }
             );
         }
 
-        await BrandModel.findByIdAndDelete(brandId);
+        const res = await BrandModel.findByIdAndDelete(brandId);
+
+        if (!res) {
+            return NextResponse.json(
+                { success: false, message: "Fail to delete brand" },
+                { status: 300 }
+            );
+        }
 
         return NextResponse.json(
-            { message: "Brand successfully deleted", data },
+            { success: true, message: "Brand successfully deleted", data },
             { status: 200 }
         );
 
     } catch (error) {
         return NextResponse.json(
-            { error: "Error in Fetching: " + error },
+            { success: false, message: "Error in Fetching: " + error },
             { status: 500 }
         );
     }

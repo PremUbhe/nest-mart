@@ -12,14 +12,14 @@ import {
 } from "@/components/ui/select"
 
 // data
-import { GetBrandData } from '@/lib/ApiFunctions/Brands';
+import { getBrandData } from '@/lib/ApiFunctions/Brands';
 
 // type
 import { brandType } from '@/lib/ApiFunctions/Brands';
 
 const BrandSelectList = async () => {
 
-    const brandData = await GetBrandData()
+    const brandData = await getBrandData()
 
     return (
         <Select name="brand" required>

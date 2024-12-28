@@ -1,27 +1,35 @@
+'use server'
+
 export type brandType = {
     _id: string;
     name: string
 }
 
 // GET brand data
-export async function GetBrandData(): Promise<brandType[]> {
+export async function getBrandData(): Promise<brandType[]> {
 
-    const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
-        {
-            headers: { Accept: "application/json", },
-            method: "GET",
-            cache: "force-cache",
-            next: { tags: ['brand'] },
+    try {
+        const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
+            {
+                headers: { Accept: "application/json", },
+                method: "GET",
+                cache: "no-store",
+                next: { tags: ['brand'] },
+            }
+        )
+    
+        if (!brandAPI.ok) {
+            throw new Error(`Brand API call failed with status ${brandAPI.status}`)
         }
-    )
+    
+        const brandData = await brandAPI.json()
+    
+        return brandData.data
 
-    if (!brandAPI.ok) {
-        throw new Error(`Brand API call failed with status ${brandAPI.status}`)
+    } catch (error) {
+        throw new Error(`Something went wrong! : ${error}`)
     }
 
-    const brandData = await brandAPI.json()
-
-    return brandData.data
 }
 
 
@@ -45,21 +53,30 @@ export async function GetBrandById(id: string): Promise<brandType> {
     return brandData.data
 }
 
+type ApiResponse = {
+    success : boolean,
+    message : string,
+    data ? : {name: string;}
+}
 
 // DETETE Brand By ID
-export async function DeleteBrandById(id: string) {
+export async function deleteBrandById(id: string) : Promise<ApiResponse> {
 
-    const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
-        {
-            headers: { Accept: "application/json", },
-            method: "DELETE",
-            next: { tags: ['brand'] },
-        }
-    )
+    try {
+        const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
+            {
+                headers: { Accept: "application/json", },
+                method: "DELETE",
+                next: { tags: ['brand'] },
+            }
+        )
+    
+        const res = await brandAPI.json()
 
-    if (!brandAPI.ok) {
-        throw new Error(`Brand ID API call failed with status ${brandAPI.status}`)
+        return res
+        
+    } catch (error) {
+        return {success: false, message: 'Something went wrong !' + error}
     }
 
-    return brandAPI.json()
 }

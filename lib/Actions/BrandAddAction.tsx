@@ -2,19 +2,22 @@
 import { z } from 'zod'
 import { revalidateTag } from 'next/cache'
 
+type ApiSchema = {
+    success: boolean,
+    message: string,
+}
+
 const BrandSchema = z.object({
     name: z.string(),
 })
 
 
-const BrandAddAction = async (formData: FormData) => {
+const BrandAddAction = async (values: z.infer<typeof BrandSchema>): Promise<ApiSchema> => {
 
-    const formValues = Object.fromEntries(formData);
-    const result = BrandSchema.safeParse(formValues);
+    const validatedFields = BrandSchema.safeParse(values);
 
-    if (!result.success) {
-        console.error("Validation failed", result.error);
-        return;
+    if (!validatedFields.success) {
+        return { success: false, message: "Invalid fields" }
     }
 
     try {
@@ -22,20 +25,18 @@ const BrandAddAction = async (formData: FormData) => {
             headers: { Accept: "application/json", },
             method: "POST",
             next: { tags: ['brand'] },
-            body: JSON.stringify(result.data)
+            body: JSON.stringify(validatedFields.data)
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log("Brand added successfully:", data);
             revalidateTag('brand');
-            
-        } else {
-            const errorData = await response.json();
-            console.error("Error adding Brand:", errorData);
+            return { success: true, message: "Brand added successfully" };
         }
+
+        return { success: false, message: "Error while adding brand successfully" };
+
     } catch (error) {
-        console.error("Network error:", error);
+        return { success: false, message: "An unexpected error occurred!" + error };
     }
 }
 
