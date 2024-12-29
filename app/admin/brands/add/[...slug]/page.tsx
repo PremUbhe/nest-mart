@@ -85,22 +85,6 @@ const BrandAdd = ({ params }: { params: { slug: string[] } }) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
                         control={form.control}
-                        name="_id"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Brand ID</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        className='bg-black-secondary'
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
                         name="name"
                         render={({ field }) => (
                             <FormItem>
