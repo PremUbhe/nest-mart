@@ -1,52 +1,78 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { BrandModel } from "@/lib/Models/Brand";
+import { BrandModel, Brand } from "@/lib/Models/Brand";
+
+type ApiResponse = {
+  success: boolean,
+  message: string,
+  data?: Brand[]
+}
+
 
 // get
-export async function GET() {
+export async function GET(): Promise<NextResponse<ApiResponse>> {
+
   try {
+
     await dbConnect();
+
     const data = await BrandModel.find();
 
     if (!data) {
       return NextResponse.json(
-        { error: "data not found" },
+        { success: false, message: "Brands data not found" },
         { status: 400 }
       )
     }
 
-    return NextResponse.json({ data });
+    return NextResponse.json({ success: true, message: "Brands data found", data });
 
   } catch (error) {
+    
     return NextResponse.json(
-      { error: "Error in Fetching: " + error },
+      { success: false, message: "Something went wrong!: " + error },
       { status: 500 }
     );
   }
 }
 
 // add
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse<ApiResponse>> {
 
-  const { name } = await req.json();
   try {
+
+    const { name }: { name: string } = await req.json();
+
+    if (!name) {
+      return NextResponse.json({
+        success: false,
+        message: "Brand name is required.",
+      }, { status: 400 });
+    }
+
     await dbConnect();
 
     const newBrands = new BrandModel({ name })
+    const res = await newBrands.save();
 
-    await newBrands.save()
+    if (!res) {
+      return NextResponse.json({
+        success: false,
+        message: "Error while adding the brand"
+      }, { status: 500 });
+    }
 
     return NextResponse.json({
       success: true,
-      message: "brands is added Successfully"
-    }, { status: 200 })
+      message: "brand added Successfully"
+    }, { status: 201 });
 
   } catch (error) {
-    console.log(error);
-    return NextResponse.json(
-      { error: "Error while adding Brands" },
-      { status: 500 }
-    )
+
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong!:" + error
+    }, { status: 500 });
 
   }
 

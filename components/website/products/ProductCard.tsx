@@ -7,7 +7,7 @@ import loader from "@/public/loaders/type.gif"
 
 // data
 import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
-import { GetBrandById } from "@/lib/ApiFunctions/Brands";
+import { getBrandById } from "@/lib/ApiFunctions/Brands";
 import { getQuantityOfProductFromUserCart } from "@/lib/ApiFunctions/UserCart";
 
 // type
@@ -29,9 +29,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
 
   const quantity = await getQuantityOfProductFromUserCart({ userId, productId })
   const categoryData = await GetCategoryIdData(params.category)
-  const brandData = await GetBrandById(params.brand)
-
-
+  const brandData = await getBrandById(params.brand)
 
   return (
     <div className="product-card p-7 rounded-xl hover:border-primary-light hover:shadow-lg">
@@ -55,7 +53,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
         </h6>
         <h5 className="text-gray text-sm">
           By
-          <span className="text-primary font-semibold"> {brandData.name}</span>
+          <span className="text-primary font-semibold"> {brandData.success ? brandData.data?.name : "none"}</span>
         </h5>
       </Link>
       <div className="flex justify-between mt-5">

@@ -1,12 +1,20 @@
 'use server'
+import dbConnect from "../dbConnect";
+import { BrandModel } from "../Models/Brand";
 
 export type brandType = {
     _id: string;
     name: string
 }
 
+type ApiResponse = {
+    success: boolean,
+    message: string,
+    data?: brandType[]
+}
+
 // GET brand data
-export async function getBrandData(): Promise<brandType[]> {
+export async function getBrandData(): Promise<ApiResponse> {
 
     try {
         const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`,
@@ -17,66 +25,74 @@ export async function getBrandData(): Promise<brandType[]> {
                 next: { tags: ['brand'] },
             }
         )
-    
+
         if (!brandAPI.ok) {
-            throw new Error(`Brand API call failed with status ${brandAPI.status}`)
+            return { success: false, message: `Brand API call failed with status ${brandAPI.status}` }
         }
-    
+
         const brandData = await brandAPI.json()
-    
-        return brandData.data
+
+        return { success: true, message: "Brand Data found" , data: brandData.data }
 
     } catch (error) {
-        throw new Error(`Something went wrong! : ${error}`)
+        return { success: false, message: `Something went wrong! : ${error}` }
     }
 
 }
-
 
 // GET Brand By ID
-export async function GetBrandById(id: string): Promise<brandType> {
-
-    const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
-        {
-            headers: { Accept: "application/json", },
-            method: "GET",
-            next: { tags: ['brand'] },
-        }
-    )
-
-    if (!brandAPI.ok) {
-        throw new Error(`Brand ID API call failed with status ${brandAPI.status}`)
-    }
-
-    const brandData = await brandAPI.json()
-
-    return brandData.data
-}
-
-type ApiResponse = {
-    success : boolean,
-    message : string,
-    data ? : {name: string;}
-}
-
-// DETETE Brand By ID
-export async function deleteBrandById(id: string) : Promise<ApiResponse> {
+export async function getBrandById(id: string) {
 
     try {
-        const brandAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`,
-            {
-                headers: { Accept: "application/json", },
-                method: "DELETE",
-                next: { tags: ['brand'] },
-            }
-        )
-    
-        const res = await brandAPI.json()
 
-        return res
-        
+        if(!id) {
+            return { success: false, message: "Brand ID is required." , }
+        }
+
+        await dbConnect();
+
+        const brandData = await BrandModel.findById(id);
+
+        if(!brandData) {
+            return { success: false, message: "Brand not found." , }
+        }
+    
+        return { success: true, message: "Brand Data found" , data: brandData }
+
     } catch (error) {
-        return {success: false, message: 'Something went wrong !' + error}
+        return { success: false, message: 'Something went wrong !' + error }
+    }
+}
+
+
+// DETETE Brand By ID
+export async function deleteBrandById(id: string): Promise<ApiResponse> {
+
+    try {
+        
+        if(!id) {
+            return { success: false, message: "Brand ID is required." , }
+        }
+
+        await dbConnect();
+
+        const res = await BrandModel.findByIdAndDelete(id);
+
+        if (!res) {
+            return { success: false, message: "Brand not found." }
+        }
+
+        return { success: true, message: "Brand Deleted Successfully" }
+
+    } catch (error) {
+        return { success: false, message: 'Something went wrong !' + error }
     }
 
 }
+
+// update
+// const updatedBrand = await BrandModel.findByIdAndUpdate(
+//     brandId,
+//     name,
+//     { new: true }
+// );

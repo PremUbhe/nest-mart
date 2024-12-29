@@ -1,43 +1,46 @@
 'use server';
 import { z } from 'zod'
+import dbConnect from '../dbConnect';
+import { BrandModel } from '../Models/Brand';
 import { revalidateTag } from 'next/cache'
 
+type ApiSchema = {
+    success: boolean,
+    message: string,
+}
+
 const BrandSchema = z.object({
+    _id: z.string(),
     name: z.string(),
 })
 
 
-const BrandUpdateAction = async (formData: FormData) => {
+const BrandUpdateAction = async (values: z.infer<typeof BrandSchema>): Promise<ApiSchema> => {
 
-    const formValues = Object.fromEntries(formData);
-    const result = BrandSchema.safeParse(formValues);
+    const validatedFields = BrandSchema.safeParse(values);
 
-    if (!result.success) {
-        console.error("Validation failed", result.error);
-        return;
+    if (!validatedFields.success) {
+        return { success: false, message: "Invalid fields" }
     }
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(result.data)
-        });
+        await dbConnect();
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log("Brand Updated successfully:", data);
+        const res = await BrandModel.findByIdAndUpdate(
+            values._id,
+            {name: values.name},
+            { new: true }
+        );
 
-            revalidateTag('brand');
-
-        } else {
-            const errorData = await response.json();
-            console.error("Error While Updating Brand:", errorData);
+        if (!res) {
+            return {success: false, message: 'Brand not found or update failed.'};
         }
+
+        revalidateTag('brand');
+        return {success: true, message: "Brand update successfully"}
+        
     } catch (error) {
-        console.error("Network error:", error);
+        return{success: false, message: "Something went wrong! :" + error};
     }
 }
 

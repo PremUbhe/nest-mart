@@ -4,17 +4,21 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 
 // data
-import { getBrandData } from '@/lib/ApiFunctions/Brands';
+import { brandType, getBrandData } from '@/lib/ApiFunctions/Brands';
 
 const page = async () => {
 
-  const BrandsData = await getBrandData();
+  const brandsData = await getBrandData();
 
-  return (
-    <div className="container mx-auto">
-      <DataTable columns={columns} data={BrandsData} />
-    </div>
-  )
+  if (brandsData.data) {
+    return (
+      <div className="container mx-auto">
+        <DataTable columns={columns} data={brandsData.data as brandType[]} />
+      </div>
+    )
+  } else {
+    return <div> <h2>{brandsData.message}</h2></div>;
+  }
 }
 
 export default page

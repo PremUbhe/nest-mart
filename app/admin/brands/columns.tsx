@@ -60,7 +60,7 @@ export const columns: ColumnDef<brandType>[] = [
 
             return (
                 <div className="flex justify-center gap-2">
-                    <Link href={`/admin/brands/add/${brands._id}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
+                    <Link href={`/admin/brands/add/${brands._id}/${brands.name}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
                     <DeleteBrandBut params={brands} />
                 </div>
             )

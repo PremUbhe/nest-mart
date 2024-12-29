@@ -7,6 +7,7 @@ type ConnectionObject = {
 const connection: ConnectionObject = {};
 
 async function dbConnect(): Promise<void> {
+
   if (connection.isConnected) {
     console.log("DB connected already");
     return;
@@ -18,8 +19,11 @@ async function dbConnect(): Promise<void> {
     connection.isConnected = db.connections[0].readyState;
 
     console.log("DB Connected Successfully");
+
   } catch (error) {
+
     console.log("DB Connected failed :", error);
+    
     process.exit(1);
   }
 }
