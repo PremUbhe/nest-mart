@@ -41,27 +41,27 @@ export function DataTable<TData, TValue>({
 
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
-    const [rowSelection, setRowSelection] = React.useState({})
     const [pagination, setPagination] = React.useState({
         pageIndex: 0, //initial page index
-        pageSize: 5, //default page size
+        pageSize: 7, //default page size
     });
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(), //added pagination
+        //added pagination
+        getPaginationRowModel: getPaginationRowModel(),
         onPaginationChange: setPagination,
-        onSortingChange: setSorting,  //added sorting
+        //added sorting
+        onSortingChange: setSorting,
         getSortedRowModel: getSortedRowModel(),
-        onColumnFiltersChange: setColumnFilters, //searchbar
+        //searchbar
+        onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
-        onRowSelectionChange: setRowSelection, //select
         state: {
             sorting,
             columnFilters,
-            rowSelection,
             pagination,
         },
     })
@@ -69,31 +69,37 @@ export function DataTable<TData, TValue>({
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <h2 className='text-blue text-3xl font-bold'>Category List</h2>
-                <div className="flex gap-5">
+                <h2 className='text-gray text-3xl font-bold'>Category List</h2>
+                <div className="flex gap-3">
                     <Input
                         placeholder="Filter Category Name..."
                         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                        className="min-w-64 bg-black-secondary border-gray font-semibold"
                         onChange={(event) =>
                             table.getColumn("name")?.setFilterValue(event.target.value)
                         }
-                        className="max-w-sm min-w-64"
                     />
-                    <Button type='submit' variant="outline"
-                        className='bg-primary-light hover:bg-primary hover:text-white'>
+                    <Button
+                        type='submit'
+                        variant="outline"
+                        className="text-gray border-gray"
+                    >
                         <Link href="/admin/categories/add" className='flex gap-2 items-center'> <FaPlus /> Add</Link>
                     </Button>
 
                 </div>
             </div>
-            <div className="rounded-md border">
+            <div className="rounded-md border border-gray overflow-hidden">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="bg-gray">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id}>
+                                        <TableHead
+                                            className="text-black"
+                                            key={header.id}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -110,6 +116,7 @@ export function DataTable<TData, TValue>({
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
+                                    className="hover:bg-[#343438]"
                                     key={row.id}
                                     data-state={row.getIsSelected() && "selected"}
                                 >

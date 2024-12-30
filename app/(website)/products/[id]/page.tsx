@@ -3,7 +3,7 @@ import Image from "next/image";
 
 // data
 import { GetProductById } from "@/lib/ApiFunctions/Products";
-import { GetCategoryData, GetCategoryIdData } from '@/lib/ApiFunctions/Category';
+import { getCategoryData, GetCategoryIdData } from '@/lib/ApiFunctions/Category';
 import { getQuantityOfProductFromUserCart } from "@/lib/ApiFunctions/UserCart";
 
 // type
@@ -35,7 +35,7 @@ const products = async ({ params }: { params: { id: string } }) => {
   const productId = params.id
   const ProductData = await GetProductById(productId);
 
-  const CategorieData = await GetCategoryData();
+  const CategorieData = await getCategoryData();
 
   const CategoryIdData = await GetCategoryIdData(ProductData.category)
 
@@ -147,16 +147,21 @@ const products = async ({ params }: { params: { id: string } }) => {
           <aside className="w-full h-fit max-w-xs">
             <div className="p-4 border rounded-xl mb-5 shadow">
               <h4 className='text-2xl text-blue font-bold mb-5'>Category</h4>
-              <ul className='flex flex-col gap-3'>
-                {CategorieData.map((value: categoryType, index: number) => {
-                  return (
-                    <li className='flex items-center gap-3 font-semibold border border-border-color rounded-lg py-2 px-4 hover:shadow hover:border-primary-light hover:text-primary' key={index}>
-                      <Image src={value.img} alt={value.name} width={30} height={30}></Image>
-                      {value.name}
-                    </li>
-                  )
-                })}
-              </ul>
+              {CategorieData.data ? (
+                <ul className='flex flex-col gap-3'>
+                  {CategorieData.data?.map((value: categoryType, index: number) => {
+                    return (
+                      <li className='flex items-center gap-3 font-semibold border border-border-color rounded-lg py-2 px-4 hover:shadow hover:border-primary-light hover:text-primary' key={index}>
+                        <Image src={value.img} alt={value.name} width={30} height={30}></Image>
+                        {value.name}
+                      </li>
+                    )
+                  })}
+                </ul>
+
+              ) : (
+                <p>Category not found</p>
+              )}
             </div>
             <div className="border bg-banner-Juice bg-cover rounded-xl overflow-hidden">
               <div className="px-7 py-28">

@@ -2,20 +2,20 @@
 import React, { useState, useTransition } from 'react';
 import Link from 'next/link';
 
-// form
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+// zod
 import { z } from "zod"
-import { useRouter } from "next/navigation";
-import FormError from '@/components/website/forms/FormError';
+import { zodResolver } from "@hookform/resolvers/zod"
 
 // hooks
+import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation";
 import { useToast } from '@/hooks/use-toast';
 
 // action
 import BrandAddAction from '@/lib/Actions/BrandAddAction';
 
 // components
+import FormError from '@/components/website/forms/FormError';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import {
@@ -75,7 +75,7 @@ const BrandAdd = () => {
         <Button variant="outline" size="icon" className='text-gray border-gray'>
           <Link href="/admin/brands" ><FaCircleLeft /></Link>
         </Button>
-        <h2 className='text-gray text-4xl font-semibold'>Brand</h2>
+        <h2 className='text-gray text-4xl font-semibold'>Add Brand</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

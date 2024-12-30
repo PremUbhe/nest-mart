@@ -4,9 +4,12 @@ import * as React from "react"
 import {
     ColumnDef,
     ColumnFiltersState,
+    SortingState,
     flexRender,
     getCoreRowModel,
+    getFilteredRowModel,
     getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 import {
@@ -37,16 +40,30 @@ export function DataTable<TData, TValue>({
     data,
 }: DataTableProps<TData, TValue>) {
 
+    const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
+    const [pagination, setPagination] = React.useState({
+        pageIndex: 0, //initial page index
+        pageSize: 10, //default page size
+    });
 
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(), //added pagination
-        onColumnFiltersChange: setColumnFilters, //searchbar
+        //added pagination
+        getPaginationRowModel: getPaginationRowModel(),
+        onPaginationChange: setPagination,
+        //searchbar
+        onColumnFiltersChange: setColumnFilters,
+        getFilteredRowModel: getFilteredRowModel(),
+        //added sorting
+        onSortingChange: setSorting,
+        getSortedRowModel: getSortedRowModel(),
         state: {
+            sorting,
             columnFilters,
+            pagination,
         },
     })
 
@@ -58,12 +75,16 @@ export function DataTable<TData, TValue>({
                     <Input
                         placeholder="Filter Brands..."
                         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-                        className="min-w-60 bg-black-secondary border-gray font-semibold"
+                        className="min-w-64 bg-black-secondary border-gray font-semibold"
                         onChange={(event) =>
                             table.getColumn("name")?.setFilterValue(event.target.value)
                         }
                     />
-                    <Button type='submit' variant="outline" className="text-gray border-gray">
+                    <Button
+                        type='submit'
+                        variant="outline"
+                        className="text-gray border-gray"
+                    >
                         <Link href="/admin/brands/add" className='flex gap-2 items-center'> <FaPlus /> Add</Link>
                     </Button>
                 </div>
@@ -75,7 +96,10 @@ export function DataTable<TData, TValue>({
                             <TableRow key={headerGroup.id}>
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead className="text-black" key={header.id}>
+                                        <TableHead
+                                            className="text-black"
+                                            key={header.id}
+                                        >
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(

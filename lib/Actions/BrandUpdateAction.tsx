@@ -28,19 +28,19 @@ const BrandUpdateAction = async (values: z.infer<typeof BrandSchema>): Promise<A
 
         const res = await BrandModel.findByIdAndUpdate(
             values._id,
-            {name: values.name},
+            { name: values.name },
             { new: true }
         );
 
         if (!res) {
-            return {success: false, message: 'Brand not found or update failed.'};
+            return { success: false, message: 'Brand not found or update failed.' };
         }
 
         revalidateTag('brand');
-        return {success: true, message: "Brand update successfully"}
-        
+        return { success: true, message: "Brand update successfully" }
+
     } catch (error) {
-        return{success: false, message: "Something went wrong! :" + error};
+        return { success: false, message: "Something went wrong! :" + error };
     }
 }
 

@@ -1,3 +1,4 @@
+'use server'
 import React from 'react';
 
 // components
@@ -5,17 +6,27 @@ import { columns } from "./columns"
 import { DataTable } from "./data-table"
 
 // data
-import { GetCategoryData } from '@/lib/ApiFunctions/Category';
+import { getCategoryData, categoryType } from '@/lib/ApiFunctions/Category';
 
 const CategoryList = async () => {
 
-  const CategorieData = await GetCategoryData();
+  const categorieData = await getCategoryData();
 
-  return (
-    <div className="container mx-auto">
-      <DataTable columns={columns} data={CategorieData} />
-    </div>
-  )
+  if (categorieData.success) {
+    return (
+      <div className="container mx-auto">
+        <DataTable columns={columns} data={categorieData.data as categoryType[]} />
+      </div>
+    );
+
+  } else {
+    return (
+      <div className="container mx-auto">
+        <h2>{categorieData.message}</h2>
+      </div>
+    );
+  }
+
 }
 
 export default CategoryList

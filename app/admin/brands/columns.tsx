@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown } from "lucide-react"
+
+// ui
 import { Button } from "@/components/ui/button"
 
 // componenets
@@ -10,13 +11,15 @@ import DeleteBrandBut from "@/components/admin/brand/DeleteBrandBut"
 
 // icons
 import { FaPencil } from "react-icons/fa6"
+import { ArrowUpDown } from "lucide-react"
 
 // type
 import { brandType } from "@/lib/ApiFunctions/Brands"
 
+
 export const columns: ColumnDef<brandType>[] = [
     {
-        id: "select",
+        id: "id",
         header: () => <div className="text-center">SR No.</div>,
         cell: ({ row }) => (
             <div className="text-center">
@@ -24,6 +27,7 @@ export const columns: ColumnDef<brandType>[] = [
             </div>
         ),
         enableSorting: false,
+        enableHiding: false,
     },
     {
         accessorKey: "name",
@@ -56,11 +60,17 @@ export const columns: ColumnDef<brandType>[] = [
             </div>
         ),
         cell: ({ row }) => {
+
             const brands = row.original
 
             return (
                 <div className="flex justify-center gap-2">
-                    <Link href={`/admin/brands/add/${brands._id}/${brands.name}`} className='p-2 text-white bg-yellow-500 rounded-lg' type='button'><FaPencil /></Link>
+                    <Button
+                        variant="default"
+                        className="h-8 w-8 p-0 bg-yellow-500 text-white"
+                    >
+                        <Link href={`/admin/brands/add/${brands._id}/${brands.name}`}><FaPencil /></Link>
+                    </Button>
                     <DeleteBrandBut params={brands} />
                 </div>
             )

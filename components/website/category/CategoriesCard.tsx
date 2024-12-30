@@ -2,18 +2,18 @@ import React from "react";
 import Image from "next/image";
 
 // data
-import { GetCategoryData } from "@/lib/ApiFunctions/Category";
+import { getCategoryData } from "@/lib/ApiFunctions/Category";
 
 // type
 import { categoryType } from "@/lib/ApiFunctions/Category";
 
 export default async function CategoriesCard() {
 
-  const CategorieData = await GetCategoryData();
+  const CategorieData = await getCategoryData();
 
   return (
     <div className="flex flex-row py-3 gap-4 overflow-x-auto">
-      {CategorieData.map((data: categoryType, index: number) => {
+      {CategorieData.data?.map((data: categoryType, index: number) => {
         return (
           <div
             className="categorie-card relative px-8 py-7 border rounded-xl overflow-hidden hover:bg-white hover:shadow-lg hover:border-primary-light"

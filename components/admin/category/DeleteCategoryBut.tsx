@@ -8,17 +8,17 @@ import { Button } from '@/components/ui/button';
 import { FaTrashCan } from "react-icons/fa6";
 
 // data
-import { deleteBrandById } from '@/lib/ApiFunctions/Brands';
+import { deleteCategoryById } from '@/lib/ApiFunctions/Category';
 
-  const deleteBrand = async (id: string) => {
+const deleteCategory = async (id: string) => {
 
-    const res = await deleteBrandById(id);
+  const res = await deleteCategoryById(id);
 
-    return res;
+  return res;
 
-  }
+}
 
-const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) => {
+const DeleteCategoryBut = ({ params }: { params: { _id: string, name: string } }) => {
 
   const { toast } = useToast();
   const router = useRouter();
@@ -28,20 +28,20 @@ const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) =
       variant="destructive"
       className="h-8 w-8 p-0 text-white"
       onClick={() =>
-        deleteBrand(params._id)
+        deleteCategory(params._id)
           .then((data) => {
             if (data?.success) {
               toast({
                 title: "Done",
                 description: `${data.message}`
-              })
+              });
               router.refresh()
             } else {
               toast({
                 variant: "destructive",
                 title: "Fail",
                 description: `${data.message}`
-              })
+              });
             }
           })
       }
@@ -51,4 +51,4 @@ const DeleteBrandBut = ({ params }: { params: { _id: string, name: string } }) =
   )
 }
 
-export default DeleteBrandBut
+export default DeleteCategoryBut
