@@ -11,28 +11,37 @@ export type productType = {
   description: string;
 }
 
-
-// products data
-export async function GetProductData(): Promise<productType[]> {
-
-  const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
-    {
-      headers: { Accept: "application/json", },
-      method: "GET",
-      cache: "no-store",
-      next: { tags: ['products'] },
-    }
-  )
-
-  if (!productsAPI.ok) {
-    throw new Error(`Product API call failed with status ${productsAPI.status}`)
-  }
-
-  const productData = await productsAPI.json()
-
-  return productData.data
+type ApiResponse = {
+  success: boolean,
+  message: string,
+  data?: productType[]
 }
 
+// products data
+export async function getProductData(): Promise<ApiResponse> {
+
+  try {
+    const productsAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`,
+      {
+        headers: { Accept: "application/json", },
+        method: "GET",
+        cache: "no-store",
+        next: { tags: ['products'] },
+      }
+    )
+
+    if (!productsAPI.ok) {
+      return { success: false, message: `Product API call failed with status ${productsAPI.status}` }
+    }
+
+    const productData = await productsAPI.json()
+
+    return { success: true, message: "Product Data found", data: productData.data }
+
+  } catch (error) {
+    return { success: false, message: `Something went wrong! : ${error}` }
+  }
+}
 
 // products by id data
 export async function GetProductById(id: string): Promise<productType> {

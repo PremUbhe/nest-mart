@@ -3,7 +3,7 @@ import Image from "next/image";
 
 // data
 import { GetProductById } from "@/lib/ApiFunctions/Products";
-import { getCategoryData, GetCategoryIdData } from '@/lib/ApiFunctions/Category';
+import { getCategoryData, getCategoryId } from '@/lib/ApiFunctions/Category';
 import { getQuantityOfProductFromUserCart } from "@/lib/ApiFunctions/UserCart";
 
 // type
@@ -37,7 +37,7 @@ const products = async ({ params }: { params: { id: string } }) => {
 
   const CategorieData = await getCategoryData();
 
-  const CategoryIdData = await GetCategoryIdData(ProductData.category)
+  const CategoryIdData = await getCategoryId(ProductData.category)
 
   const quantity = await getQuantityOfProductFromUserCart({ userId, productId })
 
@@ -69,7 +69,7 @@ const products = async ({ params }: { params: { id: string } }) => {
                   <Image src={ProductData.img} alt={ProductData.name} width={400} height={400}></Image>
                 </div>
                 <div className="w-full px-4">
-                  <h6 className="px-6 py-1 font-semibold text-sm bg-secondary w-fit rounded-xl">{CategoryIdData.name}</h6>
+                  <h6 className="px-6 py-1 font-semibold text-sm bg-secondary w-fit rounded-xl">{CategoryIdData.data?.name}</h6>
                   <h3 className="text-4xl text-blue font-bold">{ProductData.name}</h3>
                   <h6 className="text-gray text-base w-25">
                     <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">

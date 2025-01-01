@@ -6,7 +6,7 @@ import Link from "next/link";
 import loader from "@/public/loaders/type.gif"
 
 // data
-import { GetCategoryIdData } from "@/lib/ApiFunctions/Category";
+import { getCategoryId } from "@/lib/ApiFunctions/Category";
 import { getBrandById } from "@/lib/ApiFunctions/Brands";
 import { getQuantityOfProductFromUserCart } from "@/lib/ApiFunctions/UserCart";
 
@@ -28,7 +28,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
   const productId = params._id
 
   const quantity = await getQuantityOfProductFromUserCart({ userId, productId })
-  const categoryData = await GetCategoryIdData(params.category)
+  const categoryData = await getCategoryId(params.category)
   const brandData = await getBrandById(params.brand)
 
   return (
@@ -40,7 +40,7 @@ const ProductCard = async ({ params }: { params: productType }) => {
           width={320}
           alt="product image"
         />
-        <h6 className="text-gray font-semibold text-sm">{categoryData.name}</h6>
+        <h6 className="text-gray font-semibold text-sm">{categoryData.data?.name}</h6>
         <h3 className="text-xl font-medium truncate overflow-hidden">{params.name}</h3>
         <h6 className="flex items-center text-gray text-sm w-25">
           <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">

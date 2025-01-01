@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 
 
 export type categoryType = {
@@ -6,14 +7,20 @@ export type categoryType = {
     img: string;
 }
 
-type ApiResponse = {
+type ApiResponses = {
     success: boolean,
     message: string,
     data?: categoryType[]
 }
 
+type ApiResponse = {
+    success: boolean,
+    message: string,
+    data?: categoryType
+}
+
 // category data
-export async function getCategoryData(): Promise<ApiResponse> {
+export async function getCategoryData(): Promise<ApiResponses> {
 
     try {
         const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`,
@@ -31,7 +38,7 @@ export async function getCategoryData(): Promise<ApiResponse> {
     
         const categoryData = await categoryAPI.json()
     
-        return { success: true, message: "Brand Data found" , data: categoryData.data }
+        return { success: true, message: "Category Data found" , data: categoryData.data }
         
     } catch (error) {
         return { success: false, message: `Something went wrong! : ${error}` }
@@ -40,23 +47,32 @@ export async function getCategoryData(): Promise<ApiResponse> {
 }
 
 // category ID data
-export async function GetCategoryIdData(id: string): Promise<categoryType> {
+export async function getCategoryId(id: string): Promise<ApiResponse> {
 
-    const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${id}`,
-        {
-            headers: { Accept: "application/json", },
-            method: "GET",
-            next: { tags: ['category'] },
-        }
-    )
-
-    if (!categoryAPI.ok) {
-        throw new Error(`Category ID API call failed with status ${categoryAPI.status}`)
+    if(!id) {
+        return { success: false, message: "Category ID is required." , }
     }
 
-    const categoryData = await categoryAPI.json()
+    try {
+        const categoryAPI = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories/${id}`,
+            {
+                headers: { Accept: "application/json", },
+                method: "GET",
+                next: { tags: ['category'] },
+            }
+        )
+        
+        if (!categoryAPI.ok) {
+            return { success: false, message: "Category not found." }
+        }
 
-    return categoryData.data
+        const category = await categoryAPI.json();
+
+        return { success: true, message: "Category found Successfully", data: category.data }
+
+    } catch (error) {
+        return { success: false, message: 'Something went wrong !' + error }
+    }
 }
 
 
@@ -72,14 +88,13 @@ export async function deleteCategoryById(id: string): Promise<ApiResponse> {
             {
                 headers: { Accept: "application/json", },
                 method: "DELETE",
-                next: { tags: ['category'] },
             }
         )
     
         if (!categoryAPI.ok) {
             return { success: false, message: "Category not found." }
         }
-
+        revalidateTag('category')
         return { success: true, message: "Category Deleted Successfully" }
 
     } catch (error) {

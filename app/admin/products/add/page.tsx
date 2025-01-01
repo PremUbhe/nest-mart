@@ -1,62 +1,174 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+
 // action
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
-// components
-import CategorySelectList from '@/components/admin/category/CategorySelectList';
-import BrandSelectList from '@/components/admin/brand/BrandSelectList';
+
 // ui
 import { Input } from '@/components/ui/input'
+// import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectLabel,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+
 // icons
 import { FaCircleLeft } from "react-icons/fa6";
+
+// data
+import { categoryType, getCategoryData } from '@/lib/ApiFunctions/Category';
+import { getBrandData, brandType } from '@/lib/ApiFunctions/Brands';
 
 
 const ProductAdd = () => {
 
+    const [categoryData, setCategoryData] = useState<categoryType[]>([]);
+    const [brandData, setBrandData] = useState<brandType[]>([]);
+
+
+    useEffect(() => {
+
+        const fetchData = async () => {
+
+            const category = await getCategoryData()
+            if (category.success && category.data) {
+                setCategoryData(category.data)
+            }
+
+            const brand = await getBrandData()
+            if (brand.success && brand.data) {
+                setBrandData(brand.data)
+            }
+        };
+
+        fetchData()
+    }, [])
+
     return (
-        <>
+        <section className='max-w-screen-xl mx-auto'>
             <div className='flex gap-5 items-center mb-3'>
-                <Link href="/admin/products" className='bg-primary text-white p-2 rounded-lg'><FaCircleLeft /></Link>
-                <h2 className='text-blue text-2xl font-bold'>Add Product</h2>
+                <Button variant="outline" size="icon" className='text-gray border-gray'>
+                    <Link href="/admin/products" ><FaCircleLeft /></Link>
+                </Button>
+                <h2 className='text-gray text-4xl font-semibold'>Add Product</h2>
             </div>
-            <form action={ProductAddAction} className='flex flex-wrap'>
-                <div className="w-6/12 pe-3 mb-5">
-                    <Input type="text" className=' w-full' name="name" placeholder='name' required />
+            <form action={ProductAddAction}>
+                <div className="flex justify-between flex-wrap">
+                    <div className="w-6/12 pe-3 mb-5">
+                        <Input
+                            type="text"
+                            name="name"
+                            placeholder='Product Name'
+                            className='bg-black-secondary font-semibold'
+                            required
+                        />
+                    </div>
+                    <div className="w-6/12 ps-3 mb-5">
+                        <Input
+                            type="file"
+                            name="img"
+                            className='bg-black-secondary'
+                            required
+                        />
+                    </div>
+                    <div className="w-6/12 pe-3 mb-5">
+                        <Select name="category" required>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select a Category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Categories</SelectLabel>
+                                    {
+                                        categoryData.map((data: categoryType, index: number) => {
+                                            return (
+                                                <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
+                                            )
+                                        })
+                                    }
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="w-6/12 ps-3 mb-5">
+                        <Select name="brand" required>
+                            <SelectTrigger className="w-full">
+                                <SelectValue placeholder="Select a Brand" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectLabel>Brands</SelectLabel>
+                                    {brandData.map((data: brandType, index: number) => {
+                                        return (
+                                            <SelectItem key={index} value={data._id}>{data.name}</SelectItem>
+                                        )
+                                    })}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="w-3/12 pe-3 mb-5">
+                        <Input
+                            type="number"
+                            className='bg-black-secondary font-bold'
+                            name='price'
+                            placeholder='Price'
+                            required
+                        />
+                    </div>
+                    <div className="w-3/12 px-3 mb-5">
+                        <Input
+                            type="number"
+                            className='bg-black-secondary font-bold'
+                            name='discount'
+                            placeholder='Discount'
+                            required
+                        />
+                    </div>
+                    <div className="w-3/12 px-3 mb-5">
+                        <Input
+                            type="number"
+                            className='bg-black-secondary font-bold'
+                            name='rating'
+                            placeholder='Rating'
+                            required
+                        />
+                    </div>
+                    <div className="w-3/12 ps-3 mb-5">
+                        <Input
+                            type="number"
+                            className='bg-black-secondary font-bold'
+                            name='stock'
+                            placeholder='Avalabel Stock'
+                            required />
+                    </div>
+                    <div className="w-full mb-5">
+                        <Textarea
+                            name="description"
+                            className='border bg-black-secondary font-bold'
+                            id="description"
+                            placeholder='Description'
+                            rows={4}
+                        ></Textarea>
+                    </div>
                 </div>
-                <div className="w-6/12 ps-3 mb-5">
-                    <Input type="file" className='pt-[6px] w-full' name="img" placeholder='image' required />
-                </div>
-                <div className="w-6/12 pe-3 mb-5">
-                    <CategorySelectList />
-                </div>
-                <div className="w-6/12 ps-3 mb-5">
-                    <BrandSelectList />
-                </div>
-                <div className="w-3/12 pe-3 mb-5">
-                    <Input type="number" className='w-full' name='price' placeholder='Price' required />
-                </div>
-                <div className="w-3/12 px-3 mb-5">
-                    <Input type="number" className='w-full' name='discount' placeholder='Discount' required />
-                </div>
-                <div className="w-3/12 px-3 mb-5">
-                    <Input type="number" className='w-full' name='rating' placeholder='Rating' required />
-                </div>
-                <div className="w-3/12 ps-3 mb-5">
-                    <Input type="number" className='w-full' name='stock' placeholder='Avalabel Stock' required />
-                </div>
-                <div className="w-full mb-5">
-                    <Textarea name="description" className='border w-full' id="description" placeholder='Description' rows={4}></Textarea>
-                </div>
-                <Button type='submit' variant="outline"
-                    className='bg-primary-light hover:bg-primary hover:text-white'>
+                <Button
+                    type='submit'
+                    variant="outline"
+                    >
                     Submit
                 </Button>
             </form>
-        </>
+        </section>
     )
 }
 

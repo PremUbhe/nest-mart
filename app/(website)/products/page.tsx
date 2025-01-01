@@ -1,7 +1,7 @@
 import React from 'react';
 
 // data
-import { GetProductData } from '@/lib/ApiFunctions/Products';
+import { getProductData } from '@/lib/ApiFunctions/Products';
 
 // components
 import ProductCard from "@/components/website/products/ProductCard";
@@ -32,7 +32,7 @@ import { productType } from '@/lib/ApiFunctions/Products';
 
 const page = async () => {
 
-  const productData = await GetProductData();
+  const productData = await getProductData();
 
   return (
     <>
@@ -77,7 +77,7 @@ const page = async () => {
       </section>
       <section>
         <div className="flex flex-wrap">
-          {productData.map((data: productType, index: number) => {
+          {productData.data?.map((data: productType, index: number) => {
             return (
               <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 px-3" key={index}>
                 <ProductCard params={data} />

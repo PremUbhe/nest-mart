@@ -6,7 +6,7 @@ import ProductCard from "@/components/website/products/ProductCard";
 import Swipers from '@/components/website/swiper/Swiper';
 
 // data
-import { GetProductData } from '@/lib/ApiFunctions/Products';
+import { getProductData } from '@/lib/ApiFunctions/Products';
 
 // type
 import { productType } from '@/lib/ApiFunctions/Products';
@@ -40,7 +40,7 @@ const swiperData: sliderSchema[] = [
 
 const Page = async () => {
 
-  const productData = await GetProductData();
+  const productData = await getProductData();
 
   return (
     <main>
@@ -71,7 +71,7 @@ const Page = async () => {
           <h2 className="text-3xl text-blue font-bold mb-5">Popular Products</h2>
         </div>
         <div className="flex flex-wrap">
-          {productData.map((data: productType, index: number) => {
+          {productData.data?.map((data: productType, index: number) => {
             return (
               <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 p-3" key={index}>
                 <ProductCard params={data} />
