@@ -2,6 +2,10 @@
 
 import React, { useState, useTransition } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+// img
+import loader from "@/public/loaders/type.gif"
 
 // hooks
 import { useRouter } from "next/navigation";
@@ -18,7 +22,6 @@ import FormError from '@/components/website/forms/FormError';
 
 // icons
 import { FaCircleLeft } from "react-icons/fa6";
-import { FaPlus } from "react-icons/fa6";
 
 const CategoryAdd = () => {
 
@@ -28,23 +31,21 @@ const CategoryAdd = () => {
   const [error, setError] = useState<string | undefined>('');
 
   function formAction(formData: FormData) {
-    startTransition(() => {
-      CategoryAddAction(formData)
-        .then((data) => {
-          if (data?.success) {
-            toast({
-              title: "Done",
-              description: `${data?.message}`,
-            })
-            router.push("/admin/categories");
-          } else {
-            setError(data?.message)
-          }
-        })
-        .catch((error) => {
-          setError(error)
-        })
-    })
+
+    startTransition(async () => {
+
+      const res = await CategoryAddAction(formData);
+
+      if (res.success) {
+        toast({
+          title: "Done",
+          description: res.message,
+        });
+        router.push("/admin/categories");
+      } else {
+        setError(res.message);
+      }
+    });
   }
 
   return (
@@ -84,10 +85,11 @@ const CategoryAdd = () => {
           size="default"
           disabled={isPending}
         >
-          <FaPlus /> Add
+          {isPending ? (
+            <Image src={loader} width={50} alt='loading ...' unoptimized />
+          ) : "Submit"}
         </Button>
       </form>
-
     </section>
   )
 }

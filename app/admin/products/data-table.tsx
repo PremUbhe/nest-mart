@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [pagination, setPagination] = React.useState({
         pageIndex: 0, //initial page index
-        pageSize: 10, //default page size
+        pageSize: 7, //default page size
     });
 
     const table = useReactTable({

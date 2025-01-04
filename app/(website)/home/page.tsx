@@ -1,9 +1,10 @@
 import React from 'react';
 
 // components;
-import CategoriesCard from "@/components/website/category/CategoriesCard";
 import ProductCard from "@/components/website/products/ProductCard";
 import Swipers from '@/components/website/swiper/Swiper';
+import HeroSection from '@/components/website/home/HeroSection';
+import CategorySwiper from '@/components/website/home/CategorySwiper';
 
 // data
 import { getProductData } from '@/lib/ApiFunctions/Products';
@@ -17,7 +18,6 @@ import img1 from '@/public/sliders/banner-1.png'
 import img2 from '@/public/sliders/banner-2.png'
 import img3 from '@/public/sliders/banner-3.png'
 import img4 from '@/public/sliders/banner-4.png'
-import HeroSection from '@/components/website/home/HeroSection';
 
 const swiperData: sliderSchema[] = [
   {
@@ -61,7 +61,7 @@ const Page = async () => {
         <div className="section-header">
           <h2 className="text-3xl text-blue font-bold mb-5">Shop by Categories</h2>
         </div>
-        <CategoriesCard />
+        <CategorySwiper />
       </section>
       {/* category section end */}
 

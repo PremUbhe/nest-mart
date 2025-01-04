@@ -1,30 +1,38 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import CategoryModel from "@/lib/Models/Category";
+import CategoryModel, { Category } from "@/lib/Models/Category";
 
+type ApiResponse = {
+    success: boolean,
+    message: string,
+    data?: Category
+}
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+// get
+export async function GET(req: Request, context: { params: { id: string } }): Promise<NextResponse<ApiResponse>> {
 
     const { params } = context;
     const categorieId = params.id;
 
     try {
         await dbConnect();
-        const data = await CategoryModel.findById(categorieId);
+        const categoryData = await CategoryModel.findById(categorieId);
 
-        if (!data) {
+        if (!categoryData) {
             return NextResponse.json(
-                { error: "Categorie not found" },
+                { success: false, message: "Categorie not found" },
                 { status: 404 }
             );
         }
 
-        return NextResponse.json({ data }, { status: 200 });
-
+        return NextResponse.json(
+            { success: true, message: "Categorie data found", data: categoryData },
+            { status: 200 }
+        );
 
     } catch (error) {
         return NextResponse.json(
-            { error: "Error in Fetching: " + error },
+            { success: false, message: "Error in Fetching: " + error },
             { status: 500 }
         );
     }
@@ -32,33 +40,40 @@ export async function GET(req: Request, context: { params: { id: string } }) {
 }
 
 // delete
-export async function DELETE(req: Request, context: { params: { id: string } }) {
+export async function DELETE(req: Request, context: { params: { id: string } }): Promise<NextResponse<ApiResponse>> {
 
     const { params } = context;
     const brandId = params.id;
 
     try {
         await dbConnect();
-        const data = await CategoryModel.findById(brandId);
+        const categoryData = await CategoryModel.findById(brandId);
 
-        if (!data) {
+        if (!categoryData) {
             return NextResponse.json(
-                { error: "Category not found" },
+                { success: false, message: "Category not found" },
                 { status: 404 }
             );
         }
 
-        await CategoryModel.findByIdAndDelete(brandId);
+        const res = await CategoryModel.findByIdAndDelete(brandId);
+
+        if (!res) {
+            return NextResponse.json(
+                { success: false, message: "Error while deleting Category" },
+                { status: 404 }
+            );
+        }
 
         return NextResponse.json(
-            { message: "Category successfully deleted", data },
+            { success: true, message: "Category successfully deleted", data: categoryData },
             { status: 200 }
         );
 
     } catch (error) {
         return NextResponse.json(
-            { error: "Error in Fetching: " + error },
+            { success: false, message: "Error in Fetching: " + error },
             { status: 500 }
         );
     }
-}
+};

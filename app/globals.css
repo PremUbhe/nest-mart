@@ -169,7 +169,7 @@ thead {
   background-color: #fff;
   border: 1px solid #ececec;
   overflow: hidden;
-  margin-bottom: 30px;
+  /* margin-bottom: 10px; */
   transition: transform 10s ease;
 }
 

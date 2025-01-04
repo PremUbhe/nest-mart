@@ -79,7 +79,7 @@ const page = async () => {
         <div className="flex flex-wrap">
           {productData.data?.map((data: productType, index: number) => {
             return (
-              <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 px-3" key={index}>
+              <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 p-3" key={index}>
                 <ProductCard params={data} />
               </div>
             )

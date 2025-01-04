@@ -1,14 +1,24 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+// img
+import loader from "@/public/loaders/type.gif"
 
 // action
 import ProductAddAction from '@/lib/Actions/ProductAddAction';
 
+// hooks
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from 'next/navigation';
+
+// components
+import FormError from '@/components/website/forms/FormError';
+
 // ui
 import { Input } from '@/components/ui/input'
-// import { Label } from '@/components/ui/label';
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import {
@@ -31,8 +41,32 @@ import { getBrandData, brandType } from '@/lib/ApiFunctions/Brands';
 
 const ProductAdd = () => {
 
+    const { toast } = useToast()
+    const router = useRouter();
+
     const [categoryData, setCategoryData] = useState<categoryType[]>([]);
     const [brandData, setBrandData] = useState<brandType[]>([]);
+
+    const [isPending, startTransition] = useTransition();
+    const [error, setError] = useState<string | undefined>('');
+
+    function formAction(formData: FormData) {
+
+        startTransition(async () => {
+
+            const res = await ProductAddAction(formData);
+
+            if (res.success) {
+                toast({
+                    title: "Done",
+                    description: res.message,
+                });
+                router.push("/admin/products");
+            } else {
+                setError(res.message);
+            }
+        });
+    }
 
 
     useEffect(() => {
@@ -61,7 +95,7 @@ const ProductAdd = () => {
                 </Button>
                 <h2 className='text-gray text-4xl font-semibold'>Add Product</h2>
             </div>
-            <form action={ProductAddAction}>
+            <form action={formAction}>
                 <div className="flex justify-between flex-wrap">
                     <div className="w-6/12 pe-3 mb-5">
                         <Input
@@ -161,11 +195,17 @@ const ProductAdd = () => {
                         ></Textarea>
                     </div>
                 </div>
+                <FormError message={error} />
                 <Button
                     type='submit'
+                    className='mt-3'
                     variant="outline"
-                    >
-                    Submit
+                    size="default"
+                    disabled={isPending}
+                >
+                    {isPending ? (
+                        <Image src={loader} width={50} alt='loading ...' unoptimized />
+                    ) : "Submit"}
                 </Button>
             </form>
         </section>

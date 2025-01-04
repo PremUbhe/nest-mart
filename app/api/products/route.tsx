@@ -1,28 +1,45 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { ProductModel } from "@/lib/Models/Product";
+import { ProductModel, Product } from "@/lib/Models/Product";
 
+type ApiResponse = {
+  success: boolean,
+  message: string,
+  data?: Product[]
+}
 
-export async function GET() {
+// get
+export async function GET(): Promise<NextResponse<ApiResponse>> {
+
   try {
     await dbConnect();
 
-    const data = await ProductModel.find();
+    const res = await ProductModel.find();
 
-    return NextResponse.json({ data }, { status: 200 });
+    if (!res) {
+      return NextResponse.json(
+        { success: false, message: "Product data not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, message: "Product data found", data: res },
+      { status: 200 }
+    );
 
   } catch (error) {
     return NextResponse.json(
-      { error: "Error in Fetching: " + error },
+      { success: false, message: "Error in Fetching: " + error },
       { status: 500 }
     );
   }
 }
 
+// add
+export async function POST(req: Request): Promise<NextResponse<ApiResponse>> {
 
-export async function POST(req: Request) {
-
-  const { name, img, price, rating, discount, category, brand, stock, description }: { name: string, img: string, price: number, rating: number, discount: number, category: string, brand: string, stock: number, description: string; } = await req.json();
+  const { name, img, imgId, price, rating, discount, category, brand, stock, description }: { name: string, img: string, imgId: string, price: number, rating: number, discount: number, category: string, brand: string, stock: number, description: string; } = await req.json();
 
   try {
     await dbConnect();
@@ -30,6 +47,7 @@ export async function POST(req: Request) {
     const newProduct = new ProductModel({
       name,
       img,
+      imgId,
       price,
       rating,
       discount,
@@ -37,10 +55,16 @@ export async function POST(req: Request) {
       brand,
       stock,
       description
+    });
 
-    })
+    const res = await newProduct.save();
 
-    await newProduct.save()
+    if (!res) {
+      return NextResponse.json(
+        { success: false, message: "Error while adding Product data" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -48,12 +72,9 @@ export async function POST(req: Request) {
     }, { status: 200 })
 
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
-      { error: "Error while adding Product" },
+      { success: false, message: "Something went wrong !" + error },
       { status: 500 }
-    )
-
+    );
   }
-
-}
+};

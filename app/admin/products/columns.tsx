@@ -3,18 +3,26 @@ import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
+// img
+import loader from "@/public/loaders/type.gif"
+
 // tabel
 import { ColumnDef } from "@tanstack/react-table"
 
 // ui
 import { Button } from "@/components/ui/button"
 
+// hooks
+import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
+
 // icons
 import { FaPencil } from "react-icons/fa6"
 import { ArrowUpDown } from "lucide-react"
+import { FaTrashCan } from "react-icons/fa6";
 
 // type
-import { productType } from "@/lib/ApiFunctions/Products"
+import { deleteProductById, productType } from "@/lib/ApiFunctions/Products"
 
 // data
 import { getCategoryId } from "@/lib/ApiFunctions/Category"
@@ -24,7 +32,7 @@ import { getBrandById } from "@/lib/ApiFunctions/Brands"
 // get category name by id
 const CategoryCell = ({ categoryId }: { categoryId: string }) => {
 
-    const [categoryData, setCategoryData] = useState<string>("...");
+    const [categoryData, setCategoryData] = useState<string>("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,15 +43,15 @@ const CategoryCell = ({ categoryId }: { categoryId: string }) => {
         };
         fetchData();
     }, [categoryId]);
-    
 
-    return <div className="text-center">{categoryData}</div>;
+
+    return <div className="flex justify-center">{categoryData === "" ? <Image src={loader} width={50} alt='loading ...' unoptimized /> : categoryData}</div>;
 };
 
 // get barnd name by id
 const BrandCell = ({ brandId }: { brandId: string }) => {
 
-    const [brandData, setBrandData] = useState<string>("...");
+    const [brandData, setBrandData] = useState<string>("");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,8 +63,56 @@ const BrandCell = ({ brandId }: { brandId: string }) => {
         fetchData();
     }, [brandId]);
 
-    return <div className="text-center">{brandData}</div>;
+    return <div className="flex justify-center">{brandData === "" ? <Image src={loader} width={50} alt='loading ...' unoptimized /> : brandData}</div>;
 };
+
+// delete button 
+const DeleteButton = ({ id, imgId }: { id: string, imgId: string }) => {
+
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const [isPending, setPending] = useState<boolean>(false);
+
+    const handleDelete = async () => {
+        setPending(true);
+        try {
+            const res = await deleteProductById(id, imgId);
+            if (res.success) {
+                toast({
+                    title: "Done",
+                    description: res.message,
+                });
+                router.refresh();
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Fail",
+                    description: res.message,
+                });
+            }
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: `Something went wrong. ${error}`,
+            });
+        } finally {
+            setPending(false);
+        }
+    };
+
+    return (
+        <Button
+            variant="destructive"
+            className="h-8 w-8 p-0 text-white"
+            onClick={handleDelete}
+            disabled={isPending}
+        >
+            <FaTrashCan />
+        </Button>
+    )
+}
 
 // tabel
 export const columns: ColumnDef<productType>[] = [
@@ -78,7 +134,7 @@ export const columns: ColumnDef<productType>[] = [
             <div className="flex justify-center">
                 <Image src={row.getValue("img")} alt='img' width={50} height={50}></Image>
             </div>
-        )
+        ),
     },
     {
         accessorKey: "name",
@@ -93,15 +149,15 @@ export const columns: ColumnDef<productType>[] = [
                         <ArrowUpDown className="ml-2 h-4 w-4" />
                     </Button>
                 </div>
-            )
+            );
         },
         cell: ({ row }) => {
             return (
-                <div className="text-center">
+                <div className="text-">
                     {row.getValue("name")}
                 </div>
-            )
-        }
+            );
+        },
     },
     {
         accessorKey: "category",
@@ -109,6 +165,7 @@ export const columns: ColumnDef<productType>[] = [
         cell: ({ row }) => {
 
             const categoryId: string = row.getValue("category");
+
             return <CategoryCell categoryId={categoryId} />;
         },
     },
@@ -117,6 +174,7 @@ export const columns: ColumnDef<productType>[] = [
         header: () => <div className="text-center">Product Brand</div>,
         cell: ({ row }) => {
             const brandId: string = row.getValue("brand");
+
             return <BrandCell brandId={brandId} />;
         },
     },
@@ -136,8 +194,8 @@ export const columns: ColumnDef<productType>[] = [
                 <div className="flex justify-center">
                     {formatted}
                 </div>
-            )
-        }
+            );
+        },
     },
     {
         id: "actions",
@@ -148,7 +206,7 @@ export const columns: ColumnDef<productType>[] = [
         ),
         cell: ({ row }) => {
 
-            const brands = row.original
+            const product = row.original
 
             return (
                 <div className="flex justify-center gap-2">
@@ -156,11 +214,11 @@ export const columns: ColumnDef<productType>[] = [
                         variant="default"
                         className="h-8 w-8 p-0 bg-yellow-500 text-white"
                     >
-                        <Link href={`/admin/brands/add/${brands._id}/${brands.name}`}><FaPencil /></Link>
+                        <Link href={`/admin/brands/add/${product._id}/${product.name}`}><FaPencil /></Link>
                     </Button>
-                    {/* <DeleteBrandBut params={brands} /> */}
+                    <DeleteButton id={product._id} imgId={product.imgId} />
                 </div>
-            )
+            );
         },
     },
 ]

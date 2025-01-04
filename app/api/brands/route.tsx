@@ -9,11 +9,10 @@ type ApiResponse = {
 }
 
 
-// get
+// Get
 export async function GET(): Promise<NextResponse<ApiResponse>> {
 
   try {
-
     await dbConnect();
 
     const data = await BrandModel.find();
@@ -28,7 +27,7 @@ export async function GET(): Promise<NextResponse<ApiResponse>> {
     return NextResponse.json({ success: true, message: "Brands data found", data });
 
   } catch (error) {
-    
+
     return NextResponse.json(
       { success: false, message: "Something went wrong!: " + error },
       { status: 500 }
@@ -36,20 +35,19 @@ export async function GET(): Promise<NextResponse<ApiResponse>> {
   }
 }
 
-// add
+// Add
 export async function POST(req: Request): Promise<NextResponse<ApiResponse>> {
 
+  const { name }: { name: string } = await req.json();
+
+  if (!name) {
+    return NextResponse.json({
+      success: false,
+      message: "Brand name is required.",
+    }, { status: 400 });
+  }
+
   try {
-
-    const { name }: { name: string } = await req.json();
-
-    if (!name) {
-      return NextResponse.json({
-        success: false,
-        message: "Brand name is required.",
-      }, { status: 400 });
-    }
-
     await dbConnect();
 
     const newBrands = new BrandModel({ name })

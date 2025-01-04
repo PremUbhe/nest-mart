@@ -19,8 +19,8 @@ export default async function CategoriesCard() {
             className="categorie-card relative px-8 py-7 border rounded-xl overflow-hidden hover:bg-white hover:shadow-lg hover:border-primary-light"
             key={index}
           >
-            <Image src={data.img} alt="img" width={100} height={100}></Image>
-            <h3 className="text-blue font-bold">{data.name}</h3>
+            <Image src={data.img} alt="img" width={80} height={80}></Image>
+            <h3 className="text-blue text-center mt-5 font-bold">{data.name}</h3>
           </div>
         );
       })}

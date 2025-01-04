@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from "next/image"
 
 import { ColumnDef } from "@tanstack/react-table"
@@ -9,14 +9,66 @@ import { ArrowUpDown } from "lucide-react"
 // ui
 import { Button } from "@/components/ui/button"
 
+// hooks
+import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
+
 // icons
 import { FaPencil } from "react-icons/fa6";
-
+import { FaTrashCan } from "react-icons/fa6";
 
 // type
-import { categoryType } from '@/lib/ApiFunctions/Category';
+import { categoryType, deleteCategoryById } from '@/lib/ApiFunctions/Category';
 
-import DeleteCategoryBut from '@/components/admin/category/DeleteCategoryBut'
+
+// delete button 
+const DeleteButton = ({id, imgId} : {id: string, imgId: string}) => {
+
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const [isPending, setPending] = useState<boolean>(false);
+
+    const handleDelete = async () => {
+        setPending(true);
+        try {
+            const res = await deleteCategoryById(id, imgId);
+            if (res.success) {
+                toast({
+                    title: "Done",
+                    description: res.message,
+                });
+                router.refresh();
+            } else {
+                toast({
+                    variant: "destructive",
+                    title: "Fail",
+                    description: res.message,
+                });
+            }
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: `Something went wrong. ${error}`,
+            });
+        } finally {
+            setPending(false);
+        }
+    };
+
+    return (
+        <Button
+            variant="destructive"
+            className="h-8 w-8 p-0 text-white"
+            onClick={handleDelete}
+            disabled={isPending}
+        >
+            <FaTrashCan />
+        </Button>
+    )
+}
+
 
 export const columns: ColumnDef<categoryType>[] = [
     {
@@ -64,6 +116,7 @@ export const columns: ColumnDef<categoryType>[] = [
         id: "actions",
         header: () => <div className="text-center">Action</div>,
         cell: ({ row }) => {
+            
             const category = row.original
 
             return (
@@ -74,7 +127,7 @@ export const columns: ColumnDef<categoryType>[] = [
                     >
                         <FaPencil />
                     </Button>
-                    <DeleteCategoryBut params={category} />
+                    <DeleteButton id={category._id} imgId={category.imgId} />
                 </div >
             )
         },

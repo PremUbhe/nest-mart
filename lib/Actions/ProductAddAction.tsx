@@ -2,6 +2,8 @@
 import { z } from 'zod';
 import cloudinary from '@/lib/cloudinary';
 import { revalidateTag } from 'next/cache'
+import dbConnect from '../dbConnect';
+import { ProductModel } from '../Models/Product';
 
 const productSchema = z.object({
   name: z.string(),
@@ -15,42 +17,60 @@ const productSchema = z.object({
   description: z.string(),
 })
 
-const ProductAddAction = async (formData: FormData) => {
+type ApiResponse = {
+  success: boolean,
+  message: string,
+}
+
+const ProductAddAction = async (formData: FormData): Promise<ApiResponse> => {
 
   const formValues = Object.fromEntries(formData);
   const result = productSchema.safeParse(formValues);
-  console.log(result);
 
   if (!result.success) {
-    console.error("Validation failed", result.error);
-    return;
+    return { success: false, message: "Validation failed" + result.error };
   }
 
+  // checking if name already exists
+  try {
+    await dbConnect();
+
+    const name = result.data.name
+    const res = await ProductModel.findOne({ name });
+
+    if (res) {
+      return { success: false, message: "Product name already exists" }
+    }
+
+  } catch (error) {
+    return { success: false, message: "Error while checking product name" + error };
+  }
+
+  // img upload to cloudinary
   let uploadResult;
 
   try {
-    if (result.data) {
-      const img = result.data.img;
-      const buffer = Buffer.from(await img.arrayBuffer());
+    const img = result.data.img;
+    const buffer = Buffer.from(await img.arrayBuffer());
 
-      uploadResult = await new Promise<{ public_id: string; secure_url: string }>((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream(
-          { resource_type: 'image' },
-          (error, result) => {
-            if (error || !result) return reject(error);
-            resolve(result as { public_id: string; secure_url: string });
-          }
-        );
-        stream.end(buffer);
-      });
-    } else {
-      throw new Error("No data found for the image upload.")
-    }
+    uploadResult = await new Promise<{ public_id: string; secure_url: string }>((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'image',
+          folder: 'NestMart/Products'
+        },
+        (error, result) => {
+          if (error || !result) return reject(error);
+          resolve(result as { public_id: string; secure_url: string });
+        }
+      );
+      stream.end(buffer);
+    });
   } catch (error) {
-    console.error("Error while uploading image:", error);
-    return;
+    return { success: false, message: "Error while uploading image:" + error };
   }
 
+  // add data to database
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
       method: 'POST',
@@ -60,6 +80,7 @@ const ProductAddAction = async (formData: FormData) => {
       body: JSON.stringify({
         name: result.data.name,
         img: uploadResult?.secure_url,
+        imgId: uploadResult?.public_id,
         category: result.data.category,
         brand: result.data.brand,
         price: Number(result.data.price),
@@ -69,19 +90,17 @@ const ProductAddAction = async (formData: FormData) => {
         description: result.data.description,
       }),
     });
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Product added successfully:", data);
 
-      revalidateTag('products');
-
-    } else {
-      const errorData = await response.json();
-      console.error("Error adding Product:", errorData);
+    if (!response.ok) {
+      return { success: false, message: "Error while adding Product" };
     }
+
+    revalidateTag('products');
+    return { success: true, message: "Product added successfully:" };
+
   } catch (error) {
-    console.error("Network error:", error);
+    return { success: false, message: "Something went wrong !" + error };
   }
-}
+};
 
 export default ProductAddAction

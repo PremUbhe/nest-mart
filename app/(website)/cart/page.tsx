@@ -4,11 +4,10 @@ import { DataTable } from "./data-table"
 import Link from 'next/link';
 
 import { getUserById } from '@/lib/ApiFunctions/User';
-import { GetProductById } from '@/lib/ApiFunctions/Products';
+import { getProductById } from '@/lib/ApiFunctions/Products';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { Button } from '@/components/ui/button';
-
 
 const Cart = async () => {
 
@@ -37,29 +36,40 @@ const Cart = async () => {
 
         cart.map(async (data) => {
 
-            const productData = await GetProductById(data.productId)
+            const productData = await getProductById(data.productId)
 
-            return {
-                productId: data.productId,
-                productName: productData.name,
-                productImg: productData.img,
-                productPrice: productData.price,
-                productDiscount: productData.discount,
-                productQuantity: data.quantity
+            if (productData.success && productData.data) {
+                return {
+                    productId: data.productId,
+                    productName: productData.data.name,
+                    productImg: productData.data.img,
+                    productPrice: productData.data.price,
+                    productDiscount: productData.data.discount,
+                    productQuantity: data.quantity
+                }
+            } else {
+                return undefined;
             }
+
         })
     );
 
     const totalValue = cartData.reduce((total, item) => {
+        if (!item) {
+            return 0;
+        }
         const price = item.productPrice * item.productQuantity;
         return total + price;
     }, 0);
 
     const discount = cartData.reduce((total, item) => {
+        if (!item) {
+            return 0;
+        }
         const price = item.productPrice * item.productQuantity * item.productDiscount / 100;
         return total + price;
     }, 0);
-    
+
     const formattedDiscount = new Intl.NumberFormat("en-IN", {
         style: "currency",
         currency: "INR",
@@ -71,6 +81,9 @@ const Cart = async () => {
     }).format(totalValue)
 
     const discountValue = cartData.reduce((total, item) => {
+        if (!item) {
+            return 0;
+        }
         const discountedPrice = item.productPrice * (1 - item.productDiscount / 100);
         const itemTotal = discountedPrice * item.productQuantity;
         return total + itemTotal;
@@ -86,7 +99,7 @@ const Cart = async () => {
             <section>
                 <div className="flex gap-5 items-center">
                     <div className="w-8/12">
-                        <DataTable columns={columns} data={await cartData} />
+                        <DataTable columns={columns} data={cartData} />
                     </div>
                     <div className="w-4/12">
                         <div className="border border-border-color rounded-lg p-4 shadow-lg">

@@ -32,7 +32,7 @@ export type cartDataType = {
     productQuantity: number;
 }
 
-export const columns: ColumnDef<cartDataType>[] = [
+export const columns: ColumnDef<cartDataType | undefined>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -111,41 +111,8 @@ export const columns: ColumnDef<cartDataType>[] = [
         accessorKey: "productQuantity",
         header: () => <div className="text-center">Quantity</div>,
         cell: ({ row }) => {
-
-            const quantity : number = row.getValue("productQuantity")
-
-            // const { data: session } = useSession();
-            // const { toast } = useToast();
-
-            // const [state, setState] = useState<boolean>(false)
-            // const [quantity, setQuantity] = useState<number>(row.getValue("productQuantity"))
-
-            // const productId: string = row.original.productId
-            // const userId: string = session?.user.id
-
-            // const params = { userId, productId, quantity }
-
-            // useEffect(() => {
-            //     setState(true)
-            //     updateUserCart({ params })
-            //         .then((data) => {
-            //             if (data?.success) {
-            //                 toast({
-            //                     title: "Done",
-            //                     description: `${data?.message}`,
-            //                 })
-            //             }
-            //             setState(false)
-            //         });
-            // }, [quantity])
-
-            return ( <div className="text-center">{quantity}</div>
-                // <div className="flex items-center gap-2">
-                //     <Button variant="outline" size="icon" disabled={state} onClick={() => setQuantity(quantity + 1)}>+</Button>
-                //     <div className="text-center">{quantity}</div>
-                //     <Button variant="outline" size="icon" disabled={state} onClick={() => quantity > 1 ? setQuantity(quantity - 1) : null}>-</Button>
-                // </div>
-            )
+            const quantity: number = row.getValue("productQuantity")
+            return (<div className="text-center">{quantity}</div>)
         }
     },
     {
@@ -153,7 +120,7 @@ export const columns: ColumnDef<cartDataType>[] = [
         header: () => <div className="text-left">Total Price</div>,
         cell: ({ row }) => {
 
-            const productId = row.original.productId;
+            const productId = row.original?.productId;
             const price: number = row.getValue("productPrice");
             const quantity: number = row.getValue("productQuantity");
             const discount: number = row.getValue("productDiscount");
