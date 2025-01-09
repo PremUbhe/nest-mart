@@ -57,7 +57,7 @@ const Page = async () => {
       {/* swiper section end */}
 
       {/* category section start */}
-      <section className='pt-0'>
+      <section className='py-0'>
         <div className="section-header">
           <h2 className="text-3xl text-blue font-bold mb-5">Shop by Categories</h2>
         </div>

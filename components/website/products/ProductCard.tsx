@@ -33,7 +33,6 @@ const ProductCard = async ({ params }: { params: productType }) => {
 
   return (
     <div className="product-card p-7 rounded-xl hover:border-primary-light hover:shadow-lg">
-      <h6 className="px-6 py-1 font-semibold text-sm bg-secondary w-fit rounded-xl">{categoryData.data?.name}</h6>
       <Link href={`/products/${params._id}`}>
         <Image
           src={params.img}
@@ -41,6 +40,9 @@ const ProductCard = async ({ params }: { params: productType }) => {
           width={320}
           alt="product image"
         />
+        <div className="flex mb-3 justify-end">
+        <h6 className="px-6 py-1 font-semibold text-sm bg-secondary w-fit rounded-xl">{categoryData.data?.name}</h6>
+        </div>
         <h3 className="text-lg mb-2 font-medium">{params.name}</h3>
         <h6 className="flex items-center text-gray text-sm w-25">
           <div className="product-rate bg-[url('/rating-stars.png')] d-inline-block mr-2">

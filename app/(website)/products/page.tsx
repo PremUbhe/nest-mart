@@ -1,21 +1,10 @@
 import React from 'react';
 
-// data
-import { getProductData } from '@/lib/ApiFunctions/Products';
-
 // components
 import ProductCard from "@/components/website/products/ProductCard";
-import { Input } from '@/components/ui/input';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
 
+// ui
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -24,7 +13,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-
+// data
+import { getProductData } from '@/lib/ApiFunctions/Products';
 
 // type
 import { productType } from '@/lib/ApiFunctions/Products';
@@ -82,25 +72,8 @@ const page = async () => {
               <div className="product-card-wrapper xl:w-3/12 lg:w-4/12 md:w-6/12 sm:12/12 p-3" key={index}>
                 <ProductCard params={data} />
               </div>
-            )
+            );
           })}
-          <Pagination>
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious href="#" />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">1</PaginationLink>
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationNext href="#" />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>
-
         </div>
       </section>
     </>

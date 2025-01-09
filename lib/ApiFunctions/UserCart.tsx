@@ -58,20 +58,20 @@ export const getQuantityOfProductFromUserCart = async({ userId, productId } : {u
 
   await dbConnect();
 
-  try {
-    const user = await UserModel.findById(userId);
+  const user = await UserModel.findById(userId);
 
-    if (!user) {
-      console.log("user not found")
-      return null;
-    }
+  if (!user) {
+    console.log("user not found")
+    return null;
+  }
+
+  try {
 
     const cart = await user.cart
 
     const productIndex = cart.findIndex((item) => item.productId === productId);
 
     if (productIndex === -1) {
-      console.log("Product Not found in cart")
       return null;
 
     } else {

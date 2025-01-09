@@ -40,15 +40,15 @@ const Default = async () => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className='flex gap-2 items-center bg-primary text-white py-2 px-7 rounded-lg hover:bg-secondary focus:bg-secondary'><MdDashboard /> Browse All Categories</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className='flex gap-2 items-center bg-secondary font-semibold text-blue py-2 px-7 rounded-lg hover:bg-secondary'><MdDashboard /> Browse All Categories</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                       {categoryData.data?.map((data: categoryType, index: number) => (
                         <div className='flex items-center border border-border-color gap-3 p-2 rounded-lg hover:bg-primary-light'
                           key={index}
                         >
-                          <Image src={data.img} alt='data.name' width={30} height={20}></Image>
-                          <h4>{data.name}</h4>
+                          <Image src={data.img} alt='data.name' width={25} height={25}></Image>
+                          <h4 className='text-sm font-semibold text-blue'>{data.name}</h4>
                         </div>
                       ))}
                     </ul>

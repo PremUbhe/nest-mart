@@ -127,6 +127,15 @@ body {
   }
 }
 
+:focus {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+  border: none;
+}
+
 section {
   padding: 30px 10px;
 }

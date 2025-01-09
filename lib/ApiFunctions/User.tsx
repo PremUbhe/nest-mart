@@ -2,6 +2,7 @@ import dbConnect from "../dbConnect";
 import UserModel from "../Models/User";
 
 
+// this function is for auth
 export async function getUserById(userId: string) {
 
     await dbConnect();
