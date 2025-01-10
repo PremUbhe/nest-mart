@@ -68,11 +68,10 @@ export function DataTable<TData, TValue>({
 
     return (
         <div>
-            <div className="flex items-end justify-between py-4">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end justify-between py-4">
                 <div className="">
                     <h1 className='text-4xl text-blue font-bold'>Your Cart</h1>
                     <h6 className='text-gray'>There are <span className='text-primary'>{table.getFilteredRowModel().rows.length}</span> products in your cart</h6>
-
                 </div>
                 <div className="flex gap-3">
                     <Input

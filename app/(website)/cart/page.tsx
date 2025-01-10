@@ -97,11 +97,11 @@ const Cart = async () => {
     return (
         session ? (
             <section>
-                <div className="flex gap-5 items-center">
-                    <div className="w-8/12">
+                <div className="flex flex-wrap items-center">
+                    <div className="w-full lg:w-8/12">
                         <DataTable columns={columns} data={cartData} />
                     </div>
-                    <div className="w-4/12">
+                    <div className="w-full p-0 lg:w-4/12 lg:pl-4">
                         <div className="border border-border-color rounded-lg p-4 shadow-lg">
                             <div className="flex justify-between items-center mb-2">
                                 <h4 className='text-gray font-semibold text-lg'>Subtotal</h4>
