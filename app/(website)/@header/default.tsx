@@ -38,7 +38,7 @@ const Default = () => {
       </div>
       <div className="flex items-center gap-7">
         <Input
-          className="lg:w-96"
+          className="lg:w-96 hidden lg:block"
           type="text"
           name="search"
           id="search-bar"

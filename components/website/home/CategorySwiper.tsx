@@ -31,14 +31,32 @@ const CategorySwiper = () => {
     }, [])
 
     return (
-        <div className='px-5' >
+        <div className='px-2 md:px-4'>
             <Swiper
                 className='swiper'
                 modules={[Navigation, Autoplay]}
-                spaceBetween={20}
-                slidesPerView={8}
+                slidesPerView={2}
+                spaceBetween={10}
                 autoplay={true}
                 loop={true}
+                breakpoints={{
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 10,
+                    },
+                    768: {
+                        slidesPerView: 4,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 5,
+                        spaceBetween: 30,
+                    },
+                    1440: {
+                        slidesPerView: 7,
+                        spaceBetween: 30,
+                    },
+                }}
             >
                 {categoryData.map((data: categoryType, index: number) => {
                     return (

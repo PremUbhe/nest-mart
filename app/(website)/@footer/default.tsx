@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 // icons
 import { TbMail } from "react-icons/tb";
@@ -18,8 +18,42 @@ import banner2 from "@/public/banner-3.png";
 import icon1 from "@/public/icons/icon-1.svg";
 import icon2 from "@/public/icons/icon-2.svg";
 import icon3 from "@/public/icons/icon-3.svg";
-import icon4 from "@/public/icons/icon-4.svg";
+// import icon4 from "@/public/icons/icon-4.svg";
 import icon5 from "@/public/icons/icon-5.svg";
+
+type cardDataType = {
+  img: StaticImageData,
+  header: string,
+  description: string,
+}
+
+const cartdData: cardDataType[] = [
+  {
+    img: icon1,
+    header: 'Best prices & offers',
+    description: 'Orders $50 or more'
+  },
+  {
+    img: icon2,
+    header: 'Free delivery',
+    description: '24/7 amazing services'
+  },
+  {
+    img: icon3,
+    header: 'Great daily deal',
+    description: 'When you sign up'
+  },
+  // {
+  //   img: icon4,
+  //   header: 'Wide assortment',
+  //   description: 'Mega Discounts'
+  // },
+  {
+    img: icon5,
+    header: 'Easy returns',
+    description: 'Within 30 days'
+  },
+]
 
 
 const Default = () => {
@@ -28,8 +62,8 @@ const Default = () => {
       <section className='relative m-4 py-16 h-[450px] rounded-lg bg-[url("/banner-footer.png")] bg-cover'>
         <div className="container h-full">
           <div className="flex h-full">
-            <div className="w-6/12 h-full flex flex-col justify-center">
-              <h1 className="text-5xl text-blue font-bold leading-tight mb-4">
+            <div className="w-full lg:w-6/12 p-7 md:p-0 h-full flex flex-col justify-center">
+              <h1 className="text-4xl md:text-5xl text-blue font-bold leading-tight mb-4">
                 Stay home & <br /> get your daily needs<br />
                 from our shop
               </h1>
@@ -37,7 +71,7 @@ const Default = () => {
                 Start You&apos;r Daily Shopping with
                 <span className="text-primary"> Nest Mart</span>
               </p></div>
-            <div className="w-6/12">
+            <div className="w-6/12 hidden lg:block">
               <Image
                 className="absolute bottom-0 right-10 max-w-2xl"
                 src={banner2}
@@ -51,59 +85,31 @@ const Default = () => {
       </section>
 
       <section className='pt-0'>
-        <div className="flex gap-4 mt-3">
-          <div className="card p-5 bg-light-blue rounded-xl shadow">
-            <div className="flex gap-3 items-center">
-              <Image src={icon1} height={60} width={60} alt="icon"></Image>
-              <div className="text-base">
-                <h5 className='font-medium text-lg'>Best prices & offers</h5>
-                <h5 className="text-gray">Orders $50 or more</h5>
-              </div>
-            </div>
-          </div>
-          <div className="card p-5 bg-light-blue rounded-xl shadow">
-            <div className="flex gap-3 items-center">
-              <Image src={icon2} height={60} width={60} alt="icon"></Image>
-              <div className="text-base">
-                <h5 className='font-medium text-lg'>Free delivery</h5>
-                <h5 className="text-gray">24/7 amazing services</h5>
-              </div>
-            </div>
-          </div>
-          <div className="card p-5 bg-light-blue rounded-xl shadow">
-            <div className="flex gap-3 items-center">
-              <Image src={icon3} height={60} width={60} alt="icon"></Image>
-              <div className="text-base">
-                <h5 className='font-medium text-lg'>Great daily deal</h5>
-                <h5 className="text-gray">When you sign up</h5>
-              </div>
-            </div>
-          </div>
-          <div className="card p-5 bg-light-blue rounded-xl shadow">
-            <div className="flex gap-3 items-center">
-              <Image src={icon4} height={60} width={60} alt="icon"></Image>
-              <div className="text-base">
-                <h5 className='font-medium text-lg'>Wide assortment</h5>
-                <h5 className="text-gray">Mega Discounts</h5>
-              </div>
-            </div>
-          </div>
-          <div className="card p-5 bg-light-blue rounded-xl shadow">
-            <div className="flex gap-3 items-center">
-              <Image src={icon5} height={60} width={60} alt="icon"></Image>
-              <div className="text-base">
-                <h5 className='font-medium text-lg'>Easy returns</h5>
-                <h5 className="text-gray">Within 30 days</h5>
-              </div>
-            </div>
-          </div>
+        <div className="flex items-center flex-wrap mt-3">
+          {
+            cartdData.map((data, index) => {
+              return (
+                <div className="min-w-72 w-full xl:w-3/12 md:w-6/12 sm:w-full p-2" key={index}>
+                  <div className="card bg-light-blue p-4 rounded-xl shadow">
+                    <div className="flex gap-3 items-center">
+                      <Image src={data.img} height={60} width={60} alt="icon"></Image>
+                      <div className="text-base">
+                        <h5 className='font-medium text-lg'>{data.header}</h5>
+                        <h5 className="text-gray text-sm">{data.description}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          }
         </div>
       </section>
 
       <footer className="p-4 bg-[url('/banner.png')] bg-cover">
         <div className="container pt-10 px-auto">
-          <div className="flex gap-10">
-            <div className="w-3/12">
+          <div className="flex flex-wrap">
+            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <Image
                 className="mb-4"
                 src={logo}
@@ -118,7 +124,7 @@ const Default = () => {
                 <FaYoutube />
               </div>
             </div>
-            <div className="w-3/12">
+            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Quick Links</h2>
               <ul className='ml-1'>
                 <li className='text-sm font-medium mb-1'>Home</li>
@@ -130,7 +136,7 @@ const Default = () => {
                 <li className='text-sm font-medium'>Contact Us</li>
               </ul>
             </div>
-            <div className="w-3/12">
+            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Popular</h2>
               <ul className='ml-1'>
                 <li className='text-sm font-medium mb-1'>Milk & Flavoured Milk</li>
@@ -142,7 +148,7 @@ const Default = () => {
                 <li className='text-sm font-medium'>Cheese</li>
               </ul>
             </div>
-            <div className="w-3/12">
+            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Contact Us</h2>
               <ul className='ml-1'>
                 <li className='flex gap-1 flex-wrap items-center text-sm font-medium mb-1'><IoLocationOutline /> <b>Address :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, ea!</li>

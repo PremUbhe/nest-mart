@@ -48,9 +48,9 @@ const HeroSection = () => {
             {data.map((data: sliderSchema, index: number)=>{
                 return (
                     <SwiperSlide key={index} className='relative'>
-                        <div className="swiper-card relative flex flex-col justify-center items-center overflow-hidden p-10 aspect-[16/6]">
-                            <Image className='absolute top-0 left-0 w-full h-full' src={data.img} placeholder="blur" alt="bg img" />
-                            <h3 className='text-banner text-center relative text-blue font-bold leading-none max-w-screen-sm mb-3'>{data.heading}</h3>
+                        <div className="swiper-card relative flex flex-col justify-center items-center overflow-hidden p-10 min-h-[500px]">
+                            <Image className='absolute top-0 left-0 w-full h-full object-cover' src={data.img} placeholder="blur" alt="bg img" />
+                            <h3 className='text-5xl md:text-banner text-center relative text-blue font-bold leading-none max-w-screen-sm mb-3'>{data.heading}</h3>
                             <p className='text-xl text-center relative text-gray font-semibold max-w-screen-sm'>{data.subHeading}</p>
                         </div>
                     </SwiperSlide>

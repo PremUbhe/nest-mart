@@ -26,10 +26,6 @@ export const links = [
     path: "/categories",
   },
   {
-    name: "Blogs",
-    path: "/blog",
-  },
-  {
     name: "Contact",
     path: "/contact",
   },
