@@ -109,7 +109,7 @@ const Default = () => {
       <footer className="p-4 bg-[url('/banner.png')] bg-cover">
         <div className="container pt-10 px-auto">
           <div className="flex flex-wrap">
-            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
+            <div className="w-full mb-5 xl:w-3/12 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <Image
                 className="mb-4"
                 src={logo}
@@ -124,7 +124,7 @@ const Default = () => {
                 <FaYoutube />
               </div>
             </div>
-            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
+            <div className="w-full mb-5 xl:w-3/12 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Quick Links</h2>
               <ul className='ml-1'>
                 <li className='text-sm font-medium mb-1'>Home</li>
@@ -136,7 +136,7 @@ const Default = () => {
                 <li className='text-sm font-medium'>Contact Us</li>
               </ul>
             </div>
-            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
+            <div className="w-full mb-5 xl:w-3/12 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Popular</h2>
               <ul className='ml-1'>
                 <li className='text-sm font-medium mb-1'>Milk & Flavoured Milk</li>
@@ -148,7 +148,7 @@ const Default = () => {
                 <li className='text-sm font-medium'>Cheese</li>
               </ul>
             </div>
-            <div className="w-full mb-5 lg:w-3/12 md:w-6/12 lg:w-6/12">
+            <div className="w-full mb-5 xl:w-3/12 lg:w-3/12 md:w-6/12 lg:w-6/12">
               <h2 className="text-2xl text-blue font-bold">Contact Us</h2>
               <ul className='ml-1'>
                 <li className='flex gap-1 flex-wrap items-center text-sm font-medium mb-1'><IoLocationOutline /> <b>Address :</b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, ea!</li>

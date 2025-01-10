@@ -54,6 +54,7 @@ export async function getBrandById(id: string): Promise<ApiResponse> {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/brands/${id}`, {
             headers: { Accept: "application/json", },
             method: "GET",
+            cache: "force-cache",
             next: { tags: ['brand'] },
         });
 
@@ -62,7 +63,6 @@ export async function getBrandById(id: string): Promise<ApiResponse> {
         }
 
         const brandData = await response.json();
-
         return { success: true, message: "Brand Data found", data: brandData.data };
 
     } catch (error) {

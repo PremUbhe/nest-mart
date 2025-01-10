@@ -62,9 +62,11 @@ const Default = () => {
                       {session.user.image && <AvatarImage src={session.user.image} />}
                       <AvatarFallback>{session.user.name ? session.user.name.substring(0, 2).toUpperCase() : "US"}</AvatarFallback>
                     </Avatar>
-                    <div className="flex justify-center text-start flex-col">
-                      {session.user.name ? <h3 className='text-primary font-medium'>{session.user.name}</h3> : <h3 className='text-primary font-medium'>User</h3>}
-                      <h4 className='text-gray text-sm'>{session.user.email}</h4>
+                    <div className="hidden md:block">
+                      <div className="flex justify-center text-start flex-col">
+                        {session.user.name ? <h3 className='text-primary font-medium'>{session.user.name}</h3> : <h3 className='text-primary font-medium'>User</h3>}
+                        <h4 className='text-gray text-sm'>{session.user.email}</h4>
+                      </div>
                     </div>
                   </div>
                 </DropdownMenuTrigger>

@@ -60,6 +60,7 @@ export async function getCategoryId(id: string): Promise<ApiResponse> {
             {
                 headers: { Accept: "application/json", },
                 method: "GET",
+                cache: "force-cache",
                 next: { tags: ['category'] },
             }
         )
