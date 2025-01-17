@@ -23,11 +23,12 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 const ProductCard = async ({ params }: { params: productType }) => {
 
   const session = await getServerSession(authOptions);
-
+  
   const userId = session?.user.id
   const productId = params._id
 
-  const quantity = await getQuantityOfProductFromUserCart({ userId, productId })
+  const quantity = session ? await getQuantityOfProductFromUserCart({ userId, productId }) : null
+
   const categoryData = await getCategoryId(params.category)
   const brandData = await getBrandById(params.brand)
 

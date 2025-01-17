@@ -28,16 +28,16 @@ const page = async () => {
     <>
       <section className='m-4 py-16 rounded-lg bg-[url("/header-bg.png")] bg-cover'>
         <div className="container">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap gap-3 flex-col md:flex-row justify-between md:items-center">
             <h1 className='text-4xl text-blue font-bold'>Products</h1>
-            <Input type="text" className='w-96' placeholder='Search for Products...' />
+            <Input type="text" className='w-80 md:w-96 ' placeholder='Search for Products...' />
           </div>
         </div>
       </section>
       <section className='py-0 mx-4'>
-        <div className="flex justify-between">
+        <div className="flex flex-wrap gap-3 flex-col md:flex-row justify-between">
           <h3 className="text-xl font-semibold text-gray">We found <span className='text-primary'>29</span> items for you!</h3>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-end gap-5">
             <Select>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Show" />
